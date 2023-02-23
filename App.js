@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-
+//AAGC 22/02/2023
 export default function App() {
   return (
     <View style={styles.container}>
