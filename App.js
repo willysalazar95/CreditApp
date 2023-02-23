@@ -10,6 +10,7 @@ export default function App() {
   );
 }
 
+//ALONSO ISAAC NOVOA SOTO
 const styles = StyleSheet.create({
   container: {
     flex: 1,
