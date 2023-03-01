@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import Database from "../../../BdCrediApp/BdCrediApp.js";
+const db = new Database();
+
 const ClienteScreen = () => {
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
@@ -14,6 +17,22 @@ const ClienteScreen = () => {
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
   const [referencia, setReferencia] = useState("");
+
+  const handleEnviar = async () => {
+    try {
+      await db.insertPersona(
+        dni,
+        nombre,
+        apellido,
+        telefono,
+        direccion,
+        referencia
+      );
+      console.log("Los datos se han guardado correctamente.");
+    } catch (error) {
+      console.log("Ha ocurrido un error al guardar los datos:", error);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -68,7 +87,7 @@ const ClienteScreen = () => {
           onChangeText={setReferencia}
         />
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handleEnviar}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableOpacity>
     </View>

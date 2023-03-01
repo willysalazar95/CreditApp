@@ -4,14 +4,14 @@ import { NavigationContainer } from "@react-navigation/native";
 import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-import HomeScreen from "./src/forms/HomeScreen";
-import ClienteScreen from "./src/forms/ClienteScreen";
-import PrestamoScreen from "./src/forms/PrestamoScreen";
-import PagoScreen from "./src/forms/PagoScreen";
-import CierreScreen from "./src/forms/CierreScreen";
-import FlexScreen from "./src/forms/FlexScreen";
-import ImprimirScreen from "./src/forms/ImprimirScreen";
-import ConfiguracionScreen from "./src/forms/ConfiguracionScreen";
+import HomeScreen from "./src/forms/Home/HomeScreen";
+import ClienteScreen from "./src/forms/Cliente/ClienteScreen";
+import PrestamoScreen from "./src/forms/Prestamo/PrestamoScreen";
+import PagoScreen from "./src/forms/Pagos/PagoScreen";
+import CierreScreen from "./src/forms/Cierre/CierreScreen";
+import FlexScreen from "./src/forms/Flex/FlexScreen";
+import ImprimirScreen from "./src/forms/Impresion/ImprimirScreen";
+import ConfiguracionScreen from "./src/forms/Configuracion/ConfiguracionScreen";
 
 const Drawer = createDrawerNavigator();
 
