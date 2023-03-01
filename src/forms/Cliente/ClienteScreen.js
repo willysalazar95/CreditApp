@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,102 +6,90 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { Formik } from "formik";
 
 import Database from "../../../BdCrediApp/BdCrediApp.js";
 const db = new Database();
 
 const ClienteScreen = () => {
+  const [dni, setDni] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [direccion, setDireccion] = useState("");
+  const [referencia, setReferencia] = useState("");
+
+  const handleEnviar = async () => {
+    try {
+      await db.insertPersona(
+        dni,
+        nombre,
+        apellido,
+        telefono,
+        direccion,
+        referencia
+      );
+      console.log("Los datos se han guardado correctamente.");
+    } catch (error) {
+      console.log("Ha ocurrido un error al guardar los datos:", error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Formulario de Registro</Text>
-      <Formik
-        initialValues={{
-          dni: "",
-          nombre: "",
-          apellido: "",
-          telefono: "",
-          direccion: "",
-          referencia: "",
-        }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-        validate={(values) => {
-          const errors = {};
-          if (!values.dni) {
-            errors.dni = "Este campo es requerido";
-          } else if (!/^\d{8}$/.test(values.dni)) {
-            errors.dni = "DNI inválido";
-          }
-          return errors;
-        }}
-      >
-        {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-          <>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>DNI:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("dni")}
-                onBlur={handleBlur("dni")}
-                value={values.dni}
-                keyboardType="numeric"
-              />
-              {errors.dni && <Text style={styles.error}>{errors.dni}</Text>}
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Nombre:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("nombre")}
-                onBlur={handleBlur("nombre")}
-                value={values.nombre}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Apellido:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("apellido")}
-                onBlur={handleBlur("apellido")}
-                value={values.apellido}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Teléfono:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("telefono")}
-                onBlur={handleBlur("telefono")}
-                value={values.telefono}
-                keyboardType="phone-pad"
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Dirección:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("direccion")}
-                onBlur={handleBlur("direccion")}
-                value={values.direccion}
-              />
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Referencia:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("referencia")}
-                onBlur={handleBlur("referencia")}
-                value={values.referencia}
-              />
-            </View>
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-              <Text style={styles.buttonText}>Enviar</Text>
-            </TouchableOpacity>
-          </>
-        )}
-      </Formik>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>DNI:</Text>
+        <TextInput
+          style={styles.input}
+          value={dni}
+          onChangeText={setDni}
+          keyboardType="numeric"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Nombre:</Text>
+        <TextInput
+          style={styles.input}
+          value={nombre}
+          onChangeText={setNombre}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Apellido:</Text>
+        <TextInput
+          style={styles.input}
+          value={apellido}
+          onChangeText={setApellido}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Teléfono:</Text>
+        <TextInput
+          style={styles.input}
+          value={telefono}
+          onChangeText={setTelefono}
+          keyboardType="phone-pad"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Dirección:</Text>
+        <TextInput
+          style={styles.input}
+          value={direccion}
+          onChangeText={setDireccion}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Referencia:</Text>
+        <TextInput
+          style={styles.input}
+          value={referencia}
+          onChangeText={setReferencia}
+        />
+      </View>
+      <TouchableOpacity style={styles.button} onPress={handleEnviar}>
+        <Text style={styles.buttonText}>Enviar</Text>
+      </TouchableOpacity>
     </View>
   );
 };

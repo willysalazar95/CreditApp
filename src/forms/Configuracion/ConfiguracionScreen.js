@@ -20,17 +20,13 @@ const ConfiguracionScreen = () => {
   return (
     <ImageBackground
       source={{
-        uri: "https://i.pinimg.com/564x/22/00/4c/22004cadab50f32c99c30eecb113c3c5.jpg",
+        uri: "https://i.pinimg.com/564x/ff/e3/3b/ffe33b2637617938d8c5728f3d3fed28.jpg",
       }}
       style={styles.background}
     >
       <View style={styles.container}>
         <Image
-          source={
-            {
-              //uri: "https://i.pinimg.com/564x/c0/01/e2/c001e252c5dc498e6a505fe559a5314a.jpg",
-            }
-          }
+          //source={{ uri: "https://i.pinimg.com/564x/98/fb/de/98fbde4424c0df8383e931dfa5d3fca3.jpg" }}
           style={styles.logo}
         />
         <Text style={styles.title}>Iniciar sesión</Text>
