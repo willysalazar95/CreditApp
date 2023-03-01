@@ -8,6 +8,9 @@ import {
 } from "react-native";
 import { Formik } from "formik";
 
+import Database from "../../../BdCrediApp/BdCrediApp.js";
+const db = new Database();
+
 const ClienteScreen = () => {
   return (
     <View style={styles.container}>
