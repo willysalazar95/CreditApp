@@ -12,6 +12,7 @@ import CierreScreen from "../Cierre/CierreScreen";
 import FlexScreen from "../Flex/FlexScreen";
 import ImprimirScreen from "../Impresion/ImprimirScreen";
 import ConfiguracionScreen from "../Configuracion/ConfiguracionScreen";
+import ListarPersonaScreen from "../PersonaScreen/ListarPersonaScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -84,6 +85,15 @@ export default function DrawerScreen() {
       <Drawer.Screen
         name="Configuracion"
         component={ConfiguracionScreen}
+        options={{
+          drawerIcon: ({ focused, color, size }) => (
+            <Icon name="settings-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="ListarPersona"
+        component={ListarPersonaScreen}
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <Icon name="settings-outline" size={size} color={color} />
