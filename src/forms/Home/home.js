@@ -1,105 +1,108 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { StatusBar } from "expo-status-bar";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Home() {
   return (
     <View style={styles.container}>
-      <View style={ styles.header }>
-        <Text style={ styles.headerText }></Text>
-        <Text style={ styles.headerText }>PRINCIPAL</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}></Text>
+        <Text style={styles.headerText}>PRINCIPAL</Text>
       </View>
-      <ScrollView style={ styles.container }>
+      <ScrollView style={styles.container}>
+        <View style={styles.containers}>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="user"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Clientes</Text>
+          </TouchableOpacity>
 
-        <View style={ styles.containers }>
-        <TouchableOpacity style={ styles.box } >
-          <Icon name="user"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-              
-          </Icon>
-          <Text style={ styles.texto }>Clientes</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="calculator"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Prestamos</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={ styles.box } >
-          <Icon name="calculator"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-              
-          </Icon>
-          <Text style={ styles.texto }>Prestamos</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="money"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Pagos</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={ styles.box } >
-          <Icon name="money"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-              
-          </Icon>
-          <Text style={ styles.texto }>Pagos</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="print"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Imprimir</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={ styles.box } >
-          <Icon name="print"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-              
-          </Icon>
-          <Text style={ styles.texto }>Imprimir</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="clock-o"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Cierre</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={ styles.box } >
-          <Icon name="clock-o"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-            
-          </Icon>
-          <Text style={ styles.texto }>Cierre</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="external-link"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Flex</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={ styles.box } >
-          <Icon name="external-link"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-              
-          </Icon>
-          <Text style={ styles.texto }>Flex</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={ styles.box }>
-          <Icon name="cog"
-            backgroundColor="02cbef"
-            size={ 90 }
-            color="#007299"
-            style={ styles.inner }>
-            
-          </Icon>
-          <Text style={ styles.texto }>Configuracion</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.box}>
+            <Icon
+              name="cog"
+              backgroundColor="02cbef"
+              size={90}
+              color="#007299"
+              style={styles.inner}
+            ></Icon>
+            <Text style={styles.texto}>Configuracion</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ebebeb',
-
+    backgroundColor: "#ebebeb",
   },
   containers: {
     width: "100%",
@@ -107,31 +110,28 @@ const styles = StyleSheet.create({
     padding: 5,
     flexDirection: "column",
     flexWrap: "wrap",
-
   },
   box: {
-    paddingHorizontal:10,
-    paddingVertical:10,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
     width: "50%",
     height: "24%",
     padding: 10,
-
-
   },
   texto: {
-    fontSize:20,
+    fontSize: 20,
     textAlign: "center",
     color: "black",
-    fontWeight: 'bold',
-    marginTop:-50,
+    fontWeight: "bold",
+    marginTop: -50,
   },
   inner: {
     flex: 1,
     flexDirection: "column-reverse",
-    flexWrap:"wrap",
+    flexWrap: "wrap",
     backgroundColor: "#fff",
     paddingTop: 10,
-    marginTop:20,
+    marginTop: 20,
     textAlign: "center",
     borderRadius: 10,
     shadowColor: "#000",
@@ -158,5 +158,4 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
   },
-
 });

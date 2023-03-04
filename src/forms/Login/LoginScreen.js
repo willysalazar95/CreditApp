@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import {
   View,
@@ -19,29 +19,35 @@ const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleLogin = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
     try {
-        const user = await db.getUsuarioByUserPass(
-            username,
-            password
-        );
-        if (user.length > 0) {
-            Alert.alert("OK","Bienvenido!!");
-            navigation.navigate('home');
-        } else {
-            Alert.alert("ERROR","Datos incorrectos");
-            setPassword("");
-        }
+      const user = await db.getUsuarioByUserPass(username, password);
+      if (user.length > 0) {
+        Alert.alert("OK", "Bienvenido!!");
+        navigation.navigate("DrawerScreen");
+      } else {
+        Alert.alert("ERROR", "Datos incorrectos");
+        setPassword("");
+      }
     } catch (error) {
-        console.log("Ha ocurrido un error al obtener los datos:", error);
+      console.log("Ha ocurrido un error al obtener los datos:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const goToRegister = async () => {
-    navigation.navigate('register');
-  };
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
 
+  const goToRegister = async () => {
+    navigation.navigate("register");
+  };
   return (
     <ImageBackground
       source={{
@@ -74,15 +80,25 @@ const LoginScreen = () => {
             onChangeText={setPassword}
           />
         </View>
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Iniciar sesión</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleLogin}
+          disabled={isLoading}
+        >
+          <Text style={styles.buttonText}>
+            {isLoading ? "Cargando..." : "Iniciar sesión"}
+          </Text>
         </TouchableOpacity>
-        
-        <Text style={styles.createAccountTitle}>¿No tienes cuenta? Crea una
-            <TouchableOpacity style={styles.createAccountTitleTouchable} onPress={goToRegister}>
-                <Text style={styles.createAccountTitleButton}> aquí</Text>
-            </TouchableOpacity>
-            .
+
+        <Text style={styles.createAccountTitle}>
+          ¿No tienes cuenta? Crea una
+          <TouchableOpacity
+            style={styles.createAccountTitleTouchable}
+            onPress={goToRegister}
+          >
+            <Text style={styles.createAccountTitleButton}> aquí</Text>
+          </TouchableOpacity>
+          .
         </Text>
       </View>
     </ImageBackground>
@@ -137,18 +153,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   createAccountTitle: {
-    color: 'white',
-    textAlign:'center',
-    top:20
+    color: "white",
+    textAlign: "center",
+    top: 20,
   },
   createAccountTitleTouchable: {
-    justifyContent:'center',
+    justifyContent: "center",
   },
   createAccountTitleButton: {
-    color: '#5cb85c',
-    textAlign:'center',
-    fontWeight:'bold'
-  }
+    color: "#5cb85c",
+    textAlign: "center",
+    fontWeight: "bold",
+  },
 });
 
 export default LoginScreen;
