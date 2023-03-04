@@ -10,6 +10,6 @@ npm install -g expo-cli
 
 npm install --save react-native-vector-icons
 
-===willy 2023-02-28
+==========   willy 2023-02-28    ==========
 yarn add formik
 npm install --save expo-sqlite@11.0.0
