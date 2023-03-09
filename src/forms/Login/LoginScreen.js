@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
 import {
   View,
   Text,
@@ -11,43 +10,45 @@ import {
   Image,
   Alert,
 } from "react-native";
-
-import Database from "../../../BdCrediApp/BdCrediApp";
-const db = new Database();
+import axios from "axios";
 
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (isLoading) return;
 
-    setIsLoading(true);
-    try {
-      const user = await db.getUsuarioByUserPass(username, password);
-      if (user.length > 0) {
-        Alert.alert("OK", "Bienvenido!!");
-        navigation.navigate("DrawerScreen");
-      } else {
-        Alert.alert("ERROR", "Datos incorrectos");
-        setPassword("");
-      }
-    } catch (error) {
-      console.log("Ha ocurrido un error al obtener los datos:", error);
-    } finally {
-      setIsLoading(false);
-    }
+    axios
+      .get("http://aagc.somee.com/api/Usuarios/Login", {
+        params: {
+          cUsuario: username,
+          cClave: password,
+        },
+      })
+      .then((response) => {
+        const Resp = response.data.code;
+        const Lista = response.data.data;
+        console.log(Lista);
+        if (Resp == 200) {
+          Alert.alert("OK", "Bienvenido " + Lista[0].cUsuario + "!!");
+          navigation.navigate("DrawerScreen");
+        } else {
+          Alert.alert("ERROR", "Datos incorrectos");
+          setPassword("");
+        }
+      })
+      .catch((error) => {
+        Alert.alert("ERROR", error);
+        //setIsLoading(false);
+      });
   };
 
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-
-  const goToRegister = async () => {
+  const goToRegister = () => {
     navigation.navigate("register");
   };
+
   return (
     <ImageBackground
       source={{
