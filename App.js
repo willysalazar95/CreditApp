@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./src/forms/Login/LoginScreen";
 import DrawerScreen from "./src/forms/Home/DrawerScreen";
 import RegistroScreen from "./src/forms/Registro/RegistroScreen";
+import PrestamoScreen from "./src/forms/Prestamo/PrestamoScreen";
 
 const Stack = createStackNavigator();
 
@@ -21,6 +22,7 @@ function App() {
             headerShown: false,
           }}
         />
+        <Stack.Screen name="prestamos" component={PrestamoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useNavigation } from "@react-navigation/native";
 import {
   StyleSheet,
   Text,
@@ -9,6 +10,13 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default function Home() {
+
+  const navigation = useNavigation();
+  
+  const goToPrestamos = () => {
+    navigation.navigate("prestamos");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -28,7 +36,7 @@ export default function Home() {
             <Text style={styles.texto}>Clientes</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.box}>
+          <TouchableOpacity style={styles.box} onPress={goToPrestamos}>
             <Icon
               name="calculator"
               backgroundColor="02cbef"

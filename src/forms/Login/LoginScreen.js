@@ -19,6 +19,8 @@ const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
+    /*Alert.alert("afasf","safasfasfgasgasgasgas");
+    return;*/
     // if (isLoading) return;
 
     // setIsLoading(true);
