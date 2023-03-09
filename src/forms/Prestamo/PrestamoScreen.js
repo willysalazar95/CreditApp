@@ -32,13 +32,17 @@ const PrestamoScreen = () => {
     </TouchableOpacity>
   );
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={styles.container}>
       <FlatList
-        style={{flex:1, width:'100%'}}
+        style={{width:'100%'}}
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.nIdPrestamo}
       />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.text}>+</Text>
+      </TouchableOpacity>
+      
     </View>
   );
 }
@@ -54,7 +58,29 @@ const styles = StyleSheet.create({
   cardTitle: {
     textTransform: 'uppercase',
     fontWeight: 'bold'
-  }
+  },
+  container: {
+    flex:1,
+  },
+  button: {
+    backgroundColor: '#007299',
+    borderRadius: 30,
+    width: 60,
+    height: 60,
+    margin:10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    zIndex: 1,
+  },
+  text: {
+    fontSize: 24,
+    color: 'white',
+    fontWeight: 'bold',
+  },
 });
 
 export default PrestamoScreen;
