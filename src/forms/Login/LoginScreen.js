@@ -19,24 +19,6 @@ const LoginScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
-    // if (isLoading) return;
-
-    // setIsLoading(true);
-
-    // const API_URL = "http://aagc.somee.com/api/Usuarios/Login";
-
-    //const userData = {
-    //  cUsuario: username,
-    //  cClave: password,
-    // };
-
-    // const requestOptions = {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   data: JSON.stringify(userData),
-    // };
 
     axios
       .get("http://aagc.somee.com/api/Usuarios/Login", {
