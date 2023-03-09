@@ -5,7 +5,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import HomeScreen from "./HomeScreen";
-import ClienteScreen from "../Cliente/ClienteScreen";
+import RegistroScreen from "../Cliente/ClienteScreen";
 import PrestamoScreen from "../Prestamo/PrestamoScreen";
 import PagoScreen from "../Pagos/PagoScreen";
 import CierreScreen from "../Cierre/CierreScreen";
@@ -30,7 +30,7 @@ export default function DrawerScreen() {
       />
       <Drawer.Screen
         name="Cliente"
-        component={ClienteScreen}
+        component={RegistroScreen}
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <Icon name="person-outline" size={size} color={color} />

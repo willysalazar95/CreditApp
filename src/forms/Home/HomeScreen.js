@@ -16,6 +16,10 @@ export default function Home() {
   const goToPrestamos = () => {
     navigation.navigate("prestamos");
   };
+  
+  const goToPersonas = () => {
+    navigation.navigate("ListarPersonas");
+  }
 
   return (
     <View style={styles.container}>
@@ -25,7 +29,7 @@ export default function Home() {
       </View>
       <ScrollView style={styles.container}>
         <View style={styles.containers}>
-          <TouchableOpacity style={styles.box}>
+          <TouchableOpacity style={styles.box} onPress={goToPersonas}>
             <Icon
               name="user"
               backgroundColor="02cbef"

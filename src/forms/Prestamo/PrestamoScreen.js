@@ -13,16 +13,10 @@ const PrestamoScreen = () => {
     .then((response) => {
       const Resp = response.data.code;
       setData(response.data.data);
-      //Lista = response.data.data;
-      //console.log(Lista);
-      /*data.forEach((v,i) => {
-        console.log(v);
-      });*/
     })
     .catch((error) => {
-      //Alert.alert("ERROR", error);
-      //setIsLoading(false);
     });
+
   const renderItem = ({ item }) => (
     <TouchableOpacity>
       <View style={styles.cardBorder}>
@@ -31,6 +25,7 @@ const PrestamoScreen = () => {
       </View>
     </TouchableOpacity>
   );
+  
   return (
     <View style={styles.container}>
       <FlatList
