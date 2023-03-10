@@ -11,7 +11,7 @@ const FrmRegistroPersona = () => {
 
   const handleEnviar = async () => {
     const datCliente = new Cliente();
-    const response = await datCliente.RegistroPersona(0, dni, nombre, apellido, direccion, telefono, '1', 1);
+    const response = await datCliente.RegistroPersona( dni, nombre, apellido, direccion, telefono, '1');
     // console.log(response);
     if (response.success) {
         Alert.alert("OK", "Registrado Correctamente " + "!!");

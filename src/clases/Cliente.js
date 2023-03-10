@@ -21,21 +21,19 @@ export class Cliente {
 		}
 	}
 //http://aagc.somee.com/api/personas/RegistrarPersona?nIdPers=1&cPersDNI=1&cPersNombres=1&cPersApellidos=1&cPersDireccion=1&cPersTelefono=1&cPersFechNac=1&nEstado=1
-	async RegistroPersona(nIdPers, cPersDNI, cPersNombres, cPersApellidos, cPersDireccion, 
-							cPersTelefono, cPersFechNac, nEstado) {
-		const BASE_URL = "http://aagc.somee.com/api/personas/";
+	async RegistroPersona(cPersDNI, cPersNombres, cPersApellidos, cPersDireccion, 
+							cPersTelefono, cPersFechNac) {
+		const BASE_URL = "http://willy95.somee.com/api/personas/";
 		try {
 			const response = await axios.post(BASE_URL + "RegistrarPersona", {
 				params: {
-					nIdPers : '1',
-					cPersDNI : '1',
-					cPersNombres : '1',
-					cPersApellidos : '1',
-					cPersDireccion : '1',
-					cPersTelefono : '1',
-					cPersFechNac : '1',
-					nEstado : '1',
-				},
+					cPersDNI,
+					cPersNombres,
+					cPersApellidos,
+					cPersDireccion,
+					cPersTelefono,
+					cPersFechNac,
+				  },
 			});
 
 			const Resp = response.data.code;
