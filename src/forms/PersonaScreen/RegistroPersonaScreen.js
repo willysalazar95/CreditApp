@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-import { Persona } from "../../clases/Persona";
-const RegistroScreen = () => {
+import Persona from "../../clases/Persona";
+
+const RegistroPersonaScreen = () => {
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -9,10 +10,10 @@ const RegistroScreen = () => {
   const [telefono, setTelefono] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
 
-  const handleGuardar = async () => {
+  const handleGuardar = () => {
     try {
       const persona = new Persona();
-      const response = await persona.registerPersona(
+      const response = persona.registerPersona(
         dni,
         nombre,
         apellido,
@@ -120,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistroScreen;
+export default RegistroPersonaScreen;
