@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   View,
@@ -6,8 +6,6 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
-  Image,
   Alert,
 } from "react-native";
 import { Usuario } from "../../clases/Usuario";
@@ -17,7 +15,9 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
-
+  useEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, []);
   const handleLogin = async () => {
     setIsLoading(true);
 
@@ -39,96 +39,76 @@ const LoginScreen = () => {
   };
 
   return (
-    <ImageBackground
-      source={{
-        uri: "https://i.pinimg.com/564x/ff/e3/3b/ffe33b2637617938d8c5728f3d3fed28.jpg",
-      }}
-      style={styles.background}
-    >
-      <View style={styles.container}>
-        <Image
-          //source={{ uri: "https://i.pinimg.com/564x/98/fb/de/98fbde4424c0df8383e931dfa5d3fca3.jpg" }}
-          style={styles.logo}
+    <View style={styles.container}>
+      <Text style={styles.title}>Bienvenido a CreditApp</Text>
+      <View style={styles.inputContainerUsu}>
+        <TextInput
+          style={styles.input}
+          placeholder="Usuario"
+          value={username}
+          onChangeText={setUsername}
         />
-        <Text style={styles.title}>Iniciar sesión</Text>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Nombre de usuario"
-            placeholderTextColor="#FFF"
-            value={username}
-            onChangeText={setUsername}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Contraseña"
-            placeholderTextColor="#FFF"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleLogin}
-          disabled={isLoading}
-        >
-          <Text style={styles.buttonText}>
-            {isLoading ? "Cargando..." : "Iniciar sesión"}
-          </Text>
-        </TouchableOpacity>
-
-        <Text style={styles.createAccountTitle}>
-          ¿No tienes cuenta? Crea una
-          <TouchableOpacity
-            style={styles.createAccountTitleTouchable}
-            onPress={goToRegister}
-          >
-            <Text style={styles.createAccountTitleButton}> aquí</Text>
-          </TouchableOpacity>
-          .
-        </Text>
       </View>
-    </ImageBackground>
+      <View style={styles.inputContainerPass}>
+        <TextInput
+          style={styles.input}
+          placeholder="Passaword"
+          secureTextEntry={true}
+          value={password}
+          onChangeText={setPassword}
+        />
+      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleLogin}
+        disabled={isLoading}
+      >
+        <Text style={styles.buttonText}>
+          {isLoading ? "Cargando..." : "Iniciar Sesión"}
+        </Text>
+      </TouchableOpacity>
+
+      <Text style={styles.createAccountTitle}>
+        ¿No tienes cuenta? Crea una
+        <TouchableOpacity
+          style={styles.createAccountTitleTouchable}
+          onPress={goToRegister}
+        >
+          <Text style={styles.createAccountTitleButton}> aquí</Text>
+        </TouchableOpacity>
+        .
+      </Text>
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
   container: {
-    //backgroundColor: "rgba(0,0,0,0.6)",
-    padding: 20,
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    padding: 50,
     borderRadius: 10,
-  },
-  logo: {
-    height: 100,
-    width: 100,
-    alignSelf: "center",
-    marginBottom: 20,
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
-    color: "#FFF",
+    color: "#5cb85c",
     textAlign: "center",
   },
-  inputContainer: {
+  inputContainerUsu: {
+    marginBottom: 20,
+    marginTop: 300,
+  },
+  inputContainerPass: {
     marginBottom: 20,
   },
   input: {
-    borderWidth: 1,
-    borderColor: "#FFF",
-    borderRadius: 5,
+    borderBottomColor: "#5cb85c",
+    borderBottomWidth: 1,
     padding: 10,
     fontSize: 16,
-    color: "#FFF",
+    color: "#CCC",
   },
   button: {
     backgroundColor: "#5cb85c",
@@ -143,16 +123,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   createAccountTitle: {
-    color: "white",
+    color: "#CCC",
     textAlign: "center",
-    top: 20,
-  },
-  createAccountTitleTouchable: {
-    justifyContent: "center",
+    marginTop: 20,
   },
   createAccountTitleButton: {
     color: "#5cb85c",
-    textAlign: "center",
     fontWeight: "bold",
   },
 });
