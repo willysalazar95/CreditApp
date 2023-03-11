@@ -1,6 +1,13 @@
 import React, { useState } from "react";
-import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert  } from "react-native";
-import DatePicker from 'react-native-datepicker';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import DatePicker from "react-native-datepicker";
 import { Cliente } from "../../clases/Cliente";
 
 const FrmRegistroPersona = () => {
@@ -13,11 +20,18 @@ const FrmRegistroPersona = () => {
 
   const handleEnviar = async () => {
     const datCliente = new Cliente();
-    const response = await datCliente.RegistroPersona( dni, nombre, apellido, direccion, telefono, fechaNac);
+    const response = await datCliente.RegistroPersona(
+      dni,
+      nombre,
+      apellido,
+      direccion,
+      telefono,
+      fechaNac
+    );
     if (response.success) {
-        Alert.alert("OK", "Registrado Correctamente " + "!!");
+      Alert.alert("OK", "Registrado Correctamente " + "!!");
     } else {
-        Alert.alert("ERROR", response.error);
+      Alert.alert("ERROR", response.error);
     }
   };
 
