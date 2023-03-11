@@ -20,7 +20,7 @@ export class Cliente {
 			return { success: false, error: error.message };
 		}
 	}
-//http://aagc.somee.com/api/personas/RegistrarPersona?nIdPers=1&cPersDNI=1&cPersNombres=1&cPersApellidos=1&cPersDireccion=1&cPersTelefono=1&cPersFechNac=1&nEstado=1
+
 	async RegistroPersona(cPersDNI, cPersNombres, cPersApellidos, cPersDireccion, 
 							cPersTelefono, cPersFechNac) {
 		const BASE_URL = "http://willy95.somee.com/api/personas/";

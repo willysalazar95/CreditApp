@@ -23,10 +23,6 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}></Text>
-        <Text style={styles.headerText}>PRINCIPAL</Text>
-      </View>
       <ScrollView style={styles.container}>
         <View style={styles.containers}>
           <TouchableOpacity style={styles.box} onPress={goToPersonas}>

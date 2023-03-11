@@ -16,11 +16,13 @@ const ListarPersonaScreen = () => {
   }, []);
 
   const renderItem = ({ item }) => (
-    <View style={{ padding: 10 }}>
-      <Text>{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
-      <Text>{`Dirección: ${item.cPersDireccion}`}</Text>
-      <Text>{`Teléfono: ${item.cPersTelefono}`}</Text>
-    </View>
+    <TouchableOpacity>
+      <View style={styles.cardBorder}>
+        <Text style={styles.cardTitle}>{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
+        <Text>{`Dirección: ${item.cPersDireccion}`}</Text>
+        <Text>{`Teléfono: ${item.cPersTelefono}`}</Text>
+      </View>
+    </TouchableOpacity>
   );
 
   const goToRegister = () => {
@@ -28,8 +30,9 @@ const ListarPersonaScreen = () => {
 	};
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
+        style={{width:'100%'}}
         data={personas}
         renderItem={renderItem}
         keyExtractor={(item) => item.nIdPers}
@@ -45,6 +48,20 @@ const ListarPersonaScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  cardBorder: {
+    flex: 1,
+    margin: 5,
+    borderRadius:10,
+    padding:10,
+    backgroundColor: '#fff'
+  },
+  cardTitle: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold'
+  },
+  container: {
+    flex:1,
+  },
   button: {
     backgroundColor: '#007299',
     borderRadius: 30,
