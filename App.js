@@ -7,6 +7,7 @@ import RegistroScreen from "./src/forms/Registro/RegistroScreen";
 import PrestamoScreen from "./src/forms/Prestamo/PrestamoScreen";
 import ListarPersonaScreen from "./src/forms/PersonaScreen/ListarPersonaScreen";
 import FrmRegistroPersona from "./src/forms/PersonaScreen/FrmRegistroPersona"
+import ModificarPersona from "./src/forms/PersonaScreen/FrmRegistroPersona";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ function App() {
         <Stack.Screen name="prestamos" component={PrestamoScreen} />
         <Stack.Screen name="ListarPersonas" component={ListarPersonaScreen} />
         <Stack.Screen name="RegistroPersona" component={FrmRegistroPersona} />
+        <Stack.Screen name="ModificarPersona" component={ModificarPersona} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -15,3 +15,6 @@ yarn add formik
 npm install --save expo-sqlite@11.0.0
 
 npm install react-native-datepicker --save
+
+npm install sweetalert2
+npm install react-native-modalbox
