@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert  } from "react-native";
+import DatePicker from 'react-native-datepicker';
 import { Cliente } from "../../clases/Cliente";
 
 const FrmRegistroPersona = () => {
@@ -8,11 +9,11 @@ const FrmRegistroPersona = () => {
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
+  const [fechaNac, SetFecha] = useState("");
 
   const handleEnviar = async () => {
     const datCliente = new Cliente();
-    const response = await datCliente.RegistroPersona( dni, nombre, apellido, direccion, telefono, '1');
-    // console.log(response);
+    const response = await datCliente.RegistroPersona( dni, nombre, apellido, direccion, telefono, fechaNac);
     if (response.success) {
         Alert.alert("OK", "Registrado Correctamente " + "!!");
     } else {
@@ -29,7 +30,7 @@ const FrmRegistroPersona = () => {
           style={styles.input}
           value={dni}
           onChangeText={setDni}
-          keyboardType="numeric"
+          keyboardType="text"
         />
       </View>
       <View style={styles.inputContainer}>
@@ -65,6 +66,16 @@ const FrmRegistroPersona = () => {
           onChangeText={setDireccion}
         />
       </View>
+
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Fecha Nac:</Text>
+        <TextInput
+          style={styles.input}
+          value={fechaNac}
+          onChangeText={SetFecha}
+        />
+      </View>
+
       <TouchableOpacity style={styles.button} onPress={handleEnviar}>
         <Text style={styles.buttonText}>Enviar</Text>
       </TouchableOpacity>
