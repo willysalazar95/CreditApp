@@ -47,7 +47,7 @@ const FrmRegistroPersona = ({ route }) => {
         }
         navigation.goBack();
     } else {
-        Alert.alert("ERROR", response.error);
+      Alert.alert("ERROR", response.error);
     }
   };
 

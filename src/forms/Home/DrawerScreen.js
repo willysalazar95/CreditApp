@@ -1,11 +1,8 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { NavigationContainer } from "@react-navigation/native";
-import { Image, StyleSheet, Text, View } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 import HomeScreen from "./HomeScreen";
-import RegistroScreen from "../Cliente/ClienteScreen";
 import PrestamoScreen from "../Prestamo/PrestamoScreen";
 import PagoScreen from "../Pagos/PagoScreen";
 import CierreScreen from "../Cierre/CierreScreen";
@@ -29,8 +26,8 @@ export default function DrawerScreen() {
         }}
       />
       <Drawer.Screen
-        name="Cliente"
-        component={RegistroScreen}
+        name="Persona"
+        component={ListarPersonaScreen}
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <Icon name="person-outline" size={size} color={color} />
@@ -85,15 +82,6 @@ export default function DrawerScreen() {
       <Drawer.Screen
         name="Configuracion"
         component={ConfiguracionScreen}
-        options={{
-          drawerIcon: ({ focused, color, size }) => (
-            <Icon name="settings-outline" size={size} color={color} />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="ListarPersona"
-        component={ListarPersonaScreen}
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <Icon name="settings-outline" size={size} color={color} />

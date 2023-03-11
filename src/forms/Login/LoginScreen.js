@@ -42,17 +42,17 @@ const LoginScreen = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Bienvenido a CreditApp</Text>
       <View style={styles.inputContainerUsu}>
+        <Text style={styles.cajaCabecera}>USUARIO</Text>
         <TextInput
           style={styles.input}
-          placeholder="Usuario"
           value={username}
           onChangeText={setUsername}
         />
       </View>
       <View style={styles.inputContainerPass}>
+        <Text style={styles.cajaCabecera}>PASSAWORD</Text>
         <TextInput
           style={styles.input}
-          placeholder="Passaword"
           secureTextEntry={true}
           value={password}
           onChangeText={setPassword}
@@ -107,8 +107,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#5cb85c",
     borderBottomWidth: 1,
     padding: 10,
-    fontSize: 16,
-    color: "#CCC",
+    fontSize: 18,
   },
   button: {
     backgroundColor: "#5cb85c",
@@ -126,6 +125,9 @@ const styles = StyleSheet.create({
     color: "#CCC",
     textAlign: "center",
     marginTop: 20,
+  },
+  cajaCabecera: {
+    color: "#CCC",
   },
   createAccountTitleButton: {
     color: "#5cb85c",
