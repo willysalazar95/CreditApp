@@ -27,6 +27,7 @@ const LoginScreen = () => {
 
     if (response.success) {
       Alert.alert("OK", "Bienvenido " + response.data.cUsuario + "!!");
+      //navigation.navigate("DrawerScreen", { cUsuario: response.data.cUsuario }); //aguego
       navigation.navigate("DrawerScreen");
     } else {
       Alert.alert("ERROR", response.error);
