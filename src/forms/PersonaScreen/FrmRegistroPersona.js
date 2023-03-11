@@ -1,21 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert  } from "react-native";
-import DatePicker from 'react-native-datepicker';
-import { Cliente } from "../../clases/Cliente";
+import { useNavigation, useFocusEffect  } from "@react-navigation/native";
 
-const FrmRegistroPersona = () => {
+import { Cliente } from "../../clases/Cliente";
+//CREADO POR AAGC  
+const FrmRegistroPersona = ({ route }) => {
+  const navigation = useNavigation();
+  const [nIdPers, setNidPers] = useState("");
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
   const [fechaNac, SetFecha] = useState("");
+  const [accionBoton, setAccionBoton] = useState("Guardar");
+  const [isEditing, setIsEditing] = useState(false); 
+
+  useEffect(() => {
+    if (route.params && route.params.persona) {
+      const persona = route.params.persona;
+      setNidPers(persona.nIdPers);
+      setDni(persona.cPersDNI);
+      setNombre(persona.cPersNombres);
+      setApellido(persona.cPersApellidos);
+      setDireccion(persona.cPersDireccion);
+      setTelefono(persona.cPersTelefono);
+      // setFechaNacimiento(persona.cPersFechNac);
+      
+      setIsEditing(true);
+      setAccionBoton("Modificar")
+    }else{
+      setAccionBoton("Guardar")
+    }
+  }, [route.params]);
 
   const handleEnviar = async () => {
     const datCliente = new Cliente();
-    const response = await datCliente.RegistroPersona( dni, nombre, apellido, direccion, telefono, fechaNac);
+    const response =  isEditing 
+                  ?  await datCliente.ActualizarPersona(nIdPers, dni, nombre, apellido, direccion, telefono, fechaNac)
+                  : await datCliente.RegistroPersona( dni, nombre, apellido, direccion, telefono, fechaNac);
     if (response.success) {
-        Alert.alert("OK", "Registrado Correctamente " + "!!");
+        if (isEditing){
+          Alert.alert("OK", "Modificado Correctamente " + "!!");
+        }else{
+          Alert.alert("OK", "Registrado Correctamente " + "!!");
+        }
+        navigation.goBack();
     } else {
         Alert.alert("ERROR", response.error);
     }
@@ -23,7 +53,7 @@ const FrmRegistroPersona = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Formulario de Registro</Text>
+      <Text style={styles.title}>{ isEditing ? "Modificar " : "Guardar "} Cliente</Text>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>DNI:</Text>
         <TextInput
@@ -77,7 +107,9 @@ const FrmRegistroPersona = () => {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleEnviar}>
-        <Text style={styles.buttonText}>Enviar</Text>
+        <Text style={styles.buttonText}>
+          {accionBoton}
+        </Text>
       </TouchableOpacity>
     </View>
   );
