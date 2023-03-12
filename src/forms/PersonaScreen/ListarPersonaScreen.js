@@ -4,11 +4,13 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Cliente } from "../../clases/Cliente";
 import { Ionicons } from 'react-native-vector-icons';
 
-const ListarPersonaScreen = () => {
+const ListarPersonaScreen = ({ route }) => {
   const [personas, setPersonas] = useState([]);
   const [query, setQuery] = useState('');
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
+  const [isClienteCredito, setClienteCredito] = useState(false);
   const navigation = useNavigation();
+
 
   const ListarPersonas = async () => {
     const DatCliente = new Cliente();
@@ -26,7 +28,13 @@ const ListarPersonaScreen = () => {
   }
 
   useEffect(() => {
-    ListarPersonas();
+    if (route.params) {
+      // console.log("Seleccionar Persona");
+      setClienteCredito(true);
+    } else {
+      ListarPersonas();
+      setClienteCredito(false);
+    }
   }, []);
 
   useFocusEffect(
@@ -68,10 +76,17 @@ const ListarPersonaScreen = () => {
         ]
       );
     }
-
+    const handleSeleccionCliente = (persona) => {
+      // console.log(isClienteCredito);
+      if (isClienteCredito)
+      {
+        navigation.navigate('RegistrarPrestamo', { persona: persona });
+        // navigation.goBack();
+      }
+    }
     return (
-      <TouchableOpacity>
-        <View style={styles.cardBorder}>
+      <TouchableOpacity onPress={() => handleSeleccionCliente(item)}>
+        <View style={styles.cardBorder} >
           <Text style={styles.cardTitle}>{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
           <Text>{`Dirección: ${item.cPersDireccion}`}</Text>
           <Text>{`Teléfono: ${item.cPersTelefono}`}</Text>
@@ -91,24 +106,25 @@ const ListarPersonaScreen = () => {
   const goToRegister = () => {
     navigation.navigate("RegistroPersona");
   };
-
+  // {isClienteCredito ? "Seleccione al cliente para el credito" : ""}
   return (
     <View style={styles.container}>
+      {isClienteCredito ?
+        <View>
+          <Text style={styles.label}>
+            Seleccione al Cliente para el credito!
+          </Text>
+        </View>
+        :
+        <>
+        </>
+      }
       <FlatList
         style={{ width: '100%' }}
         data={personas}
         renderItem={renderItem}
         keyExtractor={(item) => item.nIdPers}
         ListHeaderComponent={
-          // <View style={styles.searchBar}>
-          //   <TextInput
-          //     style={styles.searchInput}
-          //     placeholder="Buscar por nombre"
-          //     value={query}
-          //     onChangeText={(text) => BuscarPersonas(text)}
-          //   />
-          // </View>
-
           <View style={styles.inputContainer}>
             <Ionicons name="ios-search" size={24} color="#aaa" style={styles.icon} />
             <TextInput
@@ -121,7 +137,6 @@ const ListarPersonaScreen = () => {
               <Ionicons name="search-outline" size={24} color="white" />
             </TouchableOpacity>
           </View>
-
         }
       />
 
