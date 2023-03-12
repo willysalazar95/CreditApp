@@ -1,21 +1,40 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, FlatList, TouchableOpacity, Alert } from "react-native";
-import { useNavigation, useFocusEffect  } from "@react-navigation/native";
+import { View, StyleSheet, Text, TextInput, FlatList, TouchableOpacity, Alert } from "react-native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Cliente } from "../../clases/Cliente";
+import { Ionicons } from 'react-native-vector-icons';
 
-const ListarPersonaScreen = () => {
+const ListarPersonaScreen = ({ route }) => {
   const [personas, setPersonas] = useState([]);
+  const [query, setQuery] = useState('');
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
+  const [isClienteCredito, setClienteCredito] = useState(false);
   const navigation = useNavigation();
+
 
   const ListarPersonas = async () => {
     const DatCliente = new Cliente();
-    const response = DatCliente.ListarPersonas();
-    // console.log((await response).data);
-    setPersonas((await response).data);
+    const response = await DatCliente.ListarPersonas();
+    setPersonas(response.data);
   }
+
+  const BuscarPersonas = async () => {
+    const DatCliente = new Cliente();
+    const response = await DatCliente.ListarPersonas();
+    const filteredData = response.data.filter((item) => {
+      return item.cPersNombres.toLowerCase().includes(query.toLowerCase())
+    });
+    setPersonas(filteredData);
+  }
+
   useEffect(() => {
-    ListarPersonas();
+    if (route.params) {
+      // console.log("Seleccionar Persona");
+      setClienteCredito(true);
+    } else {
+      ListarPersonas();
+      setClienteCredito(false);
+    }
   }, []);
 
   useFocusEffect(
@@ -24,18 +43,10 @@ const ListarPersonaScreen = () => {
     }, [])
   );
 
-  // useEffect(() => {
-  //   fetch("http://aagc.somee.com/api/personas/ListarPersonas")
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setPersonas(data.data);
-  //     });
-  // }, []);
-
   const renderItem = ({ item }) => {
     const handleModificar = () => {
       navigation.navigate('ModificarPersona', { persona: item });
-    };
+    }
 
     const handleEliminar = (persona) => {
       setPersonaSeleccionada(persona);
@@ -66,9 +77,16 @@ const ListarPersonaScreen = () => {
       );
     }
 
+    const handleSeleccionCliente = (persona) => {
+      if (isClienteCredito) {
+        navigation.navigate('RegistrarPrestamo', { persona: persona });
+        // navigation.goBack();
+      }
+    }
+
     return (
-      <TouchableOpacity>
-        <View style={styles.cardBorder}>
+      <TouchableOpacity onPress={() => handleSeleccionCliente(item)}>
+        <View style={styles.cardBorder} >
           <Text style={styles.cardTitle}>{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
           <Text>{`Dirección: ${item.cPersDireccion}`}</Text>
           <Text>{`Teléfono: ${item.cPersTelefono}`}</Text>
@@ -88,14 +106,38 @@ const ListarPersonaScreen = () => {
   const goToRegister = () => {
     navigation.navigate("RegistroPersona");
   };
-
+  // {isClienteCredito ? "Seleccione al cliente para el credito" : ""}
   return (
     <View style={styles.container}>
+      {isClienteCredito ?
+        <View>
+          <Text style={styles.label}>
+            Seleccione al Cliente para el credito!
+          </Text>
+        </View>
+        :
+        <>
+        </>
+      }
       <FlatList
         style={{ width: '100%' }}
         data={personas}
         renderItem={renderItem}
         keyExtractor={(item) => item.nIdPers}
+        ListHeaderComponent={
+          <View style={styles.inputContainer}>
+            <Ionicons name="ios-search" size={24} color="#aaa" style={styles.icon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Buscar"
+              value={query}
+              onChangeText={setQuery}
+            />
+            <TouchableOpacity style={styles.buttonSearch} onPress={BuscarPersonas}>
+              <Ionicons name="search-outline" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+        }
       />
 
       <TouchableOpacity style={styles.button} onPress={goToRegister}>
@@ -120,6 +162,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  inputContainer: {
+    backgroundColor: '#eee',
+    borderRadius: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+    padding: 5
+  },
   button: {
     backgroundColor: '#007299',
     borderRadius: 30,
@@ -133,6 +187,18 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
     zIndex: 1,
+  },
+  buttonSearch: {
+    backgroundColor: '#007299',
+    borderRadius: 5,
+    padding: 5,
+    marginLeft: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonSearchText: {
+    color: '#fff',
+    fontWeight: 'bold',
   },
   text: {
     fontSize: 24,
