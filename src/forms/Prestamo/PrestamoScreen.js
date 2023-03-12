@@ -21,14 +21,28 @@ const PrestamoScreen = () => {
     .catch((error) => {
     });
 
-  const renderItem = ({ item }) => (
-    <TouchableOpacity>
-      <View style={styles.cardBorder}>
-        <Text style={styles.cardTitle}>{item.cPersNombre}</Text>
-        <Text>S/{item.nMonto} | {item.dFechaFin}</Text>
-      </View>
-    </TouchableOpacity>
-  );
+  const renderItem = ({ item }) => {
+    const PagarCredito = () => {
+      navigation.navigate('PagarPrestamo', { credito: item });
+    }
+
+    return (
+      <TouchableOpacity>
+        <View style={styles.cardBorder}>
+          <Text style={styles.cardTitle}>{item.cPersNombre}</Text>
+          <Text>S/ {item.nMonto} | {item.dFechaFin}</Text>
+          <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.buttonEdit}>
+              <Text style={styles.buttonText}>Ver Datos</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonDelete} onPress = {PagarCredito}>
+              <Text style={styles.buttonText}>Realizar Pagar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   const SelecClienteNuevoCredito = () => {
     navigation.navigate('ListarPersonas', { Opcion: 2 });
@@ -83,6 +97,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     color: 'white',
     fontWeight: 'bold',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 10,
+  },
+  buttonEdit: {
+    backgroundColor: '#007299',
+    borderRadius: 5,
+    padding: 5,
+    marginRight: 10,
+  },
+  buttonDelete: {
+    backgroundColor: '#f00',
+    borderRadius: 5,
+    padding: 5,
   },
 });
 

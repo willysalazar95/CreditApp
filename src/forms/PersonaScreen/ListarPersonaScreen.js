@@ -46,7 +46,7 @@ const ListarPersonaScreen = ({ route }) => {
   const renderItem = ({ item }) => {
     const handleModificar = () => {
       navigation.navigate('ModificarPersona', { persona: item });
-    };
+    }
 
     const handleEliminar = (persona) => {
       setPersonaSeleccionada(persona);
@@ -76,14 +76,14 @@ const ListarPersonaScreen = ({ route }) => {
         ]
       );
     }
+
     const handleSeleccionCliente = (persona) => {
-      // console.log(isClienteCredito);
-      if (isClienteCredito)
-      {
+      if (isClienteCredito) {
         navigation.navigate('RegistrarPrestamo', { persona: persona });
         // navigation.goBack();
       }
     }
+
     return (
       <TouchableOpacity onPress={() => handleSeleccionCliente(item)}>
         <View style={styles.cardBorder} >
