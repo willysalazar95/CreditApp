@@ -84,7 +84,7 @@ const FrmRegistroPersona = ({ route }) => {
           style={styles.input}
           value={dni}
           onChangeText={setDni}
-          keyboardType="text"
+          keyboardType="numeric"
         />
       </View>
       <View style={styles.inputContainer}>
