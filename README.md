@@ -18,3 +18,7 @@ npm install react-native-datepicker --save
 
 npm install sweetalert2
 npm install react-native-modalbox
+
+
+npm install react-native-platform-touchable
+
