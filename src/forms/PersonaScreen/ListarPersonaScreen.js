@@ -1,31 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, Text, TextInput, FlatList, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TextInput,
+  FlatList,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Cliente } from "../../clases/Cliente";
-import { Ionicons } from 'react-native-vector-icons';
+import { Ionicons } from "react-native-vector-icons";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const ListarPersonaScreen = ({ route }) => {
   const [personas, setPersonas] = useState([]);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
   const [isClienteCredito, setClienteCredito] = useState(false);
   const navigation = useNavigation();
-
 
   const ListarPersonas = async () => {
     const DatCliente = new Cliente();
     const response = await DatCliente.ListarPersonas();
     setPersonas(response.data);
-  }
+  };
 
   const BuscarPersonas = async () => {
     const DatCliente = new Cliente();
     const response = await DatCliente.ListarPersonas();
     const filteredData = response.data.filter((item) => {
-      return item.cPersNombres.toLowerCase().includes(query.toLowerCase())
+      return item.cPersNombres.toLowerCase().includes(query.toLowerCase());
     });
     setPersonas(filteredData);
-  }
+  };
 
   useEffect(() => {
     if (route.params) {
@@ -45,25 +53,27 @@ const ListarPersonaScreen = ({ route }) => {
 
   const renderItem = ({ item }) => {
     const handleModificar = () => {
-      navigation.navigate('ModificarPersona', { persona: item });
-    }
+      navigation.navigate("ModificarPersona", { persona: item });
+    };
 
     const handleEliminar = (persona) => {
       setPersonaSeleccionada(persona);
       Alert.alert(
-        'Eliminar persona',
+        "Eliminar persona",
         `¿Está seguro de que desea eliminar a ${persona.cPersNombres} ${persona.cPersApellidos}?`,
         [
           {
-            text: 'Cancelar',
-            style: 'cancel'
+            text: "Cancelar",
+            style: "cancel",
           },
           {
-            text: 'Eliminar',
-            style: 'destructive',
+            text: "Eliminar",
+            style: "destructive",
             onPress: async () => {
               const DatCliente = new Cliente();
-              const response = await DatCliente.EliminarPersona(persona.nIdPers)
+              const response = await DatCliente.EliminarPersona(
+                persona.nIdPers
+              );
 
               if (response.success) {
                 Alert.alert("OK", "Eliminado " + "!!");
@@ -71,31 +81,39 @@ const ListarPersonaScreen = ({ route }) => {
               } else {
                 Alert.alert("ERROR", response.error);
               }
-            }
-          }
+            },
+          },
         ]
       );
-    }
+    };
 
     const handleSeleccionCliente = (persona) => {
       if (isClienteCredito) {
-        navigation.navigate('RegistrarPrestamo', { persona: persona });
+        navigation.navigate("RegistrarPrestamo", { persona: persona });
         // navigation.goBack();
       }
-    }
+    };
 
     return (
       <TouchableOpacity onPress={() => handleSeleccionCliente(item)}>
-        <View style={styles.cardBorder} >
-          <Text style={styles.cardTitle}>{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
+        <View style={styles.cardBorder}>
+          <Text
+            style={styles.cardTitle}
+          >{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
           <Text>{`Dirección: ${item.cPersDireccion}`}</Text>
           <Text>{`Teléfono: ${item.cPersTelefono}`}</Text>
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.buttonEdit} onPress={handleModificar}>
-              <Text style={styles.buttonText}>Modificar</Text>
+            <TouchableOpacity
+              style={styles.buttonEdit}
+              onPress={handleModificar}
+            >
+              <Icon name="pencil" size={20} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonDelete} onPress={() => handleEliminar(item)}>
-              <Text style={styles.buttonText}>Eliminar</Text>
+            <TouchableOpacity
+              style={styles.buttonDelete}
+              onPress={() => handleEliminar(item)}
+            >
+              <Icon name="trash" size={20} color="white" />
             </TouchableOpacity>
           </View>
         </View>
@@ -109,37 +127,26 @@ const ListarPersonaScreen = ({ route }) => {
   // {isClienteCredito ? "Seleccione al cliente para el credito" : ""}
   return (
     <View style={styles.container}>
-      {isClienteCredito ?
-        <View>
-          <Text style={styles.label}>
-            Seleccione al Cliente para el credito!
-          </Text>
+      <View style={styles.searchContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Buscar"
+            value={query}
+            onChangeText={setQuery}
+          />
         </View>
-        :
-        <>
-        </>
-      }
+        <TouchableOpacity style={styles.buttonSearch} onPress={BuscarPersonas}>
+          <Ionicons name="search-outline" size={24} color="#FFF" />
+        </TouchableOpacity>
+      </View>
+
       <FlatList
-        style={{ width: '100%' }}
+        style={{ width: "100%" }}
         data={personas}
         renderItem={renderItem}
         keyExtractor={(item) => item.nIdPers}
-        ListHeaderComponent={
-          <View style={styles.inputContainer}>
-            <Ionicons name="ios-search" size={24} color="#aaa" style={styles.icon} />
-            <TextInput
-              style={styles.input}
-              placeholder="Buscar"
-              value={query}
-              onChangeText={setQuery}
-            />
-            <TouchableOpacity style={styles.buttonSearch} onPress={BuscarPersonas}>
-              <Ionicons name="search-outline" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
-        }
       />
-
       <TouchableOpacity style={styles.button} onPress={goToRegister}>
         <Text style={styles.text}>+</Text>
       </TouchableOpacity>
@@ -153,77 +160,80 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
     padding: 10,
-    backgroundColor: '#fff'
+    backgroundColor: "#fff",
   },
   cardTitle: {
-    textTransform: 'uppercase',
-    fontWeight: 'bold'
+    textTransform: "uppercase",
+    fontWeight: "bold",
   },
   container: {
     flex: 1,
   },
-  inputContainer: {
-    backgroundColor: '#eee',
-    borderRadius: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 10,
-  },
-  input: {
-    flex: 1,
-    marginLeft: 10,
-    padding: 5
-  },
   button: {
-    backgroundColor: '#007299',
+    backgroundColor: "#5cb85c",
     borderRadius: 30,
     width: 60,
     height: 60,
     margin: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     elevation: 3,
-    position: 'absolute',
+    position: "absolute",
     bottom: 10,
     right: 10,
     zIndex: 1,
   },
-  buttonSearch: {
-    backgroundColor: '#007299',
-    borderRadius: 5,
-    padding: 5,
-    marginLeft: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonSearchText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
   text: {
     fontSize: 24,
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
   buttonsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    paddingRight: 10, // Agregar paddingRight para separación
   },
   buttonEdit: {
-    backgroundColor: '#007299',
-    borderRadius: 5,
+    backgroundColor: "rgb(12,177,234)",
+    width: 50,
+    height: 40,
     padding: 5,
-    marginRight: 10,
+    borderRadius: 5,
+    marginRight: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonDelete: {
-    backgroundColor: '#f00',
-    borderRadius: 5,
+    backgroundColor: "red",
+    width: 50,
+    height: 40,
     padding: 5,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+  searchContainer: {
+    flexDirection: "row",
+    marginHorizontal: 10,
+    marginVertical: 5,
+  },
+  inputContainer: {
+    flex: 1,
+    marginRight: 5,
+    borderRadius: 10,
+    backgroundColor: "#FFF",
+    paddingHorizontal: 10,
+  },
+  input: {
+    flex: 1,
+  },
+  buttonSearch: {
+    backgroundColor: "#5cb85c",
+    width: 50,
+    height: 40,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
