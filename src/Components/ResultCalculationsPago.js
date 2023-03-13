@@ -2,32 +2,30 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 export default function ResultCalculations(props) {
-    const { userCuotas, userValorCuota, SaldoPago, NumeroCuotaPagada, InteresReal, MontPagar, errorMessage, userInteresCuota } = props;
-    console.log(props)
-
+    const { nMontoCredito, nSaldoPendiente, nNuevoSaldo, nCantCuotas, 
+            nProxCuota, cModalidadPago, errorMessage } = props;
+    // console.log(props)
     return (
         <View style={styles.content}>
-            {SaldoPago == null || SaldoPago.monthyFee == 0 ?
+            {nSaldoPendiente == null || nSaldoPendiente == 0 ?
                 (
                     <View>
                         <Text style={styles.tilecancelado}>EL PRESTAMO FUE CANCELADO</Text>
                     </View>
                 )
-
                 :
                 (
-                    SaldoPago && (
+                    nSaldoPendiente && (
                         <View style={styles.boxResult}>
                             <Text style={styles.tile}>Cronograma</Text>
-                            <DataResult title='Monto prestado:' value={`S/.${userCuotas}`} />
-                            <DataResult title='Saldo anterior:' value={`S/.${SaldoPago}`} />
-                            <DataResult title='Nuevo saldo :' value={`S/.${InteresReal}`} />
-                            <DataResult title='Número de cuota :' value={`${NumeroCuotaPagada}` + ` de ` + `${userValorCuota}`} />
-                            <DataResult title='Modalidad de cobro :' value={`${userInteresCuota}`} />
+                            <DataResult title='Monto prestado:' value={`S/.${nMontoCredito}`} />
+                            <DataResult title='Saldo anterior:' value={`S/.${nSaldoPendiente}`} />
+                            <DataResult title='Nuevo saldo :' value={`S/.${nNuevoSaldo}`} />
+                            <DataResult title='Próxima cuota :' value={`${nProxCuota}` + ` de ` + `${nCantCuotas}`} />
+                            <DataResult title='Modalidad de cobro :' value={`${cModalidadPago}`} />
                         </View>
                     )
                 )
-
             }
             <View>
                 <Text style={styles.error}>{errorMessage}</Text>
@@ -74,8 +72,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         marginBottom: 10
-    }
-    ,
+    },
 
     tilecancelado: {
         top: 20,

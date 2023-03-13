@@ -1,65 +1,87 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef  } from "react";
 import { StyleSheet, Text, TextInput, Button, TouchableOpacity, View, ScrollView } from "react-native";
 import ResultCalculationsPago from "../../Components/ResultCalculationsPago"
+import { useNavigation   } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import { TextInput, DataTable, List } from 'react-native-paper';
 
 const FrmPagarPrestamo = ({ route }) => {
+    const navigation = useNavigation();
+
     const [nIdCredito, SETnIdCredito] = useState("");
     const [nIdPers, SETnIdPers] = useState("");
     const [cPersNombre, SETcPersNombre] = useState("");
+    const [nMontoPrestado, SETnMontoPrestado] = useState("");
+    const [nMontoInteres, SETnMontoInteres] = useState("");
+    const [nSaldoAnterior, SETnSaldoAnterior] = useState("");
+    const [nNuevoSaldo, SETnNuevoSaldo] = useState(0);
+    const [nTotalCuotas, SETnTotalCuotas] = useState(0);
+
+    const [nMontoAPagar, SETnMontoAPagar] = useState(0.00);
 
     useEffect(() => {
         if (route.params && route.params.credito) {
             const credito = route.params.credito;
+            
+            let calcSaldoAnterior = 0
+            calcSaldoAnterior = (credito.nMonto + credito.nMontoInteres) - credito.nMontoPagado
 
-            // console.log(credito);
+            console.log(credito);
             SETcPersNombre(credito.cPersNombre);
-        }
+            SETnMontoPrestado(credito.nMonto);
+            SETnSaldoAnterior(calcSaldoAnterior);
+            SETnMontoInteres(credito.nMontoInteres);
+            SETnTotalCuotas(credito.nNroCuotas);
+
+            let nMontoPag = 0
+            nMontoPag = (credito.nMonto + credito.nMontoInteres) / credito.nNroCuotas
+            SETnMontoAPagar(nMontoPag);
+            SETnNuevoSaldo(calcSaldoAnterior - (nMontoPag));
+        }   
+
     }, [route.params]);
+
+    const Regresar = () => {
+        navigation.goBack();
+    }
+
+    const CalcularNuevoSaldo = (text) => {
+        const nCantidad = parseFloat(text);
+        const nNuevoSaldo = isNaN(nCantidad) ? 0 : nSaldoAnterior - nCantidad;
+        SETnNuevoSaldo(nNuevoSaldo);
+    }
+
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff', }}>
             <ScrollView style={{ marginVertical: 20, marginHorizontal: 16, flexDirection: 'column', top: "2%" }}>
                 <View style={styles.contenedor}>
-                    <Text> REALIZAR PAGO </Text>
-
-                    <View style={{ marginVertical: 20, marginHorizontal: 16, }}>
-                        <TextInput
-                            disabled
-                            value={"CLIENTE : " + cPersNombre}
-                            label="Nombres y Apellidos"
-                        // onChangeText={ ( userNombres ) => setUserNombres( userNombres ) }
-                        />
-
+                    <View>
+                        <Text style={styles.tile}>{cPersNombre}</Text>
                     </View>
+
                     <View style={{ marginVertical: 1, marginHorizontal: 16, flexDirection: 'column', flexWrap: "wrap" }}>
-                        <TextInput style={{ width: '100%', bottom: 10, paddingHorizontal: 30, marginRight: 10, textAlign: "center" }}
-                            value={"0.00"}
+                        <TextInput style={{ width: '100%', bottom: 10, paddingHorizontal: 30, marginRight: 10, textAlign: "center", fontSize: 40, fontWeight: 'bold' }}
                             keyboardType='numeric'
-                            label="Valor de la cuota a pagar"
-                        // onChangeText={ ( values ) => {
-                        //     setUserMontoPagar( values ); 0
-                        //     if ( userMontoPagar ) { ResultCalculationsPago; }
-                        // } }
-                        />
+                            name="nMontoPagar"
+                            onChangeText={text => {
+                                CalcularNuevoSaldo(text);
+                            }}
+                        >{nMontoAPagar}</TextInput>
                     </View>
-
-
 
                     <ResultCalculationsPago
                         text1={''}
-                        userCuotas={30000}
-                        SaldoPago={200}
-                        InteresReal={200}
-                        NumeroCuotaPagada={200}
-                        userValorCuota={200}
-                        userInteresCuota={"Diario"}
+                        nMontoCredito={nMontoPrestado}
+                        nSaldoPendiente={nSaldoAnterior}
+                        nNuevoSaldo={nNuevoSaldo}
+                        nProxCuota={1}
+                        nCantCuotas={12}
+                        cModalidadPago={"Diario"}
                         errorMessage={""}
                     />
 
                     <View style={{ marginVertical: 1, marginHorizontal: 16, flexDirection: 'row', flexWrap: "wrap" }}>
-                    <Text style={styles.boton2}>
+                        <Text style={styles.boton2} onPress={Regresar}>
                             <Icon name="times" size={30} color="#fff" />
                         </Text>
                         <Text style={styles.boton1}>
@@ -212,6 +234,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#f00',
         borderRadius: 5,
         padding: 5,
+    },
+    tile: {
+        color: "#0033A9",
+        fontSize: 40,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: "center"
     },
 });
 
