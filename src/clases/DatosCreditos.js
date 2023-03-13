@@ -21,8 +21,7 @@ export class DatosCreditos {
 	}
 
 	async RegistroCredito(nIdPers, dFechaCred, nIdPeriodo, nMonto,
-		                    nInteres, nCuotas) 
-    {
+		nInteres, nCuotas) {
 		const BASE_URL = "http://willy95.somee.com/api/credito/";
 		try {
 			const response = await axios({
@@ -46,7 +45,7 @@ export class DatosCreditos {
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
-            // console.log(Lista);
+			// console.log(Lista);
 			if (Resp == 200) {
 				return { success: true, data: Lista[0] };
 			} else {
@@ -56,5 +55,37 @@ export class DatosCreditos {
 			return { success: false, error: error.message };
 		}
 	}
+
+	async RegistroCreditoPago(nIdCredigo, nMonto) {
+		const BASE_URL = "http://willy95.somee.com/api/credito/";
+		try {
+			const response = await axios({
+				method: 'post',
+				url: BASE_URL + "RegistrarCreditoPago",
+				params: {
+					nIdCredigo: nIdCredigo,
+					nMonto: nMonto,
+				},
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: 'json'
+			});
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+			// console.log(Lista);
+			if (Resp == 200) {
+				return { success: true, data: Lista };
+			} else {
+				return { success: false, error: Resp + ' ' + response.data.error.message };
+			}
+		} catch (error) {
+			return { success: false, error: error.message };
+		}
+	}
+
 
 }

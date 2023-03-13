@@ -34,10 +34,6 @@ const FrmRegistrarPrestamo = ({ route }) => {
             Alert.alert("ERROR", response.error);
         }
     }
-    
-    const Regresar = () => {
-        navigation.goBack();
-    }
 
     return (
         <View style={styles.container}>

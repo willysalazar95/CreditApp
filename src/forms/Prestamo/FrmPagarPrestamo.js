@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef  } from "react";
-import { StyleSheet, Text, TextInput, Button, TouchableOpacity, View, ScrollView } from "react-native";
+import { StyleSheet, Text, TextInput, Alert, TouchableOpacity, View, ScrollView } from "react-native";
 import ResultCalculationsPago from "../../Components/ResultCalculationsPago"
 import { useNavigation   } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { DatosCreditos } from "../../clases/DatosCreditos";
 
 const FrmPagarPrestamo = ({ route }) => {
     const navigation = useNavigation();
 
     const [nIdCredito, SETnIdCredito] = useState("");
-    const [nIdPers, SETnIdPers] = useState("");
     const [cPersNombre, SETcPersNombre] = useState("");
     const [nMontoPrestado, SETnMontoPrestado] = useState("");
     const [nMontoInteres, SETnMontoInteres] = useState("");
@@ -25,12 +25,12 @@ const FrmPagarPrestamo = ({ route }) => {
             let calcSaldoAnterior = 0
             calcSaldoAnterior = (credito.nMonto + credito.nMontoInteres) - credito.nMontoPagado
 
-            console.log(credito);
             SETcPersNombre(credito.cPersNombre);
             SETnMontoPrestado(credito.nMonto);
             SETnSaldoAnterior(calcSaldoAnterior);
             SETnMontoInteres(credito.nMontoInteres);
             SETnTotalCuotas(credito.nNroCuotas);
+            SETnIdCredito(credito.nIdPrestamo);
 
             let nMontoPag = 0
             nMontoPag = (credito.nMonto + credito.nMontoInteres) / credito.nNroCuotas
@@ -48,8 +48,19 @@ const FrmPagarPrestamo = ({ route }) => {
         const nCantidad = parseFloat(text);
         const nNuevoSaldo = isNaN(nCantidad) ? 0 : nSaldoAnterior - nCantidad;
         SETnNuevoSaldo(nNuevoSaldo);
+        SETnMontoAPagar(nCantidad);
     }
 
+    const GuardarPago = async () => {
+        const _dCred = new DatosCreditos();
+        const response = await _dCred.RegistroCreditoPago(nIdCredito, nMontoAPagar);
+        if (response.success) {
+            Alert.alert("OK", "Crédito registrado Correctamente!");
+            navigation.goBack();
+        } else {
+            Alert.alert("ERROR", response.error);
+        }
+    }
 
     return (
         <View style={{ flex: 1, backgroundColor: '#fff', }}>
@@ -84,7 +95,7 @@ const FrmPagarPrestamo = ({ route }) => {
                         <Text style={styles.boton2} onPress={Regresar}>
                             <Icon name="times" size={30} color="#fff" />
                         </Text>
-                        <Text style={styles.boton1}>
+                        <Text style={styles.boton1} onPress={GuardarPago}>
                             <Icon name="check" size={30} color="#fff" />
                         </Text>
 
