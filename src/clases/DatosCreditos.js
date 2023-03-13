@@ -2,10 +2,14 @@ import axios from "axios";
 
 export class DatosCreditos {
 
-	async ListarPersonas() {
-		// const BASE_URL = "http://willy95.somee.com/api/personas/";
+	async ListarCreditos() {
+		const BASE_URL = "http://willy95.somee.com/api/credito/";
 		try {
-			const response = await axios.get(BASE_URL + "ListarPersonas");
+			const response = await axios.get(BASE_URL + "ListarCreditos", {
+				params: {
+				  nIdPers: 0,
+				},
+			});
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;

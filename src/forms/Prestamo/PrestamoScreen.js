@@ -3,28 +3,46 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import axios from "axios";
-import ListarPersonaScreen from "../PersonaScreen/ListarPersonaScreen";
+import { Ionicons } from "react-native-vector-icons";
+import { DatosCreditos } from "../../clases/DatosCreditos";
 
 const PrestamoScreen = () => {
+
   const [data, setData] = useState([]);
   const navigation = useNavigation();
+  const [query, setQuery] = useState("");
 
-  axios
-    .get("http://aagc.somee.com/api/Credito/ListarCreditos", {
-      params: {
-        nIdPers: 0,
-      },
-    })
-    .then((response) => {
-      const Resp = response.data.code;
-      setData(response.data.data);
-    })
-    .catch((error) => {});
+  const ListarCreditos = async () => {
+    const _Dat = new DatosCreditos();
+    const response = await _Dat.ListarCreditos();
+    setData(response.data);
+  };
+
+  const BuscarCreditos = async () => {
+    const _Dat = new DatosCreditos();
+    const response = await _Dat.ListarCreditos();
+    const filteredData = response.data.filter((item) => {
+      return item.cPersNombre.toLowerCase().includes(query.toLowerCase());
+    });
+    setData(filteredData);
+    setQuery("");
+  };
+
+  useEffect(() => {
+    ListarCreditos();
+  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      BuscarCreditos();
+    }, [])
+  );
 
   const renderItem = ({ item }) => {
     const PagarCredito = () => {
@@ -60,6 +78,19 @@ const PrestamoScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.searchContainer}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Buscar"
+            value={query}
+            onChangeText={setQuery}
+          />
+        </View>
+        <TouchableOpacity style={styles.buttonSearch} onPress={BuscarCreditos} >
+          <Ionicons name="search-outline" size={24} color="#FFF" />
+        </TouchableOpacity>
+      </View>
       <FlatList
         style={{ width: "100%" }}
         data={data}
@@ -128,6 +159,26 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#FFF",
+  },
+  searchContainer: {
+    flexDirection: "row",
+    marginHorizontal: 10,
+    marginVertical: 5,
+  },
+  inputContainer: {
+    flex: 1,
+    marginRight: 5,
+    borderRadius: 10,
+    backgroundColor: "#FFF",
+    paddingHorizontal: 10,
+  },
+  buttonSearch: {
+    backgroundColor: "#5cb85c",
+    width: 50,
+    height: 40,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

@@ -43,11 +43,12 @@ const ListarPersonaScreen = ({ route }) => {
       ListarPersonas();
       setClienteCredito(false);
     }
+    setQuery("");
   }, []);
 
   useFocusEffect(
     React.useCallback(() => {
-      ListarPersonas();
+      BuscarPersonas();
     }, [])
   );
 
