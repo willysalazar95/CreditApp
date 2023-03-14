@@ -49,6 +49,10 @@ const PrestamoScreen = () => {
       navigation.navigate("PagarPrestamo", { credito: item });
     };
 
+    const VerCronograma = () => {
+      navigation.navigate("ListarCronograma");
+    };
+
     return (
       <TouchableOpacity>
         <View style={styles.cardBorder}>
@@ -57,7 +61,9 @@ const PrestamoScreen = () => {
             S/ {item.nMonto} | {item.dFechaFin}
           </Text>
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity style={styles.buttonEdit}>
+            <TouchableOpacity style={styles.buttonEdit}
+              onPress={VerCronograma}
+            >
               <Text style={styles.buttonText}>Ver Datos</Text>
             </TouchableOpacity>
             <TouchableOpacity
