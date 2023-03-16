@@ -20,3 +20,10 @@ npm install sweetalert2
 npm install react-native-modalbox
 
 npm install react-native-platform-touchable
+
+========== willy 2023-03-14 ==========
+npm install react-native-maps --save
+npx expo install react-native-maps@1.3.2 =======================recomendable
+yarn add moment
+npm install @react-native-community/datetimepicker --save
+========== willy 2023-03-14 ==========

@@ -6,8 +6,10 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
+  ScrollView,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Cliente } from "../../clases/Cliente";
 //CREADO POR AAGC
@@ -19,9 +21,11 @@ const FrmRegistroPersona = ({ route }) => {
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
-  const [fechaNac, SetFecha] = useState("");
   const [accionBoton, setAccionBoton] = useState("Guardar");
   const [isEditing, setIsEditing] = useState(false);
+
+  const [fechaNac, setFechaNac] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     if (route.params && route.params.persona) {
@@ -74,66 +78,78 @@ const FrmRegistroPersona = ({ route }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        {isEditing ? "Modificar " : "Nuevo"} Cliente
-      </Text>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>DNI:</Text>
-        <TextInput
-          style={styles.input}
-          value={dni}
-          onChangeText={setDni}
-          keyboardType="numeric"
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Nombre:</Text>
-        <TextInput
-          style={styles.input}
-          value={nombre}
-          onChangeText={setNombre}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Apellido:</Text>
-        <TextInput
-          style={styles.input}
-          value={apellido}
-          onChangeText={setApellido}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Teléfono:</Text>
-        <TextInput
-          style={styles.input}
-          value={telefono}
-          onChangeText={setTelefono}
-          keyboardType="phone-pad"
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Dirección:</Text>
-        <TextInput
-          style={styles.input}
-          value={direccion}
-          onChangeText={setDireccion}
-        />
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          {isEditing ? "Modificar " : "Nuevo"} Cliente
+        </Text>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>DNI:</Text>
+          <TextInput
+            style={styles.input}
+            value={dni}
+            onChangeText={setDni}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Nombre:</Text>
+          <TextInput
+            style={styles.input}
+            value={nombre}
+            onChangeText={setNombre}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Apellido:</Text>
+          <TextInput
+            style={styles.input}
+            value={apellido}
+            onChangeText={setApellido}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Teléfono:</Text>
+          <TextInput
+            style={styles.input}
+            value={telefono}
+            onChangeText={setTelefono}
+            keyboardType="phone-pad"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Dirección:</Text>
+          <TextInput
+            style={styles.input}
+            value={direccion}
+            onChangeText={setDireccion}
+          />
+        </View>
 
-      <View style={styles.inputContainer}>
-        <Text style={styles.label}>Fecha Nac:</Text>
-        <TextInput
-          style={styles.input}
-          value={fechaNac}
-          onChangeText={SetFecha}
-        />
-      </View>
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Fecha Nac:</Text>
+          <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+            <Text style={styles.input}>{fechaNac.toLocaleDateString()}</Text>
+            {showDatePicker && (
+              <DateTimePicker
+                value={fechaNac}
+                mode="date"
+                display="default"
+                onChange={(event, selectedDate) => {
+                  const currentDate = selectedDate || fechaNac;
+                  setShowDatePicker(false);
+                  setFechaNac(currentDate);
+                }}
+              />
+            )}
+          </TouchableOpacity>
+        </View>
 
-      <TouchableOpacity style={styles.button} onPress={handleEnviar}>
-        <Text style={styles.buttonText}>{accionBoton}</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.button} onPress={handleEnviar}>
+          <Text style={styles.buttonText}>{accionBoton}</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 };
 
