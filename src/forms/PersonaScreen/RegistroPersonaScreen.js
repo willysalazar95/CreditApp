@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import Persona from "../../clases/Persona";
+import moment from "moment";
 
 const RegistroPersonaScreen = () => {
   const [dni, setDni] = useState("");
@@ -78,7 +79,7 @@ const RegistroPersonaScreen = () => {
         <Text style={styles.label}>Fecha de Nacimiento</Text>
         <TextInput
           style={styles.input}
-          value={fechaNacimiento}
+          value={moment(fechaNacimiento, "DD/MM/YYYY").format("YYYY-MM-DD")}
           onChangeText={setFechaNacimiento}
           placeholder="DD/MM/AAAA"
           keyboardType="numeric"
