@@ -55,8 +55,27 @@ const FrmPagarPrestamo = ({ route }) => {
         const _dCred = new DatosCreditos();
         const response = await _dCred.RegistroCreditoPago(nIdCredito, nMontoAPagar);
         if (response.success) {
-            Alert.alert("OK", "Crédito registrado Correctamente!");
-            navigation.goBack();
+            // Alert.alert("OK", "Crédito registrado Correctamente!");
+
+            Alert.alert(
+                'Aviso',
+                'Pago guardado correctamente',
+                [
+                    {
+                        text: 'Ok',
+                        onPress: () => navigation.navigate( 'VoucherPago',
+
+                        {
+                            userNombres: cPersNombre,
+                            userMontoPagar: nMontoAPagar,
+                            MontPagar:nMontoAPagar
+                        } ),
+                    },
+                ],
+                { cancelable: false }
+            );
+
+            // navigation.goBack();
         } else {
             Alert.alert("ERROR", response.error);
         }
@@ -98,8 +117,9 @@ const FrmPagarPrestamo = ({ route }) => {
                         <Text style={styles.boton1} onPress={GuardarPago}>
                             <Icon name="check" size={30} color="#fff" />
                         </Text>
-
                     </View>
+                    <View style={{ marginTop: 10 }} />
+                    
                 </View>
             </ScrollView>
         </View>

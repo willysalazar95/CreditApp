@@ -11,6 +11,7 @@ import ModificarPersona from "./src/forms/PersonaScreen/FrmRegistroPersona";
 import FrmRegistrarPrestamo from "./src/forms/Prestamo/FrmRegistrarPrestamo";
 import FrmPagarPrestamo from "./src/forms/Prestamo/FrmPagarPrestamo";
 import ListarCronogramaScreen from "./src/forms/Prestamo/ListarCronogramaScreen";
+import FrmVoucherPago from "./src/forms/Reportes/FrmVoucherPago";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ function App() {
         <Stack.Screen name="prestamos" component={PrestamoScreen} />
         <Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
         <Stack.Screen name="PagarPrestamo" component={FrmPagarPrestamo} />
+        <Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
 
         <Stack.Screen name="ListarPersonas" component={ListarPersonaScreen} />
         <Stack.Screen name="RegistroPersona" component={FrmRegistroPersona} />
