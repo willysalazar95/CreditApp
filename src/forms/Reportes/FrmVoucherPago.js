@@ -3,6 +3,7 @@ import { Text, View, ScrollView, StyleSheet, Image } from "react-native";
 
 import { captureScreen } from 'react-native-view-shot';
 import CameraRoll from '@react-native-community/cameraroll';
+import * as MediaLibrary from 'expo-media-library';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function FrmVoucherPago({ route }) {
@@ -21,35 +22,6 @@ function FrmVoucherPago({ route }) {
       + ' ' + hours + ':' + min + ':' + sec
     );
   }, []);
-
-  const takeScreenShot = () => {
-    // To capture Screenshot
-    captureScreen({
-
-      // Either png or jpg (or webm Android Only), Defaults: png
-      format: 'jpg',
-      // Quality 0.0 - 1.0 (only available for jpg)
-      quality: 0.8,
-
-    }).then(
-      //callback function to get the result URL of the screnshot
-      (uri) => {
-        CameraRoll.saveToCameraRoll(uri);
-        setImageURI(uri);
-
-        CameraRoll.saveToCameraRoll(res.data, 'photo')
-          .then(() => {
-            Alert.alert(
-              'Save remote Image',
-              'Image Saved Successfully',
-              [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
-              { cancelable: false },
-            );
-          })
-      },
-      (error) => console.error('Oops, Something Went Wrong', error),
-    );
-  };
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff', }}>
@@ -95,17 +67,15 @@ function FrmVoucherPago({ route }) {
             <Text style={styles.boton2} >
               <Icon name="reply" size={30} color="#fff" />
             </Text>
-            <Text style={styles.boton1} onPress={takeScreenShot}>
+            <Text style={styles.boton1}>
               <Icon name="image" size={30} color="#fff" />
             </Text>
           </View>
 
-          {/* <View style={{ marginTop: 10 }} /> */}
+          <View style={{ marginTop: 100 }} />
         </View>
 
       </View>
-
-
     </View>
   );
 }
