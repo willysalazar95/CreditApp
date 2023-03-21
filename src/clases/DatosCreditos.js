@@ -92,4 +92,21 @@ export class DatosCreditos {
 	}
 
 
+	async ListarCreditosPeriodos() {
+		const BASE_URL = "http://willy95.somee.com/api/Credito/";
+		try {
+			const response = await axios.get(BASE_URL + "ListarCreditosPeriodo");
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+			if (Resp === 200) {
+				return { success: true, data: Lista };
+			} else {
+				return { success: false, error: "Datos incorrectos" };
+			}
+		} catch (error) {
+			return { success: false, error: error.message };
+		}
+	}
+
 }

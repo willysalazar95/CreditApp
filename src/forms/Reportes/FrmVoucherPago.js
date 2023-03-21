@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, ScrollView, StyleSheet, Image } from "react-native";
 
-import { captureScreen } from 'react-native-view-shot';
-import CameraRoll from '@react-native-community/cameraroll';
-import * as MediaLibrary from 'expo-media-library';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function FrmVoucherPago({ route }) {

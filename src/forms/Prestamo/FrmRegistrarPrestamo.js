@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert } from "react-native";
-import { useNavigation, CommonActions   } from "@react-navigation/native";
+import { useNavigation, CommonActions } from "@react-navigation/native";
+import { Picker } from '@react-native-picker/picker';
 import { DatosCreditos } from "../../clases/DatosCreditos";
 
 const FrmRegistrarPrestamo = ({ route }) => {
+    const [options, setOptions] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("");
     const navigation = useNavigation();
+
+    const [selectedValue, setSelectedValue] = useState("");
 
     const [nIdPers, setNidPers] = useState("");
     const [dni, setDni] = useState("");
@@ -15,6 +20,15 @@ const FrmRegistrarPrestamo = ({ route }) => {
     const [nInteres, SetnInteres] = useState("");
     const [nCuotas, SetnCuotas] = useState("");
 
+    const ListarPeriodos = async () => {
+        const dCred = new DatosCreditos();
+        const DatosPeriodos = await dCred.ListarCreditosPeriodos();
+        console.log(DatosPeriodos.data);
+        if (DatosPeriodos.success) {
+            setOptions(DatosPeriodos.data);
+        }
+    }
+
     useEffect(() => {
         if (route.params && route.params.persona) {
             const persona = route.params.persona;
@@ -22,7 +36,10 @@ const FrmRegistrarPrestamo = ({ route }) => {
             setDni(persona.cPersDNI);
             setNombre(persona.cPersNombres);
         }
+
+        ListarPeriodos();
     }, [route.params]);
+
 
     const GuardarCredito = async () => {
         const _dCred = new DatosCreditos();
@@ -64,11 +81,17 @@ const FrmRegistrarPrestamo = ({ route }) => {
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Periodo:</Text>
-                <TextInput
-                    style={styles.input}
-                    value={nIdPeriodo}
-                    onChangeText={SetnIdPeriodo}
-                />
+                <Picker
+                    selectedValue={selectedValue}
+                    onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                >
+                    <Picker.Item label="--Selecciona--" value="" />
+                    {options.map((item, index) => {
+                        return (
+                            <Picker.Item label={item.cDescripcion} value={item.nIdPeriodo} key={index} />
+                        )
+                    })}
+                </Picker>
             </View>
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Monto:</Text>

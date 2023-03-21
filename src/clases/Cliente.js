@@ -9,7 +9,6 @@ export class Cliente {
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
-
 			if (Resp === 200) {
 				return { success: true, data: Lista };
 			} else {
