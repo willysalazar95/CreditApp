@@ -85,7 +85,7 @@ const FrmRegistrarPrestamo = ({ route }) => {
                     selectedValue={selectedValue}
                     onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                 >
-                    <Picker.Item label="--Selecciona--" value="" />
+                    {/* <Picker.Item label="--Selecciona--" value="" /> */}
                     {options.map((item, index) => {
                         return (
                             <Picker.Item label={item.cDescripcion} value={item.nIdPeriodo} key={index} />
