@@ -51,7 +51,7 @@ const LoginScreen = () => {
         />
       </View>
       <View style={styles.inputContainerPass}>
-        <Text style={styles.cajaCabecera}>PASSAWORD</Text>
+        <Text style={styles.cajaCabecera}>CLAVE</Text>
         <TextInput
           style={styles.input}
           secureTextEntry={true}

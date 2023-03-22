@@ -13,7 +13,7 @@ import { Cliente } from "../../clases/Cliente";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const ListarPersonaScreen = ({ route }) => {
+const ListarClienteScreen = ({ route }) => {
   const [personas, setPersonas] = useState([]);
   const [query, setQuery] = useState("");
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
@@ -238,4 +238,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListarPersonaScreen;
+export default ListarClienteScreen;

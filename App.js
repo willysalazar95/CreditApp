@@ -5,9 +5,9 @@ import LoginScreen from "./src/forms/Login/LoginScreen";
 import DrawerScreen from "./src/forms/Home/DrawerScreen";
 import RegistroScreen from "./src/forms/Registro/RegistroScreen";
 import PrestamoScreen from "./src/forms/Prestamo/PrestamoScreen";
-import ListarPersonaScreen from "./src/forms/PersonaScreen/ListarPersonaScreen";
-import FrmRegistroPersona from "./src/forms/PersonaScreen/FrmRegistroPersona"
-import ModificarPersona from "./src/forms/PersonaScreen/FrmRegistroPersona";
+import ListarClienteScreen from "./src/forms/ClienteScreen/ListarClienteScreen";
+import FrmRegistroCliente from "./src/forms/ClienteScreen/FrmRegistroCliente"
+import ModificarCliente from "./src/forms/ClienteScreen/FrmRegistroCliente";
 import FrmRegistrarPrestamo from "./src/forms/Prestamo/FrmRegistrarPrestamo";
 import FrmPagarPrestamo from "./src/forms/Prestamo/FrmPagarPrestamo";
 import ListarCronogramaScreen from "./src/forms/Prestamo/ListarCronogramaScreen";
@@ -34,9 +34,9 @@ function App() {
         <Stack.Screen name="PagarPrestamo" component={FrmPagarPrestamo} />
         <Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
 
-        <Stack.Screen name="ListarPersonas" component={ListarPersonaScreen} />
-        <Stack.Screen name="RegistroPersona" component={FrmRegistroPersona} />
-        <Stack.Screen name="ModificarPersona" component={ModificarPersona} />
+        <Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
+        <Stack.Screen name="RegistroPersona" component={FrmRegistroCliente} />
+        <Stack.Screen name="ModificarPersona" component={ModificarCliente} />
         <Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} />
       </Stack.Navigator>
     </NavigationContainer>

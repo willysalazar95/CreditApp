@@ -13,7 +13,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Cliente } from "../../clases/Cliente";
 //CREADO POR AAGC
-const FrmRegistroPersona = ({ route }) => {
+const FrmRegistroCliente = ({ route }) => {
   const navigation = useNavigation();
   const [nIdPers, setNidPers] = useState("");
   const [dni, setDni] = useState("");
@@ -192,4 +192,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-export default FrmRegistroPersona;
+export default FrmRegistroCliente;

@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 import Persona from "../../clases/Persona";
 import moment from "moment";
 
-const RegistroPersonaScreen = () => {
+const RegistroClienteScreen = () => {
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -122,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistroPersonaScreen;
+export default RegistroClienteScreen;
