@@ -7,41 +7,43 @@ import RegistroScreen from "./src/forms/ClienteScreen/FrmRegistroCliente";
 
 import PrestamoScreen from "./src/forms/Creditos/Creditos_Screen";
 import ListarClienteScreen from "./src/forms/ClienteScreen/ListarClienteScreen";
-import FrmRegistroCliente from "./src/forms/ClienteScreen/FrmRegistroCliente"
+import FrmRegistroCliente from "./src/forms/ClienteScreen/FrmRegistroCliente";
 import ModificarCliente from "./src/forms/ClienteScreen/FrmRegistroCliente";
 import FrmRegistrarPrestamo from "./src/forms/Creditos/RegistrarCredito_Screen";
 import PagarPrestamo from "./src/forms/Creditos/PagarCredito_Screen";
 import ListarCronogramaScreen from "./src/forms/Creditos/ListarCronograma_Screen";
 import FrmVoucherPago from "./src/forms/Reportes/FrmVoucherPago";
+import { ReporteCreditos } from "./src/forms/Impresion/ReporteCreditos";
 
 const Stack = createStackNavigator();
 
 function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="login" component={LoginScreen} />
-        <Stack.Screen name="register" component={RegistroScreen} />
-        <Stack.Screen
-          name="DrawerScreen"
-          component={DrawerScreen}
-          options={{
-            headerLeft: null, // establece el botón de retroceso como nulo
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="prestamos" component={PrestamoScreen} />
-        <Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
-        <Stack.Screen name="PagarPrestamo" component={PagarPrestamo} />
-        <Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
+	return (
+		<NavigationContainer>
+			<Stack.Navigator>
+				<Stack.Screen name="login" component={LoginScreen} />
+				<Stack.Screen name="register" component={RegistroScreen} />
+				<Stack.Screen
+					name="DrawerScreen"
+					component={DrawerScreen}
+					options={{
+						headerLeft: null, // establece el botón de retroceso como nulo
+						headerShown: false,
+					}}
+				/>
+				<Stack.Screen name="prestamos" component={PrestamoScreen} />
+				<Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
+				<Stack.Screen name="PagarPrestamo" component={PagarPrestamo} />
+				<Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
 
-        <Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
-        <Stack.Screen name="RegistroPersona" component={FrmRegistroCliente} />
-        <Stack.Screen name="ModificarPersona" component={ModificarCliente} />
-        <Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
+				<Stack.Screen name="RegistroPersona" component={FrmRegistroCliente} />
+				<Stack.Screen name="ModificarPersona" component={ModificarCliente} />
+				<Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} />
+				<Stack.Screen name="ReporteCreditos" component={ReporteCreditos} />
+			</Stack.Navigator>
+		</NavigationContainer>
+	);
 }
 
 export default App;

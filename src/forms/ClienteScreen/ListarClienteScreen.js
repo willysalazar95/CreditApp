@@ -13,21 +13,12 @@ import { Cliente } from "../../clases/Cliente";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-<<<<<<< HEAD:src/forms/PersonaScreen/ListarPersonaScreen.js
-const ListarPersonaScreen = ({ route }) => {
+const ListarClienteScreen = ({ route }) => {
 	const [personas, setPersonas] = useState([]);
 	const [query, setQuery] = useState("");
 	const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
 	const [isClienteCredito, setClienteCredito] = useState(false);
 	const navigation = useNavigation();
-=======
-const ListarClienteScreen = ({ route }) => {
-  const [personas, setPersonas] = useState([]);
-  const [query, setQuery] = useState("");
-  const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
-  const [isClienteCredito, setClienteCredito] = useState(false);
-  const navigation = useNavigation();
->>>>>>> main:src/forms/ClienteScreen/ListarClienteScreen.js
 
 	const ListarPersonas = async () => {
 		const DatCliente = new Cliente();
@@ -39,7 +30,7 @@ const ListarClienteScreen = ({ route }) => {
 		const DatCliente = new Cliente();
 		const response = await DatCliente.ListarPersonas();
 		const filteredData = response.data.filter((item) => {
-			return item.cPersNombres.toLowerCase().includes(query.toLowerCase());
+			return item.cClieNombres.toLowerCase().includes(query.toLowerCase());
 		});
 		setPersonas(filteredData);
 	};
@@ -107,9 +98,9 @@ const ListarClienteScreen = ({ route }) => {
 				<View style={styles.cardBorder}>
 					<Text
 						style={styles.cardTitle}
-					>{`Nombre: ${item.cPersNombres} ${item.cPersApellidos}`}</Text>
-					<Text>{`Dirección: ${item.cPersDireccion}`}</Text>
-					<Text>{`Teléfono: ${item.cPersTelefono}`}</Text>
+					>{`Nombre: ${item.cClieNombres} ${item.cClieApellidos}`}</Text>
+					<Text>{`Dirección: ${item.cClieDireccion}`}</Text>
+					<Text>{`Teléfono: ${item.cClieTelefono}`}</Text>
 					<View style={styles.buttonsContainer}>
 						<TouchableOpacity style={styles.buttonEdit} onPress={handleModificar}>
 							<Icon name="pencil" size={20} color="white" />
@@ -150,19 +141,8 @@ const ListarClienteScreen = ({ route }) => {
 				style={{ width: "100%" }}
 				data={personas}
 				renderItem={renderItem}
-				keyExtractor={(item) => item.nIdPers}
+				keyExtractor={(item) => item.nClieId}
 			/>
-
-			<View>
-				{pdfDoc && (
-					<PDFView
-						fadeInDuration={250.0}
-						style={{ flex: 1 }}
-						resource={pdfDoc}
-						resourceType="base64"
-					/>
-				)}
-			</View>
 
 			<TouchableOpacity style={styles.button} onPress={goToRegister}>
 				<Text style={styles.text}>+</Text>

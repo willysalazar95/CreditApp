@@ -1,11 +1,13 @@
 import axios from "axios";
+import { configData } from "../../config";
 
-export class Cliente {
+class Cliente {
+	static url = `${configData.API_URL}/api/clientes`;
 
 	async ListarPersonas() {
-		const BASE_URL = "http://willy95.somee.com/api/personas/";
+		const BASE_URL = `${Cliente.url}/ListarClientes`;
 		try {
-			const response = await axios.get(BASE_URL + "ListarPersonas");
+			const response = await axios.get(BASE_URL);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
@@ -19,13 +21,19 @@ export class Cliente {
 		}
 	}
 
-	async RegistroPersona(cPersDNI, cPersNombres, cPersApellidos, cPersDireccion,
-		cPersTelefono, cPersFechNac) {
-		const BASE_URL = "http://willy95.somee.com/api/personas/";
+	async RegistroPersona(
+		cPersDNI,
+		cPersNombres,
+		cPersApellidos,
+		cPersDireccion,
+		cPersTelefono,
+		cPersFechNac
+	) {
+		const BASE_URL = `${Cliente.url}/RegistrarClientes`;
 		try {
 			const response = await axios({
-				method: 'post',
-				url: BASE_URL + "RegistrarPersona",
+				method: "post",
+				url: BASE_URL,
 				params: {
 					cPersDNI: cPersDNI,
 					cPersNombres: cPersNombres,
@@ -35,11 +43,11 @@ export class Cliente {
 					cPersFechNac: "20230101",
 				},
 				headers: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				timeout: 5000,
 				withCredentials: true,
-				responseType: 'json'
+				responseType: "json",
 			});
 
 			const Resp = response.data.code;
@@ -48,37 +56,43 @@ export class Cliente {
 			if (Resp === 200) {
 				return { success: true, data: Lista[0] };
 			} else {
-				return { success: false, error: Resp + ' ' + response.data.error.message };
+				return { success: false, error: Resp + " " + response.data.error.message };
 			}
 		} catch (error) {
 			return { success: false, error: error.message };
 		}
 	}
 
-	async ActualizarPersona(nIdPers ,cPersDNI, cPersNombres, cPersApellidos, cPersDireccion,
-		cPersTelefono, cPersFechNac) {
-		const BASE_URL = "http://willy95.somee.com/api/personas/";
-		console.log(nIdPers);
+	async ActualizarPersona(
+		nIdPers,
+		cPersDNI,
+		cPersNombres,
+		cPersApellidos,
+		cPersDireccion,
+		cPersTelefono,
+		cPersFechNac
+	) {
+		const BASE_URL = `${Cliente.url}/ActualizarClientes`;
 		try {
 			const response = await axios({
-				method: 'put',
-				url: BASE_URL + "ActualizarPersona",
+				method: "put",
+				url: BASE_URL,
 				params: {
-					nIdPers : nIdPers,
+					nIdPers: nIdPers,
 					cPersDNI: cPersDNI,
 					cPersNombres: cPersNombres,
 					cPersApellidos: cPersApellidos,
 					cPersDireccion: cPersDireccion,
 					cPersTelefono: cPersTelefono,
 					cPersFechNac: "2023-01-01",
-					nEstado : 1
+					nEstado: 1,
 				},
 				headers: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				timeout: 5000,
 				withCredentials: true,
-				responseType: 'json'
+				responseType: "json",
 			});
 
 			const Resp = response.data.code;
@@ -87,7 +101,7 @@ export class Cliente {
 			if (Resp === 200) {
 				return { success: true, data: Lista[0] };
 			} else {
-				return { success: false, error: Resp + ' ' + response.data.error.message };
+				return { success: false, error: Resp + " " + response.data.error.message };
 			}
 		} catch (error) {
 			return { success: false, error: error.message };
@@ -95,21 +109,21 @@ export class Cliente {
 	}
 
 	async EliminarPersona(nIdPers) {
-		const BASE_URL = "http://willy95.somee.com/api/personas/";
+		const BASE_URL = `${Cliente.url}/EliminarCliente`;
 
 		try {
 			const response = await axios({
-				method: 'delete',
-				url: BASE_URL + "EliminarPersona",
+				method: "delete",
+				url: BASE_URL,
 				params: {
-					codigo : nIdPers
+					codigo: nIdPers,
 				},
 				headers: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				timeout: 5000,
 				withCredentials: true,
-				responseType: 'json'
+				responseType: "json",
 			});
 
 			const Resp = response.data.code;
@@ -118,10 +132,12 @@ export class Cliente {
 			if (Resp === 200) {
 				return { success: true, data: "OK" };
 			} else {
-				return { success: false, error: Resp + ' ' + response.data.error.message };
+				return { success: false, error: Resp + " " + response.data.error.message };
 			}
 		} catch (error) {
 			return { success: false, error: error.message };
 		}
 	}
 }
+
+export { Cliente };

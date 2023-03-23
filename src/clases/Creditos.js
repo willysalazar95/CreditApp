@@ -1,13 +1,14 @@
 import axios from "axios";
-
-export class DatosCreditos {
+import { configData } from "../../config";
+export class Creditos {
+	static url = `${configData.API_URL}/api/Credito`;
 
 	async ListarCreditos() {
-		const BASE_URL = "http://willy95.somee.com/api/credito/";
+		const BASE_URL = `${Creditos.url}/ListarCreditos`;
 		try {
-			const response = await axios.get(BASE_URL + "ListarCreditos", {
+			const response = await axios.get(BASE_URL, {
 				params: {
-				  nIdPers: 0,
+					nIdPers: 0,
 				},
 			});
 
@@ -24,13 +25,19 @@ export class DatosCreditos {
 		}
 	}
 
-	async RegistroCredito(nIdPers, dFechaCred, nIdPeriodo, nMonto,
-		nInteres, nCuotas) {
-		const BASE_URL = "http://willy95.somee.com/api/credito/";
+	async RegistroCredito(
+		nIdPers,
+		dFechaCred,
+		nIdPeriodo,
+		nMonto,
+		nInteres,
+		nCuotas
+	) {
+		const BASE_URL = `${Creditos.url}/RegistrarCredito`;
 		try {
 			const response = await axios({
-				method: 'post',
-				url: BASE_URL + "RegistrarCredito",
+				method: "post",
+				url: BASE_URL,
 				params: {
 					nIdPers: nIdPers,
 					dFechaCred: dFechaCred,
@@ -40,11 +47,11 @@ export class DatosCreditos {
 					nCuotas: nCuotas,
 				},
 				headers: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				timeout: 5000,
 				withCredentials: true,
-				responseType: 'json'
+				responseType: "json",
 			});
 
 			const Resp = response.data.code;
@@ -53,7 +60,7 @@ export class DatosCreditos {
 			if (Resp == 200) {
 				return { success: true, data: Lista[0] };
 			} else {
-				return { success: false, error: Resp + ' ' + response.data.error.message };
+				return { success: false, error: Resp + " " + response.data.error.message };
 			}
 		} catch (error) {
 			return { success: false, error: error.message };
@@ -61,21 +68,21 @@ export class DatosCreditos {
 	}
 
 	async RegistroCreditoPago(nIdCredigo, nMonto) {
-		const BASE_URL = "http://willy95.somee.com/api/credito/";
+		const BASE_URL = `${Creditos.url}/RegistrarCreditoPago`;
 		try {
 			const response = await axios({
-				method: 'post',
-				url: BASE_URL + "RegistrarCreditoPago",
+				method: "post",
+				url: BASE_URL,
 				params: {
 					nIdCredigo: nIdCredigo,
 					nMonto: nMonto,
 				},
 				headers: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				timeout: 5000,
 				withCredentials: true,
-				responseType: 'json'
+				responseType: "json",
 			});
 
 			const Resp = response.data.code;
@@ -84,18 +91,17 @@ export class DatosCreditos {
 			if (Resp == 200) {
 				return { success: true, data: Lista };
 			} else {
-				return { success: false, error: Resp + ' ' + response.data.error.message };
+				return { success: false, error: Resp + " " + response.data.error.message };
 			}
 		} catch (error) {
 			return { success: false, error: error.message };
 		}
 	}
 
-
 	async ListarCreditosPeriodos() {
-		const BASE_URL = "http://willy95.somee.com/api/Credito/";
+		const BASE_URL = `${Creditos.url}/ListarCreditosPeriodo`;
 		try {
-			const response = await axios.get(BASE_URL + "ListarCreditosPeriodo");
+			const response = await axios.get(BASE_URL);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
@@ -108,5 +114,4 @@ export class DatosCreditos {
 			return { success: false, error: error.message };
 		}
 	}
-
 }
