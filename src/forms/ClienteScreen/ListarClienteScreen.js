@@ -13,12 +13,21 @@ import { Cliente } from "../../clases/Cliente";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+<<<<<<< HEAD:src/forms/PersonaScreen/ListarPersonaScreen.js
 const ListarPersonaScreen = ({ route }) => {
 	const [personas, setPersonas] = useState([]);
 	const [query, setQuery] = useState("");
 	const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
 	const [isClienteCredito, setClienteCredito] = useState(false);
 	const navigation = useNavigation();
+=======
+const ListarClienteScreen = ({ route }) => {
+  const [personas, setPersonas] = useState([]);
+  const [query, setQuery] = useState("");
+  const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
+  const [isClienteCredito, setClienteCredito] = useState(false);
+  const navigation = useNavigation();
+>>>>>>> main:src/forms/ClienteScreen/ListarClienteScreen.js
 
 	const ListarPersonas = async () => {
 		const DatCliente = new Cliente();
@@ -259,4 +268,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default ListarPersonaScreen;
+export default ListarClienteScreen;

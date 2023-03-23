@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-const FrmVerDatosPrestamo = () => {
+const VerDatosCredito_Screen = () => {
 
   return (
     <View style={styles.container}>
@@ -64,5 +64,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FrmVerDatosPrestamo;
+export default VerDatosCredito_Screen;
 

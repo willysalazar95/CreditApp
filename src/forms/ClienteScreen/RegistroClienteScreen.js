@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
-import { Persona } from "../../clases/Persona";
-const RegistroScreen = () => {
+import Persona from "../../clases/Persona";
+import moment from "moment";
+
+const RegistroClienteScreen = () => {
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -9,10 +11,10 @@ const RegistroScreen = () => {
   const [telefono, setTelefono] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
 
-  const handleGuardar = async () => {
+  const handleGuardar = () => {
     try {
       const persona = new Persona();
-      const response = await persona.registerPersona(
+      const response = persona.registerPersona(
         dni,
         nombre,
         apellido,
@@ -77,7 +79,7 @@ const RegistroScreen = () => {
         <Text style={styles.label}>Fecha de Nacimiento</Text>
         <TextInput
           style={styles.input}
-          value={fechaNacimiento}
+          value={moment(fechaNacimiento, "DD/MM/YYYY").format("YYYY-MM-DD")}
           onChangeText={setFechaNacimiento}
           placeholder="DD/MM/AAAA"
           keyboardType="numeric"
@@ -120,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegistroScreen;
+export default RegistroClienteScreen;
