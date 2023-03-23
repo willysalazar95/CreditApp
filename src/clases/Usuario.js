@@ -9,7 +9,7 @@ export class Usuario {
 	nTipoUsuario;
 
 	async loginUser(username, password) {
-		const BASE_URL = "http://aagc.somee.com/api/Usuarios/";
+		const BASE_URL = "http://willy95.somee.com/api/Usuarios/";
 
 		try {
 			const response = await axios.get(BASE_URL + "Login", {
