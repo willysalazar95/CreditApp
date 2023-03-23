@@ -4,7 +4,7 @@ import { useNavigation, CommonActions } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
 import { DatosCreditos } from "../../clases/DatosCreditos";
 
-const RegistrarPrestamo_Screen = ({ route }) => {
+const RegistrarCredito_Screen = ({ route }) => {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState("");
     const navigation = useNavigation();
@@ -189,5 +189,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegistrarPrestamo_Screen;
+export default RegistrarCredito_Screen;
 

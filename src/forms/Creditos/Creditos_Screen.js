@@ -12,7 +12,7 @@ import axios from "axios";
 import { Ionicons } from "react-native-vector-icons";
 import { DatosCreditos } from "../../clases/DatosCreditos";
 
-const Prestamo_Screen = () => {
+const Creditos_Screen = () => {
 
   const [data, setData] = useState([]);
   const navigation = useNavigation();
@@ -188,4 +188,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Prestamo_Screen;
+export default Creditos_Screen;

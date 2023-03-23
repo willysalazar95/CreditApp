@@ -5,12 +5,12 @@ import LoginScreen from "./src/forms/Login/LoginScreen";
 import DrawerScreen from "./src/forms/Home/DrawerScreen";
 import RegistroScreen from "./src/forms/ClienteScreen/FrmRegistroCliente";
 
-import PrestamoScreen from "./src/forms/Creditos/Prestamo_Screen";
+import PrestamoScreen from "./src/forms/Creditos/Creditos_Screen";
 import ListarClienteScreen from "./src/forms/ClienteScreen/ListarClienteScreen";
 import FrmRegistroCliente from "./src/forms/ClienteScreen/FrmRegistroCliente"
 import ModificarCliente from "./src/forms/ClienteScreen/FrmRegistroCliente";
-import FrmRegistrarPrestamo from "./src/forms/Creditos/RegistrarPrestamo_Screen";
-import PagarPrestamo from "./src/forms/Creditos/PagarPrestamo_Screen";
+import FrmRegistrarPrestamo from "./src/forms/Creditos/RegistrarCredito_Screen";
+import PagarPrestamo from "./src/forms/Creditos/PagarCredito_Screen";
 import ListarCronogramaScreen from "./src/forms/Creditos/ListarCronograma_Screen";
 import FrmVoucherPago from "./src/forms/Reportes/FrmVoucherPago";
 

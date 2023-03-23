@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 //import { useRoute } from "@react-navigation/native"; //aguego
 
 import HomeScreen from "./HomeScreen";
-import PrestamoScreen from "../Creditos/Prestamo_Screen";
+import Creditos_Screen from "../Creditos/Creditos_Screen";
 import PagoScreen from "../Pagos/PagoScreen";
 import CierreScreen from "../Cierre/CierreScreen";
 import FlexScreen from "../Flex/FlexScreen";
@@ -38,8 +38,8 @@ export default function DrawerScreen() {
         }}
       />
       <Drawer.Screen
-        name="Prestamo"
-        component={PrestamoScreen}
+        name="Creditos"
+        component={Creditos_Screen}
         options={{
           drawerIcon: ({ focused, color, size }) => (
             <Icon name="cash-outline" size={size} color={color} />
