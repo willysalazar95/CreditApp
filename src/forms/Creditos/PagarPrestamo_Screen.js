@@ -5,7 +5,7 @@ import { useNavigation   } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { DatosCreditos } from "../../clases/DatosCreditos";
 
-const FrmPagarPrestamo = ({ route }) => {
+const PagarPrestamo_Screen = ({ route }) => {
     const navigation = useNavigation();
 
     const [nIdCredito, SETnIdCredito] = useState("");
@@ -276,5 +276,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FrmPagarPrestamo;
+export default PagarPrestamo_Screen;
 

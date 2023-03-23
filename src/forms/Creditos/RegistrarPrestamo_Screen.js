@@ -4,17 +4,17 @@ import { useNavigation, CommonActions } from "@react-navigation/native";
 import { Picker } from '@react-native-picker/picker';
 import { DatosCreditos } from "../../clases/DatosCreditos";
 
-const FrmRegistrarPrestamo = ({ route }) => {
+const RegistrarPrestamo_Screen = ({ route }) => {
     const [options, setOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState("");
     const navigation = useNavigation();
 
     const [selectedValue, setSelectedValue] = useState("");
 
-    const [nIdPers, setNidPers] = useState("");
-    const [dni, setDni] = useState("");
-    const [nombre, setNombre] = useState("");
-    const [dFechaCred, SetFechaCredito] = useState("");
+    const [nIdPers, SETnIdPers] = useState("");
+    const [dni, SETcDNI] = useState("");
+    const [nombre, SETcNombre] = useState("");
+    const [dFechaCred, SETdFechaCredito] = useState("");
     const [nIdPeriodo, SetnIdPeriodo] = useState("");
     const [nMonto, SetnMonto] = useState("");
     const [nInteres, SetnInteres] = useState("");
@@ -32,9 +32,9 @@ const FrmRegistrarPrestamo = ({ route }) => {
     useEffect(() => {
         if (route.params && route.params.persona) {
             const persona = route.params.persona;
-            setNidPers(persona.nIdPers);
-            setDni(persona.cPersDNI);
-            setNombre(persona.cPersNombres);
+            SETnIdPers(persona.nIdPers);
+            SETcDNI(persona.cPersDNI);
+            SETcNombre(persona.cPersNombres);
         }
 
         ListarPeriodos();
@@ -43,7 +43,7 @@ const FrmRegistrarPrestamo = ({ route }) => {
 
     const GuardarCredito = async () => {
         const _dCred = new DatosCreditos();
-        const response = await _dCred.RegistroCredito(nIdPers, dFechaCred, nIdPeriodo, nMonto, nInteres, nCuotas);
+        const response = await _dCred.RegistroCredito(nIdPers, dFechaCred, selectedValue, nMonto, nInteres, nCuotas);
         if (response.success) {
             Alert.alert("OK", "Crédito registrado Correctamente!");
             navigation.goBack();
@@ -59,7 +59,7 @@ const FrmRegistrarPrestamo = ({ route }) => {
                 <TextInput
                     style={styles.input}
                     value={dni}
-                    onChangeText={setDni}
+                    onChangeText={SETcDNI}
                     keyboardType="text"
                 />
             </View>
@@ -68,7 +68,7 @@ const FrmRegistrarPrestamo = ({ route }) => {
                 <TextInput
                     style={styles.input}
                     value={nombre}
-                    onChangeText={setNombre}
+                    onChangeText={SETcNombre}
                 />
             </View>
             <View style={styles.inputContainer}>
@@ -76,7 +76,7 @@ const FrmRegistrarPrestamo = ({ route }) => {
                 <TextInput
                     style={styles.input}
                     value={dFechaCred}
-                    onChangeText={SetFechaCredito}
+                    onChangeText={SETdFechaCredito}
                 />
             </View>
             <View style={styles.inputContainer}>
@@ -189,5 +189,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default FrmRegistrarPrestamo;
+export default RegistrarPrestamo_Screen;
 

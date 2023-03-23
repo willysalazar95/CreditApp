@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 //import { useRoute } from "@react-navigation/native"; //aguego
 
 import HomeScreen from "./HomeScreen";
-import PrestamoScreen from "../Prestamo/PrestamoScreen";
+import PrestamoScreen from "../Creditos/Prestamo_Screen";
 import PagoScreen from "../Pagos/PagoScreen";
 import CierreScreen from "../Cierre/CierreScreen";
 import FlexScreen from "../Flex/FlexScreen";
