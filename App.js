@@ -3,7 +3,6 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import LoginScreen from "./src/forms/Login/LoginScreen";
 import DrawerScreen from "./src/forms/Home/DrawerScreen";
-import RegistroScreen from "./src/forms/Registro/RegistroScreen";
 import PrestamoScreen from "./src/forms/Creditos/Prestamo_Screen";
 import ListarClienteScreen from "./src/forms/ClienteScreen/ListarClienteScreen";
 import FrmRegistroCliente from "./src/forms/ClienteScreen/FrmRegistroCliente"
