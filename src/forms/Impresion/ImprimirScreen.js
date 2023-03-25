@@ -16,31 +16,6 @@ const ImprimirScreen = () => {
 			text: "Reporte de Créditos",
 			pantalla: PantallaReporteCredito,
 		},
-		{
-			position: 1,
-			text: "Reporte de Créditos 2 ",
-			pantalla: PantallaReporteCredito,
-		},
-		{
-			position: 2,
-			text: "Reporte de Créditos 3",
-			pantalla: PantallaReporteCredito,
-		},
-		{
-			position: 3,
-			text: "Reporte de Créditos 4",
-			pantalla: PantallaReporteCredito,
-		},
-		{
-			position: 4,
-			text: "Reporte de Créditos 5",
-			pantalla: PantallaReporteCredito,
-		},
-		{
-			position: 5,
-			text: "Reporte de Créditos 6",
-			pantalla: PantallaReporteCredito,
-		},
 	];
 
 	const renderItem = ({ item }) => {
