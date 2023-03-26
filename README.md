@@ -1,29 +1,48 @@
 # CreditApp
 
-# Proyecto de practica para aprender React en colaboracion.
+### Iniciar el proyecto de manera LOCAL:
 
-#Referencias del proyecto (Necesarias para levantar el proyecto)
+#### 1. Primer paso:
 
-#Instalar las siguiente: ->>
+Descarga todas las dependencias de el archivo package.json
 
-npm install -g expo-cli
+```bash
+  npm install
+```
 
-npm install --save react-native-vector-icons
+#### 2. Segundo paso:
 
-========== willy 2023-02-28 ==========
-yarn add formik
-npm install --save expo-sqlite@11.0.0
+Ejecuta la aplicacion
 
-npm install react-native-datepicker --save
+```bash
+  expo start
+```
 
-npm install sweetalert2
-npm install react-native-modalbox
+puedes escoger entre estas opciones de expo:
 
-npm install react-native-platform-touchable
+| key | emulador  |
+| :-- | :-------- |
+| `a` | `android` |
+| `i` | `ios`     |
 
-========== willy 2023-03-14 ==========
-npm install react-native-maps --save
-npx expo install react-native-maps@1.3.2 =======================recomendable
-yarn add moment
-npm install @react-native-community/datetimepicker --save
-========== willy 2023-03-14 ==========
+o simplemente puedes `escanear el codigo QR` con tu celular y te genera una vista previa directo en tu mobil
+
+### Generar APK en EXPO
+
+#### 1. Primer paso:
+
+Crea un nuevo proyect ID para poder compilar en EXPO
+
+```bash
+  eas init
+```
+
+#### 2. Segundo paso:
+
+Enlaza tu proyecto local con expo web para generar el apk
+
+```bash
+  eas build
+```
+
+y escoges la plataforma de android
