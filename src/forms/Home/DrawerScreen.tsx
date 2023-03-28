@@ -1,8 +1,6 @@
 import React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Icon from "react-native-vector-icons/Ionicons";
-//import { useRoute } from "@react-navigation/native"; //aguego
-
 import HomeScreen from "./HomeScreen";
 import Creditos_Screen from "../Creditos/Creditos_Screen";
 import PagoScreen from "../Pagos/PagoScreen";
@@ -15,8 +13,6 @@ import ListarClienteScreen from "../ClienteScreen/ListarClienteScreen";
 const Drawer = createDrawerNavigator();
 
 export default function DrawerScreen() {
-	// const route = useRoute(); //aguego
-	//const cUsuario = route.params?.cUsuario; //aguego
 	return (
 		<Drawer.Navigator initialRouteName="Home">
 			<Drawer.Screen

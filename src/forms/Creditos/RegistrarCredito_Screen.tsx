@@ -7,18 +7,18 @@ import {
 	TouchableOpacity,
 	Alert,
 } from "react-native";
-import { useNavigation, CommonActions } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { Creditos } from "../../clases/Creditos";
 
-const RegistrarCredito_Screen = ({ route }) => {
+const RegistrarCredito_Screen = ({ route }: any) => {
 	const [options, setOptions] = useState([]);
 	const [selectedOption, setSelectedOption] = useState("");
 	const navigation = useNavigation();
 
-	const [selectedValue, setSelectedValue] = useState("");
+	const [selectedValue, setSelectedValue] = useState(0);
 
-	const [nIdPers, SETnIdPers] = useState("");
+	const [nIdPers, SETnIdPers] = useState(0);
 	const [dni, SETcDNI] = useState("");
 	const [nombre, SETcNombre] = useState("");
 	const [dFechaCred, SETdFechaCredito] = useState("");
@@ -48,15 +48,22 @@ const RegistrarCredito_Screen = ({ route }) => {
 	}, [route.params]);
 
 	const GuardarCredito = async () => {
-		const _dCred = new Creditos();
-		const response = await _dCred.RegistroCredito(
+		const _dCred = new Creditos(
+			0,
 			nIdPers,
 			dFechaCred,
 			selectedValue,
-			nMonto,
-			nInteres,
-			nCuotas
+			parseFloat(nMonto ? "0" : nMonto),
+			parseFloat(nInteres ? "0" : nMonto),
+			0,
+			parseFloat(nCuotas ? "0" : nMonto),
+			"",
+			0,
+			0,
+			0,
+			0
 		);
+		const response = await _dCred.RegistroCredito();
 		if (response.success) {
 			Alert.alert("OK", "Crédito registrado Correctamente!");
 			navigation.goBack();
@@ -73,7 +80,7 @@ const RegistrarCredito_Screen = ({ route }) => {
 					style={styles.input}
 					value={dni}
 					onChangeText={SETcDNI}
-					keyboardType="text"
+					keyboardType="number-pad"
 				/>
 			</View>
 			<View style={styles.inputContainer}>
@@ -95,7 +102,7 @@ const RegistrarCredito_Screen = ({ route }) => {
 					onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
 				>
 					{/* <Picker.Item label="--Selecciona--" value="" /> */}
-					{options.map((item, index) => {
+					{options.map((item: any, index) => {
 						return (
 							<Picker.Item
 								label={item.cDescripcion}
@@ -108,7 +115,12 @@ const RegistrarCredito_Screen = ({ route }) => {
 			</View>
 			<View style={styles.inputContainer}>
 				<Text style={styles.label}>Monto:</Text>
-				<TextInput style={styles.input} value={nMonto} onChangeText={SetnMonto} />
+				<TextInput
+					style={styles.input}
+					value={nMonto}
+					onChangeText={SetnMonto}
+					keyboardType="decimal-pad"
+				/>
 			</View>
 			<View style={styles.inputContainer}>
 				<Text style={styles.label}>Interes:</Text>
@@ -116,11 +128,17 @@ const RegistrarCredito_Screen = ({ route }) => {
 					style={styles.input}
 					value={nInteres}
 					onChangeText={SetnInteres}
+					keyboardType="decimal-pad"
 				/>
 			</View>
 			<View style={styles.inputContainer}>
 				<Text style={styles.label}>Cuotas:</Text>
-				<TextInput style={styles.input} value={nCuotas} onChangeText={SetnCuotas} />
+				<TextInput
+					style={styles.input}
+					value={nCuotas}
+					onChangeText={SetnCuotas}
+					keyboardType="decimal-pad"
+				/>
 			</View>
 
 			<TouchableOpacity style={styles.button} onPress={GuardarCredito}>
@@ -131,9 +149,6 @@ const RegistrarCredito_Screen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-	},
 	buttonText: {
 		color: "#FFF",
 		fontSize: 18,

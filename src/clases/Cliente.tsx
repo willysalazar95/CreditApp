@@ -2,9 +2,50 @@ import axios from "axios";
 import { configData } from "../../config";
 
 class Cliente {
+	private nClieID: number;
+	private cClieDNI: string;
+	private cClieNombres: string;
+
+	get cClieNombresGet(): string {
+		return this.cClieNombres;
+	}
+
+	set cClieNombresSet(value: string) {
+		this.cClieNombres = value;
+	}
+
+	private cClieApellidos: string;
+	private cClieDireccion: string;
+	private cClieTelefono: string;
+	private cClieFechNac: string;
+	private dClieFechaCreacion: string;
+	private nClieEstado: number;
+
+	constructor(
+		nClieID: number = 0,
+		cClieDNI: string = "",
+		cClieNombres: string = "",
+		cClieApellidos: string = "",
+		cClieDireccion: string = "",
+		cClieTelefono: string = "",
+		cClieFechNac: string = "",
+		dClieFechaCreacion: string = "",
+		nClieEstado: number = 0
+	) {
+		this.nClieID = nClieID;
+		this.cClieDNI = cClieDNI;
+		this.cClieNombres = cClieNombres;
+		this.cClieApellidos = cClieApellidos;
+		this.cClieDireccion = cClieDireccion;
+		this.cClieTelefono = cClieTelefono;
+		this.cClieFechNac = cClieFechNac;
+		this.dClieFechaCreacion = dClieFechaCreacion;
+		this.nClieEstado = nClieEstado;
+	}
+
 	static url = `${configData.API_URL}/api/clientes`;
 
-	async ListarPersonas() {
+	async ListarCliente() {
 		const BASE_URL = `${Cliente.url}/ListarClientes`;
 		try {
 			const response = await axios.get(BASE_URL);
@@ -16,30 +57,23 @@ class Cliente {
 			} else {
 				return { success: false, error: "Datos incorrectos" };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}
 
-	async RegistroPersona(
-		cPersDNI,
-		cPersNombres,
-		cPersApellidos,
-		cPersDireccion,
-		cPersTelefono,
-		cPersFechNac
-	) {
+	async RegistrarCliente() {
 		const BASE_URL = `${Cliente.url}/RegistrarClientes`;
 		try {
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
 				params: {
-					cPersDNI: cPersDNI,
-					cPersNombres: cPersNombres,
-					cPersApellidos: cPersApellidos,
-					cPersDireccion: cPersDireccion,
-					cPersTelefono: cPersTelefono,
+					cPersDNI: this.cClieDNI,
+					cPersNombres: this.cClieNombres,
+					cPersApellidos: this.cClieApellidos,
+					cPersDireccion: this.cClieDireccion,
+					cPersTelefono: this.cClieTelefono,
 					cPersFechNac: "20230101",
 				},
 				headers: {
@@ -58,32 +92,24 @@ class Cliente {
 			} else {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}
 
-	async ActualizarPersona(
-		nIdPers,
-		cPersDNI,
-		cPersNombres,
-		cPersApellidos,
-		cPersDireccion,
-		cPersTelefono,
-		cPersFechNac
-	) {
+	async ActualizarCliente() {
 		const BASE_URL = `${Cliente.url}/ActualizarClientes`;
 		try {
 			const response = await axios({
 				method: "put",
 				url: BASE_URL,
 				params: {
-					nIdPers: nIdPers,
-					cPersDNI: cPersDNI,
-					cPersNombres: cPersNombres,
-					cPersApellidos: cPersApellidos,
-					cPersDireccion: cPersDireccion,
-					cPersTelefono: cPersTelefono,
+					nIdPers: this.nClieID,
+					cPersDNI: this.cClieDNI,
+					cPersNombres: this.cClieNombres,
+					cPersApellidos: this.cClieApellidos,
+					cPersDireccion: this.cClieDireccion,
+					cPersTelefono: this.cClieTelefono,
 					cPersFechNac: "2023-01-01",
 					nEstado: 1,
 				},
@@ -103,12 +129,12 @@ class Cliente {
 			} else {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}
 
-	async EliminarPersona(nIdPers) {
+	async EliminarCliente() {
 		const BASE_URL = `${Cliente.url}/EliminarCliente`;
 
 		try {
@@ -116,7 +142,7 @@ class Cliente {
 				method: "delete",
 				url: BASE_URL,
 				params: {
-					codigo: nIdPers,
+					codigo: this.nClieID,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -134,7 +160,7 @@ class Cliente {
 			} else {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}

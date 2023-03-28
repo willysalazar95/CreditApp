@@ -8,13 +8,18 @@ import {
 	View,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import axios from "axios";
-import { Ionicons } from "react-native-vector-icons";
+
 import { Creditos } from "../../clases/Creditos";
+import { Cliente } from "../../clases/Cliente";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../App";
+// import { Icon } from "react-native-vector-icons/Icon";
+
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const Creditos_Screen = () => {
 	const [data, setData] = useState([]);
-	const navigation = useNavigation();
+	const navigation = useNavigation<homeScreenProp>();
 	const [query, setQuery] = useState("");
 
 	const ListarCreditos = async () => {
@@ -26,8 +31,8 @@ const Creditos_Screen = () => {
 	const BuscarCreditos = async () => {
 		const _Dat = new Creditos();
 		const response = await _Dat.ListarCreditos();
-		const filteredData = response.data.filter((item) => {
-			return item.cPersNombre.toLowerCase().includes(query.toLowerCase());
+		const filteredData = response.data.filter((item: Cliente) => {
+			return item.cClieNombresGet.toLowerCase().includes(query.toLowerCase());
 		});
 		setData(filteredData);
 		setQuery("");
@@ -43,7 +48,7 @@ const Creditos_Screen = () => {
 		}, [])
 	);
 
-	const renderItem = ({ item }) => {
+	const renderItem = ({ item }: any) => {
 		const PagarCredito = () => {
 			navigation.navigate("PagarPrestamo", { credito: item });
 		};
@@ -73,29 +78,24 @@ const Creditos_Screen = () => {
 	};
 
 	const SelecClienteNuevoCredito = () => {
-		navigation.navigate("ListarPersonas", { Opcion: 2 });
+		navigation.navigate("ListarPersonas", { opcion: 2 });
 	};
 
 	return (
 		<View style={styles.container}>
 			<View style={styles.searchContainer}>
 				<View style={styles.inputContainer}>
-					<TextInput
-						style={styles.input}
-						placeholder="Buscar"
-						value={query}
-						onChangeText={setQuery}
-					/>
+					<TextInput placeholder="Buscar" value={query} onChangeText={setQuery} />
 				</View>
 				<TouchableOpacity style={styles.buttonSearch} onPress={BuscarCreditos}>
-					<Ionicons name="search-outline" size={24} color="#FFF" />
+					{/* <Icon name="user" size={24} color="#FFF" /> */}
 				</TouchableOpacity>
 			</View>
 			<FlatList
 				style={{ width: "100%" }}
 				data={data}
 				renderItem={renderItem}
-				keyExtractor={(item) => item.nIdPrestamo}
+				keyExtractor={(item, index) => index.toString()}
 			/>
 			<TouchableOpacity style={styles.button} onPress={SelecClienteNuevoCredito}>
 				<Text style={styles.text}>+</Text>

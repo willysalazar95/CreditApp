@@ -1,7 +1,53 @@
 import axios from "axios";
+import { Double } from "react-native/Libraries/Types/CodegenTypes";
 import { configData } from "../../config";
+
 export class Creditos {
+	private nCredID: number;
+	private nClieID: number;
+	private dCredFechaPrest: string;
+	private nPerID: number;
+	private nCredMonto: Double;
+	private nCredTasaInteres: Double;
+	private nCredMontoInteres: Double;
+	private nCredNroCuotas: Double;
+	private dCredFechaFin: string;
+	private nCredMontoPagado: Double;
+	private nCredMontoDeuda: Double;
+	private nCredPorcentajeDeuda: Double;
+	private nEstID: number;
+
 	static url = `${configData.API_URL}/api/Credito`;
+
+	constructor(
+		nCredID: number = 0,
+		nClieID: number = 0,
+		dCredFechaPrest: string = "",
+		nPerID: number = 0,
+		nCredMonto: Double = 0,
+		nCredTasaInteres: Double = 0,
+		nCredMontoInteres: Double = 0,
+		nCredNroCuotas: Double = 0,
+		dCredFechaFin: string = "",
+		nCredMontoPagado: Double = 0,
+		nCredMontoDeuda: Double = 0,
+		nCredPorcentajeDeuda: Double = 0,
+		nEstID: number = 0
+	) {
+		this.nCredID = nCredID;
+		this.nClieID = nClieID;
+		this.dCredFechaPrest = dCredFechaPrest;
+		this.nPerID = nPerID;
+		this.nCredMonto = nCredMonto;
+		this.nCredTasaInteres = nCredTasaInteres;
+		this.nCredMontoInteres = nCredMontoInteres;
+		this.nCredNroCuotas = nCredNroCuotas;
+		this.dCredFechaFin = dCredFechaFin;
+		this.nCredMontoPagado = nCredMontoPagado;
+		this.nCredMontoDeuda = nCredMontoDeuda;
+		this.nCredPorcentajeDeuda = nCredPorcentajeDeuda;
+		this.nEstID = nEstID;
+	}
 
 	async ListarCreditos() {
 		const BASE_URL = `${Creditos.url}/ListarCreditos`;
@@ -20,31 +66,24 @@ export class Creditos {
 			} else {
 				return { success: false, error: "Datos incorrectos" };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}
 
-	async RegistroCredito(
-		nIdPers,
-		dFechaCred,
-		nIdPeriodo,
-		nMonto,
-		nInteres,
-		nCuotas
-	) {
+	async RegistroCredito() {
 		const BASE_URL = `${Creditos.url}/RegistrarCredito`;
 		try {
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
 				params: {
-					nIdPers: nIdPers,
-					dFechaCred: dFechaCred,
-					nIdPeriodo: nIdPeriodo,
-					nMonto: nMonto,
-					nInteres: nInteres,
-					nCuotas: nCuotas,
+					nIdPers: this.nCredID,
+					dFechaCred: this.dCredFechaPrest,
+					nIdPeriodo: this.nPerID,
+					nMonto: this.nCredMonto,
+					nInteres: this.nCredMontoInteres,
+					nCuotas: this.nCredNroCuotas,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -62,20 +101,20 @@ export class Creditos {
 			} else {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}
 
-	async RegistroCreditoPago(nIdCredigo, nMonto) {
+	async RegistroCreditoPago() {
 		const BASE_URL = `${Creditos.url}/RegistrarCreditoPago`;
 		try {
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
 				params: {
-					nIdCredigo: nIdCredigo,
-					nMonto: nMonto,
+					nIdCredigo: this.nCredID,
+					nMonto: this.nCredMonto,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -93,7 +132,7 @@ export class Creditos {
 			} else {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}
@@ -110,7 +149,7 @@ export class Creditos {
 			} else {
 				return { success: false, error: "Datos incorrectos" };
 			}
-		} catch (error) {
+		} catch (error: any) {
 			return { success: false, error: error.message };
 		}
 	}

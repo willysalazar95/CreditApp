@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from "./src/forms/Login/LoginScreen";
+
 import DrawerScreen from "./src/forms/Home/DrawerScreen";
 import RegistroScreen from "./src/forms/ClienteScreen/FrmRegistroCliente";
 
@@ -14,31 +14,68 @@ import PagarPrestamo from "./src/forms/Creditos/PagarCredito_Screen";
 import ListarCronogramaScreen from "./src/forms/Creditos/ListarCronograma_Screen";
 import FrmVoucherPago from "./src/forms/Reportes/FrmVoucherPago";
 import { ReporteCreditos } from "./src/forms/Impresion/ReporteCreditos";
+import { LoginScreen } from "./src/forms/Login/LoginScreen";
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+	Login: undefined;
+	Register: undefined;
+	DrawerScreen: undefined;
+	Prestamos: undefined;
+	// RegistrarPersona: { item: any };
+	RegistrarPrestamo: { item: any };
+	RegistroPersona: undefined;
+	PagarPrestamo: { credito: any };
+	VoucherPago: {
+		userNombres: any;
+		userMontoPagar: any;
+		MontPagar: any;
+	};
+	ListarPersonas: { opcion: any };
+	ModificarPersona: { item: any };
+	ListarCronograma: undefined;
+	ReporteCreditos: undefined;
+
+	// Profile: { userId: string };
+	// Feed: { sort: 'latest' | 'top' } | undefined;
+};
+
+// const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				<Stack.Screen name="login" component={LoginScreen} />
-				<Stack.Screen name="register" component={RegistroScreen} />
+				<Stack.Screen
+					name="Login"
+					component={LoginScreen}
+					options={{ title: "Login" }}
+				/>
+				<Stack.Screen name="Register" component={RegistroScreen} />
 				<Stack.Screen
 					name="DrawerScreen"
 					component={DrawerScreen}
 					options={{
-						headerLeft: null, // establece el botón de retroceso como nulo
+						// headerLeft?, // establece el botón de retroceso como nulo
 						headerShown: false,
 					}}
 				/>
-				<Stack.Screen name="prestamos" component={PrestamoScreen} />
+				<Stack.Screen name="Prestamos" component={PrestamoScreen} />
 				<Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
 				<Stack.Screen name="PagarPrestamo" component={PagarPrestamo} />
 				<Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
 
 				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
-				<Stack.Screen name="RegistroPersona" component={FrmRegistroCliente} />
-				<Stack.Screen name="ModificarPersona" component={ModificarCliente} />
+				<Stack.Screen
+					name="RegistroPersona"
+					component={FrmRegistroCliente}
+					options={{ title: "Registro de Persona" }}
+				/>
+				<Stack.Screen
+					name="ModificarPersona"
+					component={ModificarCliente}
+					options={{ title: "Modifica Persona" }}
+				/>
 				<Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} />
 				<Stack.Screen name="ReporteCreditos" component={ReporteCreditos} />
 			</Stack.Navigator>

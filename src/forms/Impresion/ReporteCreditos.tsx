@@ -38,7 +38,6 @@ export const ReporteCreditos = () => {
 		// On iOS/android prints the given html. On web prints the HTML from the current page.
 		await Print.printAsync({
 			html,
-			printerUrl: selectedPrinter?.url, // iOS only
 		});
 	};
 
@@ -52,7 +51,7 @@ export const ReporteCreditos = () => {
 	return (
 		<View style={styles.container}>
 			<Button title="Print" onPress={print} />
-			<View style={styles.spacer} />
+			<View />
 			<Button title="Print to PDF file" onPress={printToFile} />
 		</View>
 	);

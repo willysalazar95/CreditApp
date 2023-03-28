@@ -1,6 +1,6 @@
 # CreditApp
 
-### Iniciar el proyecto de manera LOCAL:
+### Iniciar el proyecto de forma local:
 
 #### 1. Primer paso:
 
@@ -25,7 +25,7 @@ puedes escoger entre estas opciones de expo:
 | `a` | `android` |
 | `i` | `ios`     |
 
-o simplemente puedes `escanear el codigo QR` con tu celular y te genera una vista previa directo en tu mobil
+o simplemente puedes `escanear el codigo QR` con tu celular y te genera automaticamente una vista previa
 
 ### Generar APK en EXPO
 

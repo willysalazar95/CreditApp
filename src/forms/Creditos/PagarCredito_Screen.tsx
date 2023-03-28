@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	StyleSheet,
 	Text,
 	TextInput,
 	Alert,
-	TouchableOpacity,
 	View,
 	ScrollView,
 } from "react-native";
@@ -12,15 +11,19 @@ import ResultCalculationsPago from "../../Components/ResultCalculationsPago";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Creditos } from "../../clases/Creditos";
+import { RootStackParamList } from "../../../App";
+import { StackNavigationProp } from "@react-navigation/stack";
 
-const PagarCredito_Screen = ({ route }) => {
-	const navigation = useNavigation();
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
-	const [nIdCredito, SETnIdCredito] = useState("");
+const PagarCredito_Screen = ({ route }: any) => {
+	const navigation = useNavigation<homeScreenProp>();
+
+	const [nIdCredito, SETnIdCredito] = useState(0);
 	const [cPersNombre, SETcPersNombre] = useState("");
 	const [nMontoPrestado, SETnMontoPrestado] = useState("");
 	const [nMontoInteres, SETnMontoInteres] = useState("");
-	const [nSaldoAnterior, SETnSaldoAnterior] = useState("");
+	const [nSaldoAnterior, SETnSaldoAnterior] = useState(0);
 	const [nNuevoSaldo, SETnNuevoSaldo] = useState(0);
 	const [nTotalCuotas, SETnTotalCuotas] = useState(0);
 
@@ -52,7 +55,7 @@ const PagarCredito_Screen = ({ route }) => {
 		navigation.goBack();
 	};
 
-	const CalcularNuevoSaldo = (text) => {
+	const CalcularNuevoSaldo = (text: string) => {
 		const nCantidad = parseFloat(text);
 		const nNuevoSaldo = isNaN(nCantidad) ? 0 : nSaldoAnterior - nCantidad;
 		SETnNuevoSaldo(nNuevoSaldo);
@@ -60,8 +63,22 @@ const PagarCredito_Screen = ({ route }) => {
 	};
 
 	const GuardarPago = async () => {
-		const _dCred = new Creditos();
-		const response = await _dCred.RegistroCreditoPago(nIdCredito, nMontoAPagar);
+		const _dCred = new Creditos(
+			nIdCredito,
+			0,
+			"",
+			0,
+			0,
+			0,
+			0,
+			0,
+			"",
+			nMontoAPagar,
+			0,
+			0,
+			0
+		);
+		const response = await _dCred.RegistroCreditoPago();
 		if (response.success) {
 			// Alert.alert("OK", "Crédito registrado Correctamente!");
 
@@ -126,7 +143,6 @@ const PagarCredito_Screen = ({ route }) => {
 								fontWeight: "bold",
 							}}
 							keyboardType="numeric"
-							name="nMontoPagar"
 							onChangeText={(text) => {
 								CalcularNuevoSaldo(text);
 							}}
@@ -204,20 +220,6 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		textAlign: "center",
 	},
-	boton1: {
-		width: "40%",
-		height: "100%",
-		backgroundColor: "#13A364",
-		marginLeft: "8%",
-		textAlign: "center",
-	},
-	boton2: {
-		width: "40%",
-		height: "100%",
-		backgroundColor: "#CD154A",
-		marginLeft: "10%",
-		textAlign: "center",
-	},
 
 	icon: {
 		position: "absolute",
@@ -265,7 +267,6 @@ const styles = StyleSheet.create({
 		shadowRadius: 3.84,
 		elevation: 2,
 		color: "gray",
-		paddingHorizontal: 30,
 	},
 
 	Picker2: {
@@ -308,7 +309,6 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		fontWeight: "bold",
 		marginBottom: 10,
-		textAlign: "center",
 	},
 });
 

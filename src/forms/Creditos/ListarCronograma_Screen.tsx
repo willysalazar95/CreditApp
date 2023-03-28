@@ -1,22 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-	FlatList,
-	StyleSheet,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View,
-} from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import {
-	Calendar,
-	CalendarList,
-	Agenda,
-	LocaleConfig,
-} from "react-native-calendars";
-import axios from "axios";
-import { Ionicons } from "react-native-vector-icons";
-import { Creditos } from "../../clases/Creditos";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { CalendarList } from "react-native-calendars";
 
 const ListarCronograma_Screen = () => {
 	const [data, setData] = useState([]);

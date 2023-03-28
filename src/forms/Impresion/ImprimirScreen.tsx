@@ -1,16 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
+import { ListRenderItem } from "react-native";
 import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { RootStackParamList } from "../../../App";
+
+interface Opciones {
+	position: number;
+	text: string;
+	pantalla: () => void;
+}
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const ImprimirScreen = () => {
-	const navigation = useNavigation();
+	const navigation = useNavigation<homeScreenProp>();
 
 	const PantallaReporteCredito = () => {
 		navigation.navigate("ReporteCreditos");
 	};
 
-	const opciones = [
+	const opciones: Opciones[] = [
 		{
 			position: 0,
 			text: "Reporte de Créditos",
@@ -18,7 +28,7 @@ const ImprimirScreen = () => {
 		},
 	];
 
-	const renderItem = ({ item }) => {
+	const renderItem: ListRenderItem<Opciones> = ({ item }) => {
 		return (
 			<TouchableOpacity style={styles.widget} onPress={() => item.pantalla()}>
 				<Icon name="print" size={50} color="#fff"></Icon>
@@ -32,7 +42,7 @@ const ImprimirScreen = () => {
 			style={styles.list}
 			data={opciones}
 			renderItem={renderItem}
-			keyExtractor={(item) => item.position}
+			keyExtractor={(item, index) => index.toString()}
 		/>
 	);
 };

@@ -10,27 +10,32 @@ import {
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Cliente } from "../../clases/Cliente";
-import { Ionicons } from "react-native-vector-icons";
+
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const ListarClienteScreen = ({ route }) => {
+import { RootStackParamList } from "../../../App";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
+
+const ListarClienteScreen = ({ route }: any) => {
 	const [personas, setPersonas] = useState([]);
 	const [query, setQuery] = useState("");
 	const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
 	const [isClienteCredito, setClienteCredito] = useState(false);
-	const navigation = useNavigation();
+	const navigation = useNavigation<homeScreenProp>();
 
 	const ListarPersonas = async () => {
 		const DatCliente = new Cliente();
-		const response = await DatCliente.ListarPersonas();
+		const response = await DatCliente.ListarCliente();
 		setPersonas(response.data);
 	};
 
 	const BuscarPersonas = async () => {
 		const DatCliente = new Cliente();
-		const response = await DatCliente.ListarPersonas();
-		const filteredData = response.data.filter((item) => {
-			return item.cClieNombres.toLowerCase().includes(query.toLowerCase());
+		const response = await DatCliente.ListarCliente();
+		const filteredData = response.data.filter((item: Cliente) => {
+			return item.cClieNombresGet.toLowerCase().includes(query.toLowerCase());
 		});
 		setPersonas(filteredData);
 	};
@@ -52,16 +57,16 @@ const ListarClienteScreen = ({ route }) => {
 		}, [])
 	);
 
-	const renderItem = ({ item }) => {
+	const renderItem = ({ item }: any) => {
 		const handleModificar = () => {
-			navigation.navigate("ModificarPersona", { persona: item });
+			navigation.navigate("ModificarPersona", { item });
 		};
 
-		const handleEliminar = (persona) => {
-			setPersonaSeleccionada(persona);
+		const handleEliminar = (cliente: any) => {
+			setPersonaSeleccionada(cliente);
 			Alert.alert(
 				"Eliminar persona",
-				`¿Está seguro de que desea eliminar a ${persona.cPersNombres} ${persona.cPersApellidos}?`,
+				`¿Está seguro de que desea eliminar a ${cliente.cPersNombres} ${cliente.cPersApellidos}?`,
 				[
 					{
 						text: "Cancelar",
@@ -71,8 +76,8 @@ const ListarClienteScreen = ({ route }) => {
 						text: "Eliminar",
 						style: "destructive",
 						onPress: async () => {
-							const DatCliente = new Cliente();
-							const response = await DatCliente.EliminarPersona(persona.nIdPers);
+							const DatCliente = new Cliente(cliente.nCLieID);
+							const response = await DatCliente.EliminarCliente();
 
 							if (response.success) {
 								Alert.alert("OK", "Eliminado " + "!!");
@@ -86,9 +91,9 @@ const ListarClienteScreen = ({ route }) => {
 			);
 		};
 
-		const handleSeleccionCliente = (persona) => {
+		const handleSeleccionCliente = (item: any) => {
 			if (isClienteCredito) {
-				navigation.navigate("RegistrarPrestamo", { persona: persona });
+				navigation.navigate("RegistrarPrestamo", { item });
 				// navigation.goBack();
 			}
 		};
@@ -118,7 +123,7 @@ const ListarClienteScreen = ({ route }) => {
 	};
 
 	const goToRegister = () => {
-		navigation.navigate("RegistroPersona");
+		// navigation.navigate("ModificarPersona");
 	};
 	// {isClienteCredito ? "Seleccione al cliente para el credito" : ""}
 	return (
@@ -133,7 +138,7 @@ const ListarClienteScreen = ({ route }) => {
 					/>
 				</View>
 				<TouchableOpacity style={styles.buttonSearch} onPress={BuscarPersonas}>
-					<Ionicons name="search-outline" size={24} color="#FFF" />
+					<Icon name="search" size={24} color="#FFF" />
 				</TouchableOpacity>
 			</View>
 
@@ -141,7 +146,7 @@ const ListarClienteScreen = ({ route }) => {
 				style={{ width: "100%" }}
 				data={personas}
 				renderItem={renderItem}
-				keyExtractor={(item) => item.nClieId}
+				keyExtractor={(item, index) => index.toString()}
 			/>
 
 			<TouchableOpacity style={styles.button} onPress={goToRegister}>
