@@ -98,20 +98,21 @@ class Cliente {
 	}
 
 	async ActualizarCliente() {
-		const BASE_URL = `${Cliente.url}/ActualizarClientes`;
+		const BASE_URL = `${Cliente.url}/ActualizarCliente`;
 		try {
 			const response = await axios({
 				method: "put",
 				url: BASE_URL,
 				params: {
-					nIdPers: this.nClieID,
-					cPersDNI: this.cClieDNI,
-					cPersNombres: this.cClieNombres,
-					cPersApellidos: this.cClieApellidos,
-					cPersDireccion: this.cClieDireccion,
-					cPersTelefono: this.cClieTelefono,
-					cPersFechNac: "2023-01-01",
-					nEstado: 1,
+					nClieID: this.nClieID,
+					cClieDNI: this.cClieDNI,
+					cClieNombres: this.cClieNombres,
+					cClieApellidos: this.cClieApellidos,
+					cClieDireccion: this.cClieDireccion,
+					cClieTelefono: this.cClieTelefono,
+					cClieFechNac: "2023-01-01",
+					// dClieFechaCreacion: Date().toString(),
+					nClieEstado: 1,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -120,6 +121,8 @@ class Cliente {
 				withCredentials: true,
 				responseType: "json",
 			});
+
+			console.log(response);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;

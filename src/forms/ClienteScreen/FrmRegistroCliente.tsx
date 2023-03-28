@@ -28,14 +28,16 @@ const FrmRegistroCliente = ({ route }: any) => {
 	const [showDatePicker, setShowDatePicker] = useState(false);
 
 	useEffect(() => {
-		if (route.params && route.params.persona) {
-			const persona = route.params.persona;
-			setNidPers(persona.nIdPers);
-			setDni(persona.cPersDNI);
-			setNombre(persona.cPersNombres);
-			setApellido(persona.cPersApellidos);
-			setDireccion(persona.cPersDireccion);
-			setTelefono(persona.cPersTelefono);
+		if (route.params && route.params.item) {
+			// console.log(route);
+
+			const persona = route.params.item;
+			setNidPers(persona.nClieID);
+			setDni(persona.cClieDNI);
+			setNombre(persona.cClieNombres);
+			setApellido(persona.cClieApellidos);
+			setDireccion(persona.cClieDireccion);
+			setTelefono(persona.cClieTelefono);
 			// setFechaNacimiento(persona.cPersFechNac);
 
 			setIsEditing(true);
