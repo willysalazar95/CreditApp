@@ -25,6 +25,7 @@ const Creditos_Screen = () => {
 	const ListarCreditos = async () => {
 		const _Dat = new Creditos();
 		const response = await _Dat.ListarCreditos();
+		console.log(response.data);
 		setData(response.data);
 	};
 
@@ -62,10 +63,8 @@ const Creditos_Screen = () => {
 		return (
 			<TouchableOpacity>
 				<View style={styles.cardBorder}>
+					<Text style={styles.cardTitle}>{item.cClieDescripcion}</Text>
 					<Text style={styles.cardTitle}>
-						{item.cClieNombre ?? "Nombre Apellido"}
-					</Text>
-					<Text>
 						S/ {item.nCredMonto} | {item.dCredFechaFin}
 					</Text>
 					<View style={styles.buttonsContainer}>
