@@ -66,7 +66,7 @@ const ListarClienteScreen = ({ route }: any) => {
 			setPersonaSeleccionada(cliente);
 			Alert.alert(
 				"Eliminar persona",
-				`¿Está seguro de que desea eliminar a ${cliente.cPersNombres} ${cliente.cPersApellidos}?`,
+				`¿Está seguro de que desea eliminar a ${cliente.cClieNombres} ${cliente.cClieApellidos}?`,
 				[
 					{
 						text: "Cancelar",
@@ -76,9 +76,9 @@ const ListarClienteScreen = ({ route }: any) => {
 						text: "Eliminar",
 						style: "destructive",
 						onPress: async () => {
-							const DatCliente = new Cliente(cliente.nCLieID);
+							const DatCliente = new Cliente(cliente.nClieID);
 							const response = await DatCliente.EliminarCliente();
-
+							
 							if (response.success) {
 								Alert.alert("OK", "Eliminado " + "!!");
 								ListarPersonas();
