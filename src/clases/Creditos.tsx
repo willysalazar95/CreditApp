@@ -57,6 +57,7 @@ export class Creditos {
 					nIdPers: 0,
 				},
 			});
+			console.log(response);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;

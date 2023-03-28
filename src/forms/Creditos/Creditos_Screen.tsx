@@ -31,8 +31,8 @@ const Creditos_Screen = () => {
 	const BuscarCreditos = async () => {
 		const _Dat = new Creditos();
 		const response = await _Dat.ListarCreditos();
-		const filteredData = response.data.filter((item: Cliente) => {
-			return item.cClieNombresGet.toLowerCase().includes(query.toLowerCase());
+		const filteredData = response.data.filter((item: any) => {
+			return (item.cClieNombre ?? "").toLowerCase().includes(query.toLowerCase());
 		});
 		setData(filteredData);
 		setQuery("");
@@ -49,6 +49,8 @@ const Creditos_Screen = () => {
 	);
 
 	const renderItem = ({ item }: any) => {
+		// console.log(item);
+
 		const PagarCredito = () => {
 			navigation.navigate("PagarPrestamo", { credito: item });
 		};
@@ -60,9 +62,11 @@ const Creditos_Screen = () => {
 		return (
 			<TouchableOpacity>
 				<View style={styles.cardBorder}>
-					<Text style={styles.cardTitle}>{item.cPersNombre}</Text>
+					<Text style={styles.cardTitle}>
+						{item.cClieNombre ?? "Nombre Apellido"}
+					</Text>
 					<Text>
-						S/ {item.nMonto} | {item.dFechaFin}
+						S/ {item.nCredMonto} | {item.dCredFechaFin}
 					</Text>
 					<View style={styles.buttonsContainer}>
 						<TouchableOpacity style={styles.buttonEdit} onPress={VerCronograma}>

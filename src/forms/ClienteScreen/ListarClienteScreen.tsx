@@ -34,8 +34,8 @@ const ListarClienteScreen = ({ route }: any) => {
 	const BuscarPersonas = async () => {
 		const DatCliente = new Cliente();
 		const response = await DatCliente.ListarCliente();
-		const filteredData = response.data.filter((item: Cliente) => {
-			return item.cClieNombresGet.toLowerCase().includes(query.toLowerCase());
+		const filteredData = response.data.filter((item: any) => {
+			return item.cClieNombres.toLowerCase().includes(query.toLowerCase());
 		});
 		setPersonas(filteredData);
 	};
@@ -123,7 +123,7 @@ const ListarClienteScreen = ({ route }: any) => {
 	};
 
 	const goToRegister = () => {
-		// navigation.navigate("ModificarPersona");
+		navigation.navigate("ModificarPersona");
 	};
 	// {isClienteCredito ? "Seleccione al cliente para el credito" : ""}
 	return (

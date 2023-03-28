@@ -31,7 +31,7 @@ export const LoginScreen = () => {
 		setIsLoading(false);
 
 		if (response.success) {
-			Alert.alert("OK", "Bienvenido " + response.data.cUsuario + "!!");
+			Alert.alert("OK", "Bienvenido " + response.data.cUsuUsuario + "!!");
 			//navigation.navigate("DrawerScreen", { cUsuario: response.data.cUsuario }); //aguego
 			navigation.navigate("DrawerScreen");
 		} else {

@@ -31,7 +31,7 @@ export type RootStackParamList = {
 		MontPagar: any;
 	};
 	ListarPersonas: { opcion: any };
-	ModificarPersona: { item: any };
+	ModificarPersona: { item: any } | undefined;
 	ListarCronograma: undefined;
 	ReporteCreditos: undefined;
 
