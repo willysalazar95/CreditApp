@@ -37,11 +37,11 @@ const RegistrarCredito_Screen = ({ route }: any) => {
 	};
 
 	useEffect(() => {
-		if (route.params && route.params.persona) {
-			const persona = route.params.persona;
-			SETnIdPers(persona.nIdPers);
-			SETcDNI(persona.cPersDNI);
-			SETcNombre(persona.cPersNombres);
+		if (route.params && route.params.item) {
+			const persona = route.params.item;
+			SETnIdPers(persona.nClieID);
+			SETcDNI(persona.cClieDNI);
+			SETcNombre(persona.cClieNombres);
 		}
 
 		ListarPeriodos();
@@ -53,10 +53,10 @@ const RegistrarCredito_Screen = ({ route }: any) => {
 			nIdPers,
 			dFechaCred,
 			selectedValue,
-			parseFloat(nMonto ? "0" : nMonto),
-			parseFloat(nInteres ? "0" : nMonto),
+			parseInt(nMonto),
+			parseInt(nInteres),
 			0,
-			parseFloat(nCuotas ? "0" : nMonto),
+			parseInt(nCuotas),
 			"",
 			0,
 			0,
@@ -105,8 +105,8 @@ const RegistrarCredito_Screen = ({ route }: any) => {
 					{options.map((item: any, index) => {
 						return (
 							<Picker.Item
-								label={item.cDescripcion}
-								value={item.nIdPeriodo}
+								label={item.cPerDescripcion}
+								value={item.nPerID}
 								key={index}
 							/>
 						);

@@ -4,7 +4,7 @@ import { configData } from "../../config";
 
 export class Creditos {
 	private nCredID: number;
-	private nClieID: number;
+	private nClienID: number;
 	private dCredFechaPrest: string;
 	private nPerID: number;
 	private nCredMonto: Double;
@@ -24,10 +24,10 @@ export class Creditos {
 		nClieID: number = 0,
 		dCredFechaPrest: string = "",
 		nPerID: number = 0,
-		nCredMonto: Double = 0,
-		nCredTasaInteres: Double = 0,
-		nCredMontoInteres: Double = 0,
-		nCredNroCuotas: Double = 0,
+		nCredMonto: number = 0,
+		nCredTasaInteres: number = 0,
+		nCredMontoInteres: number = 0,
+		nCredNroCuotas: number = 0,
 		dCredFechaFin: string = "",
 		nCredMontoPagado: Double = 0,
 		nCredMontoDeuda: Double = 0,
@@ -35,7 +35,7 @@ export class Creditos {
 		nEstID: number = 0
 	) {
 		this.nCredID = nCredID;
-		this.nClieID = nClieID;
+		this.nClienID = nClieID;
 		this.dCredFechaPrest = dCredFechaPrest;
 		this.nPerID = nPerID;
 		this.nCredMonto = nCredMonto;
@@ -57,7 +57,6 @@ export class Creditos {
 					nIdPers: 0,
 				},
 			});
-			console.log(response);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
@@ -79,11 +78,11 @@ export class Creditos {
 				method: "post",
 				url: BASE_URL,
 				params: {
-					nIdPers: this.nCredID,
+					nClienId: this.nClienID,
 					dFechaCred: this.dCredFechaPrest,
 					nIdPeriodo: this.nPerID,
 					nMonto: this.nCredMonto,
-					nInteres: this.nCredMontoInteres,
+					nInteres: this.nCredTasaInteres,
 					nCuotas: this.nCredNroCuotas,
 				},
 				headers: {

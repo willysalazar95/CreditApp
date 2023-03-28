@@ -25,7 +25,6 @@ const Creditos_Screen = () => {
 	const ListarCreditos = async () => {
 		const _Dat = new Creditos();
 		const response = await _Dat.ListarCreditos();
-		console.log(response.data);
 		setData(response.data);
 	};
 
