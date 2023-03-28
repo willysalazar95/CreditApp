@@ -69,12 +69,12 @@ class Cliente {
 				method: "post",
 				url: BASE_URL,
 				params: {
-					cPersDNI: this.cClieDNI,
-					cPersNombres: this.cClieNombres,
-					cPersApellidos: this.cClieApellidos,
-					cPersDireccion: this.cClieDireccion,
-					cPersTelefono: this.cClieTelefono,
-					cPersFechNac: "20230101",
+					cClieDNI: this.cClieDNI,
+					cClieNombres: this.cClieNombres,
+					cClieApellidos: this.cClieApellidos,
+					cClieDireccion: this.cClieDireccion,
+					cClieTelefono: this.cClieTelefono,
+					cClieFechNac: "20230101",
 				},
 				headers: {
 					"Content-Type": "application/json",
