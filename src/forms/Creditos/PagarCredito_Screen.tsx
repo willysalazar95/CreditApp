@@ -35,17 +35,17 @@ const PagarCredito_Screen = ({ route }: any) => {
 
 			let calcSaldoAnterior = 0;
 			calcSaldoAnterior =
-				credito.nMonto + credito.nMontoInteres - credito.nMontoPagado;
+				credito.nCredMonto + credito.nCredMontoInteres - credito.nCredMontoPagado;
 
-			SETcPersNombre(credito.cPersNombre);
-			SETnMontoPrestado(credito.nMonto);
+			SETcPersNombre(credito.cClieDescripcion);
+			SETnMontoPrestado(credito.nCredMonto);
 			SETnSaldoAnterior(calcSaldoAnterior);
-			SETnMontoInteres(credito.nMontoInteres);
-			SETnTotalCuotas(credito.nNroCuotas);
-			SETnIdCredito(credito.nIdPrestamo);
+			SETnMontoInteres(credito.nCredMontoInteres);
+			SETnTotalCuotas(credito.nCredNroCuotas);
+			SETnIdCredito(credito.nCredID);
 
 			let nMontoPag = 0;
-			nMontoPag = (credito.nMonto + credito.nMontoInteres) / credito.nNroCuotas;
+			nMontoPag = (credito.nCredMonto + credito.nCredMontoInteres) / credito.nCredNroCuotas;
 			SETnMontoAPagar(nMontoPag);
 			SETnNuevoSaldo(calcSaldoAnterior - nMontoPag);
 		}
@@ -80,8 +80,6 @@ const PagarCredito_Screen = ({ route }: any) => {
 		);
 		const response = await _dCred.RegistroCreditoPago();
 		if (response.success) {
-			// Alert.alert("OK", "Crédito registrado Correctamente!");
-
 			Alert.alert(
 				"Aviso",
 				"Pago guardado correctamente",
@@ -204,16 +202,18 @@ const styles = StyleSheet.create({
 	},
 
 	boton1: {
-		width: "5%",
-		height: "5%",
+		width: "40%",
+		height: "100%",
 		backgroundColor: "#13A364",
 		marginLeft: "0%",
+		textAlign:"center",
 	},
 	boton2: {
 		width: "40%",
 		height: "100%",
 		backgroundColor: "#CD154A",
 		marginLeft: "10%",
+		textAlign:"center",
 	},
 	buttonText: {
 		color: "#fff",

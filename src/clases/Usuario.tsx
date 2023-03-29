@@ -31,7 +31,7 @@ export class Usuario {
 		const BASE_URL = `${Usuario.url}/Login`;
 
 		try {
-			console.log(BASE_URL);
+			// console.log(BASE_URL);
 			const response = await axios.get(BASE_URL, {
 				params: {
 					cUsuario: this.cUsuUsuario,

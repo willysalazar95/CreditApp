@@ -142,7 +142,11 @@ const FrmRegistroCliente = ({ route }: any) => {
           <Text style={styles.TextLabel}>Fecha Nac:</Text>
           <TouchableOpacity onPress={() => setShowDatePicker(true)}>
             <Text style={styles.TextInput}>
-              {fechaNac.toLocaleDateString()}
+              {fechaNac.toLocaleDateString("es-ES", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+              })}
             </Text>
             {showDatePicker && (
               <DateTimePicker

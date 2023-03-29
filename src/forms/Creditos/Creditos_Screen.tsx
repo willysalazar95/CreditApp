@@ -51,8 +51,7 @@ const Creditos_Screen = () => {
   );
 
   const renderItem = ({ item }: any) => {
-    // console.log(item);
-
+  
     const PagarCredito = () => {
       navigation.navigate("PagarPrestamo", { credito: item });
     };
@@ -66,16 +65,14 @@ const Creditos_Screen = () => {
         <View style={styles.cardBorder}>
           <Text style={styles.cardTitle}>{item.cClieDescripcion}</Text>
           <Text style={styles.cardTitle}>
-            S/ {item.nCredMonto} | {item.dCredFechaFin}
+            S/ {item.nCredMonto} |  S/. {item.nCredMontoDeuda} {"\n"}
+            {item.dCredFechaFin.substring(0,10)}
           </Text>
           <View style={styles.buttonsContainer}>
             <TouchableOpacity style={styles.buttonEdit} onPress={VerCronograma}>
               <Text style={styles.buttonText}>Ver Datos</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonDelete}
-              onPress={PagarCredito}
-            >
+            <TouchableOpacity style={styles.buttonDelete} onPress={PagarCredito}>
               <Text style={styles.buttonText}>Realizar Pago</Text>
             </TouchableOpacity>
           </View>
@@ -170,6 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     marginTop: 10,
+    alignItems: "center",
   },
   buttonEdit: {
     backgroundColor: "rgb(12,177,234)",
