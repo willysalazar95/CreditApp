@@ -13,7 +13,6 @@ import { Creditos } from "../../clases/Creditos";
 import { Cliente } from "../../clases/Cliente";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
-// import { Icon } from "react-native-vector-icons/Icon";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -63,17 +62,19 @@ const Creditos_Screen = () => {
     return (
       <TouchableOpacity>
         <View style={styles.cardBorder}>
-          <Text style={styles.cardTitle}>{item.cClieDescripcion}</Text>
+          <Text style={styles.cardTitle}>{item.cClieDescripcion} {item.dCredFechaFin.substring(0,10)}</Text>
           <Text style={styles.cardTitle}>
-            S/ {item.nCredMonto} {"--> "}  S/. {item.nCredMontoDeuda} {"\n"}
-            {item.dCredFechaFin.substring(0,10)}
+            MONTO TOTAL S/. {item.nCredMontoDeuda} {"\n"}
+            PENDIENTE S/. {item.nCredMontoDeuda - item.nCredMontoPagado}
           </Text>
           <View style={styles.buttonsContainer}>
             <TouchableOpacity style={styles.buttonEdit} onPress={VerCronograma}>
-              <Text style={styles.buttonText}>Ver Datos</Text>
+              {/* <Text style={styles.buttonText}>Ver Datos</Text> */}
+              <Icon name="eye" size={25} color="white" />
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonDelete} onPress={PagarCredito}>
-              <Text style={styles.buttonText}>Realizar Pago</Text>
+              {/* <Text style={styles.buttonText}>Realizar Pago</Text> */}
+              <Icon name="money" size={25} color="white" />
             </TouchableOpacity>
           </View>
         </View>
@@ -171,14 +172,14 @@ const styles = StyleSheet.create({
   },
   buttonEdit: {
     backgroundColor: "rgb(12,177,234)",
-    borderRadius: 5,
-    padding: 5,
+    borderRadius: 10,
+    padding: 10,
     marginRight: 10,
   },
   buttonDelete: {
     backgroundColor: "#f00",
-    borderRadius: 5,
-    padding: 5,
+    borderRadius: 10,
+    padding: 10,
   },
   buttonText: {
     color: "#FFF",
