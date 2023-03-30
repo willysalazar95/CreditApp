@@ -15,7 +15,7 @@ Descarga todas las dependencias de el archivo package.json
 Ejecuta la aplicacion
 
 ```bash
-  expo start
+  npx expo start
 ```
 
 puedes escoger entre estas opciones de expo:

@@ -15,6 +15,8 @@ import ListarCronogramaScreen from "./src/forms/Creditos/ListarCronograma_Screen
 import FrmVoucherPago from "./src/forms/Reportes/FrmVoucherPago";
 import { ReporteCreditos } from "./src/forms/Impresion/ReporteCreditos";
 import { LoginScreen } from "./src/forms/Login/LoginScreen";
+import { ReportePagos } from "./src/forms/Impresion/ReportePagos";
+import { ReporteClientes } from "./src/forms/Impresion/ReporteClientes";
 
 export type RootStackParamList = {
 	Login: undefined;
@@ -34,6 +36,8 @@ export type RootStackParamList = {
 	ModificarPersona: { item: any } | undefined;
 	ListarCronograma: undefined;
 	ReporteCreditos: undefined;
+	ReportePagos: undefined;
+	ReporteClientes: undefined;
 
 	// Profile: { userId: string };
 	// Feed: { sort: 'latest' | 'top' } | undefined;
@@ -77,7 +81,22 @@ function App() {
 					options={{ title: "Modifica Persona" }}
 				/>
 				<Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} />
-				<Stack.Screen name="ReporteCreditos" component={ReporteCreditos} />
+				<Stack.Screen
+					name="ReporteCreditos"
+					component={ReporteCreditos}
+					options={{ title: "Reporte de Créditos" }}
+				/>
+				<Stack.Screen
+					name="ReportePagos"
+					component={ReportePagos}
+					options={{ title: "Reporte de Pagos" }}
+				/>
+
+				<Stack.Screen
+					name="ReporteClientes"
+					component={ReporteClientes}
+					options={{ title: "Reporte de Clientes" }}
+				/>
 			</Stack.Navigator>
 		</NavigationContainer>
 	);

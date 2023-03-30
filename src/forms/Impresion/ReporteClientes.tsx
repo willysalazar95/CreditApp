@@ -25,26 +25,18 @@ const html = `
     </style>
   </head>
   <body>
-    <h1>Reporte de Creditos</h1>
-	 <h2>Datos de Usuario</h2>
-	 <p>DNI:<span>000<span></p>
-	 <p>Nombre Completo:<span>Juan Perez<span></p>
-	 <p>Dirección:<span>Juan Perez<span></p>
-	 <p>Fecha Inicio:<span>01/01/2000<span></p>
-	 <p>Fecha Fin:<span>01/01/2000<span></p>
-	 <h2>Cuotas</h2>
+    <h1>Reporte de Clientes</h1>
     <table>
       <thead>
         <tr>
-          <th>Fecha Crédito</th>
-          <th>Monto</th>
-          <th>Tasa Interés</th>
-          <th>Monto Interés</th>
-          <th>Cuotas</th>
-			 <th>Fecha Fin</th>
-          <th>Pagado?</th>
-          <th>Deuda</th>
-          <th>% Deuda</th>
+          <th>DNI</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+          <th>Fecha de nacimiento</th>
+          <th>Estado</th>
+          <th>Fecha de creación</th>
         </tr>
       </thead>
       <tbody>
@@ -74,7 +66,7 @@ const html = `
 </html>
 `;
 
-export const ReporteCreditos = () => {
+export const ReporteClientes = () => {
 	const [fechIni, setFechIni] = useState(new Date());
 	const [fechFin, setFechFin] = useState(new Date());
 
