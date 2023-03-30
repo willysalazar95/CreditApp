@@ -65,7 +65,7 @@ const Creditos_Screen = () => {
         <View style={styles.cardBorder}>
           <Text style={styles.cardTitle}>{item.cClieDescripcion}</Text>
           <Text style={styles.cardTitle}>
-            S/ {item.nCredMonto} |  S/. {item.nCredMontoDeuda} {"\n"}
+            S/ {item.nCredMonto} {"--> "}  S/. {item.nCredMontoDeuda} {"\n"}
             {item.dCredFechaFin.substring(0,10)}
           </Text>
           <View style={styles.buttonsContainer}>
