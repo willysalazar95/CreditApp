@@ -30,7 +30,6 @@ const RegistrarCredito_Screen = ({ route }: any) => {
   const ListarPeriodos = async () => {
     const dCred = new Creditos();
     const DatosPeriodos = await dCred.ListarCreditosPeriodos();
-    console.log(DatosPeriodos.data);
     if (DatosPeriodos.success) {
       setOptions(DatosPeriodos.data);
     }
