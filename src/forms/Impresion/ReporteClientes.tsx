@@ -4,85 +4,131 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Cliente } from "../../clases/Cliente";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 
-const html = `
-<html>
-  <head>
-    <title>Ejemplo de tabla con HTML y CSS</title>
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-      th, td {
-        text-align: left;
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Reporte de Clientes</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>DNI</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Dirección</th>
-          <th>Teléfono</th>
-          <th>Fecha de nacimiento</th>
-          <th>Estado</th>
-          <th>Fecha de creación</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>12345678</td>
-          <td>Juan</td>
-          <td>Pérez</td>
-          <td>Calle 123</td>
-          <td>1234567</td>
-          <td>01/01/2000</td>
-          <td>Activo</td>
-          <td>01/01/2022</td>
-        </tr>
-        <tr>
-          <td>87654321</td>
-          <td>María</td>
-          <td>García</td>
-          <td>Avenida 456</td>
-          <td>7654321</td>
-          <td>15/05/1998</td>
-          <td>Inactivo</td>
-          <td>01/02/2022</td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
-`;
+let html = "";
+const fechaActual = new Date();
+const fecha1Enero = new Date(fechaActual.getFullYear(), 0, 1);
 
 export const ReporteClientes = () => {
-	const [fechIni, setFechIni] = useState(new Date());
+	const [fechIni, setFechIni] = useState(fecha1Enero);
 	const [fechFin, setFechFin] = useState(new Date());
+	const [usuID, setUsuID] = useState(1);
 
 	const [showDatePickerIni, setShowDatePickerIni] = useState(false);
 	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
 	const print = async () => {
+		await GenerarHTMLReporteCliente();
 		await Print.printAsync({
 			html,
 		});
 	};
 
-	const printToFile = async () => {
-		// On iOS/android prints the given html. On web prints the HTML from the current page.
-		const { uri } = await Print.printToFileAsync({ html });
-		console.log("File has been saved to:", uri);
-		await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+	// const printToFile = async () => {
+	// 	// On iOS/android prints the given html. On web prints the HTML from the current page.
+	// 	const { uri } = await Print.printToFileAsync({ html });
+	// 	console.log("File has been saved to:", uri);
+	// 	await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+	// };
+
+	const GenerarHTMLReporteCliente = async () => {
+		let cliente: Cliente = new Cliente();
+
+		let response = await cliente.ReporteClienteRango(
+			usuID,
+			convertirFechaAAAAMMDD(fechIni),
+			convertirFechaAAAAMMDD(fechFin)
+		);
+
+		const htmlCabecera = `
+		<html>
+			<head>
+				<title>Ejemplo de tabla con HTML y CSS</title>
+				<style>
+					table {
+						border-collapse: collapse;
+						width: 100%;
+						background-color: #f5f5f5;
+					}
+					thead tr {
+						background-color: #5cb85c;
+						color: #fff;
+					}
+					
+					th {
+						padding: 8px 2px;
+						border: 1px solid #ddd;
+						font-size: 0.7em;
+						font-weight: bold;
+						text-align: center;
+					}
+					
+					td {
+						padding: 8px 2px;
+						border: 1px solid #ddd;
+						font-size: 0.7em;
+					}
+					
+					tbody tr:nth-child(even) {
+						background-color: #e3e3e3;
+					}
+					
+					tbody tr:hover {
+						background-color: #ddd;
+					}
+					
+					.left {
+						text-align: left;
+					}
+					.right {
+						text-align: right;
+					}
+					.center {
+						text-align: center;
+					}
+				</style>
+			</head>
+			<body>
+				<h1>Reporte de Clientes</h1>
+				<table>
+					<thead>
+					<tr>
+						<th>Fecha de creación</th>
+						<th>DNI</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Dirección</th>
+						<th>Teléfono</th>
+						<th>Fecha de nacimiento</th>
+						<th>Estado</th>
+					</tr>
+					</thead>
+					<tbody>
+					`;
+		let html_dinamico: string = "";
+
+		response.data.forEach(function (element: any) {
+			html_dinamico =
+				html_dinamico +
+				`<tr>
+					<td class="center"> ${formatoFecha(element.dClieFechaCreacion)}</td>
+					<td class="right">${element.cClieDNI}</td>
+					<td class="left">${element.cClieNombres}</td>
+					<td class="left">${element.cClieApellidos}</td>
+					<td class="left">${element.cClieDireccion}</td>
+					<td class="rigth">${element.cClieTelefono}</td>
+					<td class="center">${formatoFecha(element.cClieFechNac)}</td>
+					<td class="center">${element.nClieEstado}</td>				
+				</tr>`;
+		});
+
+		const htmlPie = `	</tbody>
+							</table>
+						</body>
+					</html>`;
+
+		html = htmlCabecera + html_dinamico + htmlPie;
 	};
 
 	return (
@@ -90,13 +136,7 @@ export const ReporteClientes = () => {
 			<View>
 				<Text style={styles.TextLabel}>Fecha Inicio:</Text>
 				<TouchableOpacity onPress={() => setShowDatePickerIni(true)}>
-					<Text style={styles.TextInput}>
-						{fechIni.toLocaleDateString("es-ES", {
-							day: "2-digit",
-							month: "2-digit",
-							year: "numeric",
-						})}
-					</Text>
+					<Text style={styles.TextInput}>{formatoFecha(fechIni.toString())}</Text>
 					{showDatePickerIni && (
 						<DateTimePicker
 							value={fechIni}
@@ -114,13 +154,7 @@ export const ReporteClientes = () => {
 			<View>
 				<Text style={styles.TextLabel}>Fecha Fin:</Text>
 				<TouchableOpacity onPress={() => setShowDatePickerFin(true)}>
-					<Text style={styles.TextInput}>
-						{fechFin.toLocaleDateString("es-ES", {
-							day: "2-digit",
-							month: "2-digit",
-							year: "numeric",
-						})}
-					</Text>
+					<Text style={styles.TextInput}>{formatoFecha(fechFin.toString())}</Text>
 					{showDatePickerFin && (
 						<DateTimePicker
 							value={fechFin}

@@ -4,93 +4,145 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import {
+	convertirFechaAAAAMMDD,
+	formatoFecha,
+	formatoMonedaPeruana,
+} from "../../utils/utils";
+import { CreditoPago } from "../../clases/CreditoPago";
 
-const html = `
-<html>
-  <head>
-    <title>Ejemplo de tabla con HTML y CSS</title>
-    <style>
-      table {
-        border-collapse: collapse;
-        width: 100%;
-      }
-      th, td {
-        text-align: left;
-        padding: 8px;
-        border-bottom: 1px solid #ddd;
-      }
-      th {
-        background-color: #f2f2f2;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Reporte de Pagos</h1>
-	 <h2>Datos de Cliente</h2>
-	 <p>DNI:<span>000<span></p>
-	 <p>Nombre Completo:<span>Juan Perez<span></p>
-	 <p>Dirección:<span>Juan Perez<span></p>
-	 <p>Fecha Inicio:<span>01/01/2000<span></p>
-	 <p>Fecha Fin:<span>01/01/2000<span></p>
-	 <h2>Pagos</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha Crédito</th>
-          <th>Monto</th>
-          <th>Tasa Interés</th>
-          <th>Monto Interés</th>
-          <th>Cuotas</th>
-			 
-          <th>Pagado?</th>
-          <th>Deuda</th>
-          <th>% Deuda</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>12345678</td>
-          <td>Juan</td>
-          <td>Pérez</td>
-          <td>Calle 123</td>
-          <td>1234567</td>
-          <td>01/01/2000</td>
-          <td>Activo</td>
-          <td>01/01/2022</td>
-        </tr>
-        <tr>
-          <td>87654321</td>
-          <td>María</td>
-          <td>García</td>
-          <td>Avenida 456</td>
-          <td>7654321</td>
-          <td>15/05/1998</td>
-          <td>Inactivo</td>
-          <td>01/02/2022</td>
-        </tr>
-      </tbody>
-    </table>
-  </body>
-</html>
-`;
+let html = "";
+const fechaActual = new Date();
+const fecha1Enero = new Date(fechaActual.getFullYear(), 0, 1);
 
 export const ReportePagos = () => {
-	const [fechIni, setFechIni] = useState(new Date());
+	const [usuID, setUsuID] = useState(1);
+	const [fechIni, setFechIni] = useState(fecha1Enero);
 	const [fechFin, setFechFin] = useState(new Date());
 
 	const [showDatePickerIni, setShowDatePickerIni] = useState(false);
 	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
 	const print = async () => {
+		await GenerarHTMLReportCreditoPago();
 		await Print.printAsync({
 			html,
 		});
 	};
 
-	const printToFile = async () => {
-		// On iOS/android prints the given html. On web prints the HTML from the current page.
-		const { uri } = await Print.printToFileAsync({ html });
-		console.log("File has been saved to:", uri);
-		await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+	// const printToFile = async () => {
+	// 	// On iOS/android prints the given html. On web prints the HTML from the current page.
+	// 	const { uri } = await Print.printToFileAsync({ html });
+	// 	console.log("File has been saved to:", uri);
+	// 	await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+	// };
+	const GenerarHTMLReportCreditoPago = async () => {
+		let creditos: CreditoPago = new CreditoPago();
+
+		let response = await creditos.ReporteCreditoPagoRango(
+			usuID,
+			convertirFechaAAAAMMDD(fechIni),
+			convertirFechaAAAAMMDD(fechFin)
+		);
+
+		const htmlCabecera = `
+		<html>
+			<head>
+				<title>Ejemplo de tabla con HTML y CSS</title>
+				<style>
+					table {
+						border-collapse: collapse;
+						width: 100%;
+						background-color: #f5f5f5;
+					}
+					thead tr {
+						background-color: #5cb85c;
+						color: #fff;
+					}
+					 
+					th {
+						padding: 8px 2px;
+						border: 1px solid #ddd;
+						font-size: 0.7em;
+						font-weight: bold;
+						text-align: center;
+					}
+					
+					td {
+						padding: 8px 2px;
+						border: 1px solid #ddd;
+						font-size: 0.7em;
+					}
+					 
+					tbody tr:nth-child(even) {
+						background-color: #e3e3e3;
+					}
+					 
+					tbody tr:hover {
+						background-color: #ddd;
+					}
+					 
+					.left {
+						text-align: left;
+					}
+					.right {
+						text-align: right;
+					}
+					.center {
+						text-align: center;
+					}
+				</style>
+			</head>
+			<body>
+				<h1>Reporte de Creditos Pago</h1>
+				<h2>Datos de Cliente</h2>
+
+				<p>DNI: <span>${response.data[0].cliente.cClieDNI}<span></p>
+				<p>Nombre Completo: <span>${response.data[0].cliente.cClieNombres} ${
+			response.data[0].cliente.cClieApellidos
+		}<span></p>
+				<p>Dirección: <span>${response.data[0].cliente.cClieDireccion}<span></p>
+				<p>Teléfono: <span>${
+					response.data[0].cliente.cClieTelefono == null
+						? "000000000"
+						: response.data[0].cliente.cClieTelefono
+				}<span></p>
+			
+				<h2>Pagos</h2>
+				<table>
+					<thead>
+						<tr>
+							<th>Fecha Pago</th>
+							<th>Cuota</th>
+							<th>Monto</th>
+							<th>Estado</th>
+							<th>Comentario</th>
+						</tr>
+					</thead>
+					<tbody>
+					`;
+		let html_dinamico: string = "";
+
+		console.log(response);
+
+		response.data.forEach(function (element: any) {
+			html_dinamico =
+				html_dinamico +
+				`<tr>
+					<td class="center" >${formatoFecha(element.dPagFecha)}</td>
+					<td class="right">${element.nPagCuotas}</td>
+					<td class="right">${formatoMonedaPeruana(element.nPagMonto)}</td>
+					<td class="center">${element.nPagEstado == 1 ? "PAGADO" : "PENDIENTE"}</td>
+					<td class="right">${element.cPagComentario}</td>
+				
+				</tr>`;
+		});
+
+		const htmlPie = `	</tbody>
+							</table>
+						</body>
+					</html>`;
+
+		html = htmlCabecera + html_dinamico + htmlPie;
 	};
 
 	return (
@@ -98,13 +150,7 @@ export const ReportePagos = () => {
 			<View>
 				<Text style={styles.TextLabel}>Fecha Inicio:</Text>
 				<TouchableOpacity onPress={() => setShowDatePickerIni(true)}>
-					<Text style={styles.TextInput}>
-						{fechIni.toLocaleDateString("es-ES", {
-							day: "2-digit",
-							month: "2-digit",
-							year: "numeric",
-						})}
-					</Text>
+					<Text style={styles.TextInput}>{formatoFecha(fechIni.toString())}</Text>
 					{showDatePickerIni && (
 						<DateTimePicker
 							value={fechIni}
@@ -122,13 +168,7 @@ export const ReportePagos = () => {
 			<View>
 				<Text style={styles.TextLabel}>Fecha Fin:</Text>
 				<TouchableOpacity onPress={() => setShowDatePickerFin(true)}>
-					<Text style={styles.TextInput}>
-						{fechFin.toLocaleDateString("es-ES", {
-							day: "2-digit",
-							month: "2-digit",
-							year: "numeric",
-						})}
-					</Text>
+					<Text style={styles.TextInput}>{formatoFecha(fechFin.toString())}</Text>
 					{showDatePickerFin && (
 						<DateTimePicker
 							value={fechFin}

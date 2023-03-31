@@ -153,4 +153,41 @@ export class Creditos {
 			return { success: false, error: error.message };
 		}
 	}
+
+	async ReporteCreditoRango(
+		nUsuID: number,
+		dFechaIni: string,
+		dFechaFin: string
+	) {
+		const BASE_URL = `${Creditos.url}/ReporteCreditoRango`;
+
+		try {
+			const response = await axios({
+				method: "get",
+				url: BASE_URL,
+				params: {
+					nUsuID,
+					dFechaInicio: dFechaIni,
+					dFechaFin: dFechaFin,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+
+			if (Resp === 200) {
+				return { success: true, data: Lista };
+			} else {
+				return { success: false, error: "Datos incorrectos" };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
 }
