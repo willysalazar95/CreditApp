@@ -38,7 +38,7 @@ export class Usuario {
 					cClave: this.cUsuClave,
 				},
 			});
-			// console.log(response);
+
 			const Resp = response.data.code;
 			const Lista = response.data.data;
 

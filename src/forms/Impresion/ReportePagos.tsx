@@ -4,20 +4,18 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Creditos } from "../../clases/Creditos";
 import {
 	convertirFechaAAAAMMDD,
 	formatoFecha,
 	formatoMonedaPeruana,
-	formatoTelefonoConCodigo,
 } from "../../utils/utils";
+import { CreditoPago } from "../../clases/CreditoPago";
 
 let html = "";
-
 const fechaActual = new Date();
 const fecha1Enero = new Date(fechaActual.getFullYear(), 0, 1);
 
-export const ReporteCreditos = () => {
+export const ReportePagos = () => {
 	const [usuID, setUsuID] = useState(1);
 	const [fechIni, setFechIni] = useState(fecha1Enero);
 	const [fechFin, setFechFin] = useState(new Date());
@@ -25,14 +23,10 @@ export const ReporteCreditos = () => {
 	const [showDatePickerIni, setShowDatePickerIni] = useState(false);
 	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
 	const print = async () => {
-		await GenerarHTMLReportCredito();
-
-		const options = {
+		await GenerarHTMLReportCreditoPago();
+		await Print.printAsync({
 			html,
-			pageSize: "A4",
-		};
-
-		await Print.printAsync(options);
+		});
 	};
 
 	// const printToFile = async () => {
@@ -41,11 +35,10 @@ export const ReporteCreditos = () => {
 	// 	console.log("File has been saved to:", uri);
 	// 	await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
 	// };
+	const GenerarHTMLReportCreditoPago = async () => {
+		let creditos: CreditoPago = new CreditoPago();
 
-	const GenerarHTMLReportCredito = async () => {
-		let creditos: Creditos = new Creditos();
-
-		let response = await creditos.ReporteCreditoRango(
+		let response = await creditos.ReporteCreditoPagoRango(
 			usuID,
 			convertirFechaAAAAMMDD(fechIni),
 			convertirFechaAAAAMMDD(fechFin)
@@ -100,8 +93,8 @@ export const ReporteCreditos = () => {
 				</style>
 			</head>
 			<body>
-				<h1>Reporte de Creditos</h1>
-				<h2>Datos de Usuario</h2>
+				<h1>Reporte de Creditos Pago</h1>
+				<h2>Datos de Cliente</h2>
 
 				<p>DNI: <span>${response.data[0].cliente.cClieDNI}<span></p>
 				<p>Nombre Completo: <span>${response.data[0].cliente.cClieNombres} ${
@@ -114,19 +107,15 @@ export const ReporteCreditos = () => {
 						: response.data[0].cliente.cClieTelefono
 				}<span></p>
 			
-				<h2>Créditos</h2>
+				<h2>Pagos</h2>
 				<table>
 					<thead>
 						<tr>
-							<th>Fecha Crédito</th>
+							<th>Fecha Pago</th>
+							<th>Cuota</th>
 							<th>Monto</th>
-							<th>Tasa Interés</th>
-							<th>Monto Interés</th>
-							<th>Cuotas</th>
-							<th>Fecha Fin</th>
 							<th>Estado</th>
-							<th>Deuda</th>
-							<th>% Deuda</th>	
+							<th>Comentario</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -139,17 +128,12 @@ export const ReporteCreditos = () => {
 			html_dinamico =
 				html_dinamico +
 				`<tr>
-					<td class="center" >${formatoFecha(element.dCredFechaPrest)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMonto)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredTasaInteres)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMontoInteres)}</td>
-					<td class="right">${element.nCredNroCuotas}</td>
-					<td class="center">${formatoFecha(element.dCredFechaFin)}</td>
-					<td class="center">${
-						element.nCredMontoPagado == 1 ? "PAGADO" : "PENDIENTE"
-					}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMontoDeuda)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMontoDeuda)}</td>
+					<td class="center" >${formatoFecha(element.dPagFecha)}</td>
+					<td class="right">${element.nPagCuotas}</td>
+					<td class="right">${formatoMonedaPeruana(element.nPagMonto)}</td>
+					<td class="center">${element.nPagEstado == 1 ? "PAGADO" : "PENDIENTE"}</td>
+					<td class="right">${element.cPagComentario}</td>
+				
 				</tr>`;
 		});
 

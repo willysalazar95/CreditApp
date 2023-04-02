@@ -3,10 +3,12 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { ListRenderItem } from "react-native";
 import { FlatList, StyleSheet, Text, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/Ionicons";
 import { RootStackParamList } from "../../../App";
 
 interface Opciones {
+	icon: string;
+	backgroundColor: string;
 	position: number;
 	text: string;
 	pantalla: () => void;
@@ -20,19 +22,46 @@ const ImprimirScreen = () => {
 		navigation.navigate("ReporteCreditos");
 	};
 
+	const PantallaReportePagos = () => {
+		navigation.navigate("ReportePagos");
+	};
+
+	const PantallaReporteClientes = () => {
+		navigation.navigate("ReporteClientes");
+	};
+
 	const opciones: Opciones[] = [
 		{
+			icon: "person-outline",
+			backgroundColor: "#5cb85c",
+			position: 0,
+			text: "Reporte de Clientes",
+			pantalla: PantallaReporteClientes,
+		},
+		{
+			icon: "cash-outline",
+			backgroundColor: "#50E3C2",
 			position: 0,
 			text: "Reporte de Créditos",
 			pantalla: PantallaReporteCredito,
+		},
+		{
+			icon: "card-outline",
+			backgroundColor: "#9013FE",
+			position: 0,
+			text: "Reporte de Pagos",
+			pantalla: PantallaReportePagos,
 		},
 	];
 
 	const renderItem: ListRenderItem<Opciones> = ({ item }) => {
 		return (
-			<TouchableOpacity style={styles.widget} onPress={() => item.pantalla()}>
-				<Icon name="print" size={50} color="#fff"></Icon>
-				<Text>{item.text}</Text>
+			<TouchableOpacity
+				style={[styles.widget, { backgroundColor: item.backgroundColor }]}
+				onPress={() => item.pantalla()}
+			>
+				<Icon style={styles.icon} name={item.icon} size={50} color="#fff"></Icon>
+				<Text style={styles.title}>{item.text}</Text>
 			</TouchableOpacity>
 		);
 	};
@@ -53,19 +82,28 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		width: "100%",
 		padding: 20,
-		backgroundColor: "red",
 	},
 
 	widget: {
+		display: "flex",
+		flexDirection: "row",
 		borderStyle: "solid",
-		borderWidth: 1,
-		backgroundColor: "#5cb85c",
 		borderRadius: 20,
 		padding: 20,
 		marginBottom: 10,
+		elevation: 2,
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
 	},
 	title: {
-		color: "fff",
+		width: "80%",
+		color: "#fff",
+		fontSize: 20,
+		fontWeight: "bold",
+	},
+	icon: {
+		width: "20%",
 	},
 });
 export default ImprimirScreen;

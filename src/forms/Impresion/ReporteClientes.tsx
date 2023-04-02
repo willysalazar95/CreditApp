@@ -4,35 +4,25 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { Creditos } from "../../clases/Creditos";
-import {
-	convertirFechaAAAAMMDD,
-	formatoFecha,
-	formatoMonedaPeruana,
-	formatoTelefonoConCodigo,
-} from "../../utils/utils";
+import { Cliente } from "../../clases/Cliente";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 
 let html = "";
-
 const fechaActual = new Date();
 const fecha1Enero = new Date(fechaActual.getFullYear(), 0, 1);
 
-export const ReporteCreditos = () => {
-	const [usuID, setUsuID] = useState(1);
+export const ReporteClientes = () => {
 	const [fechIni, setFechIni] = useState(fecha1Enero);
 	const [fechFin, setFechFin] = useState(new Date());
+	const [usuID, setUsuID] = useState(1);
 
 	const [showDatePickerIni, setShowDatePickerIni] = useState(false);
 	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
 	const print = async () => {
-		await GenerarHTMLReportCredito();
-
-		const options = {
+		await GenerarHTMLReporteCliente();
+		await Print.printAsync({
 			html,
-			pageSize: "A4",
-		};
-
-		await Print.printAsync(options);
+		});
 	};
 
 	// const printToFile = async () => {
@@ -42,10 +32,10 @@ export const ReporteCreditos = () => {
 	// 	await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
 	// };
 
-	const GenerarHTMLReportCredito = async () => {
-		let creditos: Creditos = new Creditos();
+	const GenerarHTMLReporteCliente = async () => {
+		let cliente: Cliente = new Cliente();
 
-		let response = await creditos.ReporteCreditoRango(
+		let response = await cliente.ReporteClienteRango(
 			usuID,
 			convertirFechaAAAAMMDD(fechIni),
 			convertirFechaAAAAMMDD(fechFin)
@@ -65,7 +55,7 @@ export const ReporteCreditos = () => {
 						background-color: #5cb85c;
 						color: #fff;
 					}
-					 
+					
 					th {
 						padding: 8px 2px;
 						border: 1px solid #ddd;
@@ -79,15 +69,15 @@ export const ReporteCreditos = () => {
 						border: 1px solid #ddd;
 						font-size: 0.7em;
 					}
-					 
+					
 					tbody tr:nth-child(even) {
 						background-color: #e3e3e3;
 					}
-					 
+					
 					tbody tr:hover {
 						background-color: #ddd;
 					}
-					 
+					
 					.left {
 						text-align: left;
 					}
@@ -100,56 +90,36 @@ export const ReporteCreditos = () => {
 				</style>
 			</head>
 			<body>
-				<h1>Reporte de Creditos</h1>
-				<h2>Datos de Usuario</h2>
-
-				<p>DNI: <span>${response.data[0].cliente.cClieDNI}<span></p>
-				<p>Nombre Completo: <span>${response.data[0].cliente.cClieNombres} ${
-			response.data[0].cliente.cClieApellidos
-		}<span></p>
-				<p>Dirección: <span>${response.data[0].cliente.cClieDireccion}<span></p>
-				<p>Teléfono: <span>${
-					response.data[0].cliente.cClieTelefono == null
-						? "000000000"
-						: response.data[0].cliente.cClieTelefono
-				}<span></p>
-			
-				<h2>Créditos</h2>
+				<h1>Reporte de Clientes</h1>
 				<table>
 					<thead>
-						<tr>
-							<th>Fecha Crédito</th>
-							<th>Monto</th>
-							<th>Tasa Interés</th>
-							<th>Monto Interés</th>
-							<th>Cuotas</th>
-							<th>Fecha Fin</th>
-							<th>Estado</th>
-							<th>Deuda</th>
-							<th>% Deuda</th>	
-						</tr>
+					<tr>
+						<th>Fecha de creación</th>
+						<th>DNI</th>
+						<th>Nombre</th>
+						<th>Apellido</th>
+						<th>Dirección</th>
+						<th>Teléfono</th>
+						<th>Fecha de nacimiento</th>
+						<th>Estado</th>
+					</tr>
 					</thead>
 					<tbody>
 					`;
 		let html_dinamico: string = "";
 
-		console.log(response);
-
 		response.data.forEach(function (element: any) {
 			html_dinamico =
 				html_dinamico +
 				`<tr>
-					<td class="center" >${formatoFecha(element.dCredFechaPrest)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMonto)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredTasaInteres)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMontoInteres)}</td>
-					<td class="right">${element.nCredNroCuotas}</td>
-					<td class="center">${formatoFecha(element.dCredFechaFin)}</td>
-					<td class="center">${
-						element.nCredMontoPagado == 1 ? "PAGADO" : "PENDIENTE"
-					}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMontoDeuda)}</td>
-					<td class="right">${formatoMonedaPeruana(element.nCredMontoDeuda)}</td>
+					<td class="center"> ${formatoFecha(element.dClieFechaCreacion)}</td>
+					<td class="right">${element.cClieDNI}</td>
+					<td class="left">${element.cClieNombres}</td>
+					<td class="left">${element.cClieApellidos}</td>
+					<td class="left">${element.cClieDireccion}</td>
+					<td class="rigth">${element.cClieTelefono}</td>
+					<td class="center">${formatoFecha(element.cClieFechNac)}</td>
+					<td class="center">${element.nClieEstado}</td>				
 				</tr>`;
 		});
 
