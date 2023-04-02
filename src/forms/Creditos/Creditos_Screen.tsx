@@ -47,7 +47,7 @@ const Creditos_Screen = () => {
     React.useCallback(() => {
       BuscarCreditos();
     }, [])
-  );
+  ); 
 
   const renderItem = ({ item }: any) => {
   
