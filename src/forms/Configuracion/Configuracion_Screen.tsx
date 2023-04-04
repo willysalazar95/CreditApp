@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button } from "react-native";
 
 import moment from "moment";
-import { Configuracion, Datos } from "../../clases/Configuracion";
+import { Configuracion } from "../../clases/Configuracion";
 
 const Configuracion_Screen = () => {
 	const [RUC, SETRuc] = useState("");
