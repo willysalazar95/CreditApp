@@ -41,7 +41,7 @@ export const LoginScreen = () => {
   };
 
   const goToRegister = () => {
-    navigation.navigate("Register");
+    navigation.navigate("Configuracion_Screen");
   };
 
   return (
