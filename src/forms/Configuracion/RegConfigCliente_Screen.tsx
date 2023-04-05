@@ -15,35 +15,23 @@ import { Cliente } from "../../clases/Cliente";
 //CREADO POR AAGC
 const RegConfigCliente_Screen = ({ route }: any) => {
   const navigation = useNavigation();
+  const [nConfiguracionID, SETnConfiguracionID] = useState(0);
   const [nIdPers, setNidPers] = useState(0);
   const [dni, setDni] = useState("");
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [telefono, setTelefono] = useState("");
   const [direccion, setDireccion] = useState("");
-  const [accionBoton, setAccionBoton] = useState("Guardar");
-  const [isEditing, setIsEditing] = useState(false);
 
   const [fechaNac, setFechaNac] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     if (route.params && route.params.item) {
-      console.log(route.params.item);
-
-      // const persona = route.params.item;
-      // setNidPers(persona.nClieID);
-      // setDni(persona.cClieDNI);
-      // setNombre(persona.cClieNombres);
-      // setApellido(persona.cClieApellidos);
-      // setDireccion(persona.cClieDireccion);
-      // setTelefono(persona.cClieTelefono);
-      // setFechaNacimiento(persona.cPersFechNac);
-
-      setIsEditing(true);
-      setAccionBoton("Modificar");
+      const Dat = route.params.item;
+      SETnConfiguracionID(Dat.nConfiguracionID);
     } else {
-      setAccionBoton("Registrar");
+      // Hacer algo si no hay datos de registro
     }
   }, [route.params]);
 
@@ -59,16 +47,13 @@ const RegConfigCliente_Screen = ({ route }: any) => {
       "",
       0
     );
-    const response = isEditing
-      ? await datCliente.ActualizarCliente()
-      : await datCliente.RegistrarCliente();
+
+    const response = await datCliente.RegistrarCliente()
     if (response.success) {
-      if (isEditing) {
-        Alert.alert("OK", "Modificado Correctamente " + "!!");
-      } else {
-        Alert.alert("OK", "Registrado Correctamente " + "!!");
-      }
-      navigation.goBack();
+      const DatResp = response.data.nClieID
+      setNidPers(DatResp);
+      Alert.alert("OK", "Registrado");
+      // navigation.goBack();
     } else {
       Alert.alert("ERROR", response.error);
     }
@@ -77,9 +62,7 @@ const RegConfigCliente_Screen = ({ route }: any) => {
   return (
     <View style={styles.ContenedorPrincipal}>
       <ScrollView>
-        <Text style={styles.TituloContenedor}>
-          {isEditing ? "Registro de propietario " : "Nuevo"} Cliente
-        </Text>
+        <Text style={styles.TituloContenedor}>Registro de propietario</Text>
         <View style={styles.TextInputContenedor}>
           <Text style={styles.TextLabel}>DNI:</Text>
           <TextInput
@@ -164,7 +147,7 @@ const RegConfigCliente_Screen = ({ route }: any) => {
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleEnviar}>
-          <Text style={styles.buttonText}>{accionBoton}</Text>
+          <Text style={styles.buttonText}>Guardar</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>
