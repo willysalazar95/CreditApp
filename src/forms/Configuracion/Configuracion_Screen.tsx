@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet, Button } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
 
 import moment from "moment";
 import { Configuracion } from "../../clases/Configuracion";
@@ -14,7 +14,7 @@ const Configuracion_Screen = () => {
 
 	const handleGuardar = async () => {
 		try {
-			const persona = new Configuracion(
+			const Datos = new Configuracion(
 				RUC,
 				RazonSocial,
 				Direccion,
@@ -22,10 +22,11 @@ const Configuracion_Screen = () => {
 				parseInt(TasaInteres),
 				parseInt(TasaMora)
 			);
-			const response = await persona.RegistrarConfiguracion();
+			const response = await Datos.RegistrarConfiguracion();
 
 			if (response.success) {
-				console.log("Persona guardada exitosamente", response.data);
+				// console.log("Configuracion Grabada!", response.data);
+				Alert.alert("OK", "Registrado Correctamente " + "!!");
 			} else {
 				console.log("ERROR", response.error);
 			}
