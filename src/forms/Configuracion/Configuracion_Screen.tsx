@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
-
-import moment from "moment";
+import { useNavigation } from "@react-navigation/native"
 import { Configuracion } from "../../clases/Configuracion";
+import RegConfigCliente_Screen from "./RegConfigCliente_Screen";
+
+import { RootStackParamList } from "../../../App";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const Configuracion_Screen = () => {
 	const [RUC, SETRuc] = useState("");
@@ -11,6 +16,7 @@ const Configuracion_Screen = () => {
 	const [Telefono, SETTelefono] = useState("");
 	const [TasaInteres, SETTasaInteres] = useState("");
 	const [TasaMora, SETTasaMora] = useState("");
+	const navigation = useNavigation<homeScreenProp>();
 
 	const handleGuardar = async () => {
 		try {
@@ -26,7 +32,16 @@ const Configuracion_Screen = () => {
 
 			if (response.success) {
 				// console.log("Configuracion Grabada!", response.data);
-				Alert.alert("OK", "Registrado Correctamente " + "!!");
+				Alert.alert("OK", "Registrado Correctamente !!",
+					[
+						{
+							text: "Ok",
+							onPress: () =>
+							navigation.navigate("RegConfigCliente_Screen", {item : response.data})
+						},
+					],
+				);
+				
 			} else {
 				console.log("ERROR", response.error);
 			}
