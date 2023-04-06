@@ -11,6 +11,7 @@ import {
 import { Usuario } from "../../clases/Usuario";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
+import { configData } from "../../../config";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -20,9 +21,11 @@ export const LoginScreen = () => {
   // const navigation = useNavigation();
   const navigation = useNavigation<homeScreenProp>();
   const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     navigation.setOptions({ headerShown: false });
   }, []);
+
   const handleLogin = async () => {
     setIsLoading(true);
 
@@ -32,7 +35,12 @@ export const LoginScreen = () => {
 
     if (response.success) {
       Alert.alert("OK", "Bienvenido " + response.data.cUsuUsuario + "!!");
-      //navigation.navigate("DrawerScreen", { cUsuario: response.data.cUsuario }); //aguego
+      console.log(response.data);
+      configData.nUsuId = response.data.nUsuID;
+      configData.nUsuTipo = response.data.nUsuTipo;
+      configData.nConfiguracionID = response.data.nConfiguracionID;
+      configData.nCredRutasID = response.data.nCredRutasID;
+      
       navigation.navigate("DrawerScreen");
     } else {
       Alert.alert("ERROR", response.error);
