@@ -17,8 +17,10 @@ import { ReporteCreditos } from "./src/forms/Impresion/ReporteCreditos";
 import { LoginScreen } from "./src/forms/Login/LoginScreen";
 import { ReportePagos } from "./src/forms/Impresion/ReportePagos";
 import { ReporteClientes } from "./src/forms/Impresion/ReporteClientes";
+
 import Configuracion_Screen from "./src/forms/Configuracion/Configuracion_Screen";
 import RegConfigCliente_Screen from "./src/forms/Configuracion/RegConfigCliente_Screen";
+import RegistroUsuarioConfig_Screen from "./src/forms/Usuarios/RegistroUsuarioConfig_Screen"
 
 export type RootStackParamList = {
 	Login: undefined;
@@ -43,6 +45,7 @@ export type RootStackParamList = {
 
 	Configuracion_Screen: undefined;
 	RegConfigCliente_Screen: {item: any} | undefined;
+	RegistroUsuarioConfig_Screen : {item: any} | undefined;
 	// Profile: { userId: string };
 	// Feed: { sort: 'latest' | 'top' } | undefined;
 };
@@ -76,7 +79,7 @@ function App() {
 				<Stack.Screen name="PagarPrestamo" component={PagarPrestamo} />
 				<Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
 
-				
+				<Stack.Screen name="RegistroUsuarioConfig_Screen" component={RegistroUsuarioConfig_Screen} />
 
 				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
 				<Stack.Screen

@@ -12,9 +12,15 @@ import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Cliente } from "../../clases/Cliente";
+
+import { RootStackParamList } from "../../../App";
+import { StackNavigationProp } from "@react-navigation/stack";
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
+
 //CREADO POR AAGC
 const RegConfigCliente_Screen = ({ route }: any) => {
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
+  const navigation = useNavigation<homeScreenProp>();
   const [nConfiguracionID, SETnConfiguracionID] = useState(0);
   const [nIdPers, setNidPers] = useState(0);
   const [dni, setDni] = useState("");
@@ -50,10 +56,25 @@ const RegConfigCliente_Screen = ({ route }: any) => {
 
     const response = await datCliente.RegistrarCliente()
     if (response.success) {
-      const DatResp = response.data.nClieID
-      setNidPers(DatResp);
-      Alert.alert("OK", "Registrado");
-      // navigation.goBack();
+      const nClieID = response.data.nClieID
+      setNidPers(nClieID);
+
+      const datos = {
+        nConfiguracionID: nConfiguracionID,
+        nClieID: nClieID
+      };
+      
+      Alert.alert("OK", "Registrado",
+        [
+          {
+            text: "Crear Usuario",
+            onPress: () =>
+              navigation.navigate("RegistroUsuarioConfig_Screen", { item: datos })
+          },
+        ],
+      );
+
+
     } else {
       Alert.alert("ERROR", response.error);
     }

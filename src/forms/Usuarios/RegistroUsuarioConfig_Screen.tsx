@@ -21,14 +21,14 @@ const RegistroUsuarioConfig_Screen = ({ route }: any) => {
   const [cUsuClave, SETcUsuClave] = useState("");
 
   useEffect(() => {
-    if (nConfiguracionID && nClienId) {
-
-      SETnClienId(nClienId);
-      SETnConfiguracionID(nConfiguracionID);
-      // setFechaNacimiento(persona.cPersFechNac);
-
+    if (route.params && route.params.item) {
+      const Dat = route.params.item;
+      console.log(Dat);
+      SETnClienId(Dat.nClieID);
+      SETnConfiguracionID(Dat.nConfiguracionID);
+      console.log(Dat.nClieID + " <- Cliennnn " + Dat.nConfiguracionID + " <- Confignnnn" )
     } else {
-
+      // Hacer algo si no hay datos de registro
     }
   }, [route.params]);
 
@@ -45,7 +45,7 @@ const RegistroUsuarioConfig_Screen = ({ route }: any) => {
     );
     const response = await dat.RegistrarUsuario_Config();
     if (response.success) {
-      Alert.alert("OK", "Registrado Correctamente ");
+      Alert.alert("OK", "Administrador Registrado Correctamente!");
       // navigation.goBack();
     } else {
       Alert.alert("ERROR", response.error);

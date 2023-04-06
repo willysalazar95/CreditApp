@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native"
 import { Configuracion } from "../../clases/Configuracion";
-import RegConfigCliente_Screen from "./RegConfigCliente_Screen";
+// import RegConfigCliente_Screen from "./RegConfigCliente_Screen";
 
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
