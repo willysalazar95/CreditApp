@@ -27,10 +27,8 @@ const RegistroUsuarioConfig_Screen = ({ route }: any) => {
   useEffect(() => {
     if (route.params && route.params.item) {
       const Dat = route.params.item;
-      console.log(Dat);
       SETnClienId(Dat.nClieID);
       SETnConfiguracionID(Dat.nConfiguracionID);
-      console.log(Dat.nClieID + " <- Cliennnn " + Dat.nConfiguracionID + " <- Confignnnn")
     } else {
       // Hacer algo si no hay datos de registro
     }
