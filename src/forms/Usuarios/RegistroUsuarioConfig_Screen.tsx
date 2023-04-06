@@ -10,10 +10,14 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import { RootStackParamList } from "../../../App";
+import { StackNavigationProp } from "@react-navigation/stack";
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
+
 import { Usuario } from "../../clases/Usuario";
 //CREADO POR AAGC
 const RegistroUsuarioConfig_Screen = ({ route }: any) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<homeScreenProp>();
   const [nClienId, SETnClienId] = useState(0);
   const [nConfiguracionID, SETnConfiguracionID] = useState("");
 
@@ -26,7 +30,7 @@ const RegistroUsuarioConfig_Screen = ({ route }: any) => {
       console.log(Dat);
       SETnClienId(Dat.nClieID);
       SETnConfiguracionID(Dat.nConfiguracionID);
-      console.log(Dat.nClieID + " <- Cliennnn " + Dat.nConfiguracionID + " <- Confignnnn" )
+      console.log(Dat.nClieID + " <- Cliennnn " + Dat.nConfiguracionID + " <- Confignnnn")
     } else {
       // Hacer algo si no hay datos de registro
     }
@@ -45,8 +49,16 @@ const RegistroUsuarioConfig_Screen = ({ route }: any) => {
     );
     const response = await dat.RegistrarUsuario_Config();
     if (response.success) {
-      Alert.alert("OK", "Administrador Registrado Correctamente!");
-      // navigation.goBack();
+      Alert.alert("OK", "Administrador Registrado Correctamente!",
+        [
+          {
+            text: "Ahora ya puedes iniciar sesion!",
+            onPress: () => {
+              navigation.navigate("Login")
+            }
+          }
+        ]
+      );
     } else {
       Alert.alert("ERROR", response.error);
     }
