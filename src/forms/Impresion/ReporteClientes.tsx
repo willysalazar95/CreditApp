@@ -2,7 +2,6 @@ import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Cliente } from "../../clases/Cliente";
 import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
@@ -94,10 +93,10 @@ export const ReporteClientes = () => {
 				<table>
 					<thead>
 					<tr>
-						<th>Fecha de creación</th>
-						<th>DNI</th>
-						<th>Nombre</th>
 						<th>Apellido</th>
+						<th>Nombre</th>
+						<th>DNI</th>
+						<th>Fecha de creación</th>
 						<th>Dirección</th>
 						<th>Teléfono</th>
 						<th>Fecha de nacimiento</th>
@@ -112,10 +111,10 @@ export const ReporteClientes = () => {
 			html_dinamico =
 				html_dinamico +
 				`<tr>
-					<td class="center"> ${formatoFecha(element.dClieFechaCreacion)}</td>
-					<td class="right">${element.cClieDNI}</td>
-					<td class="left">${element.cClieNombres}</td>
 					<td class="left">${element.cClieApellidos}</td>
+					<td class="left">${element.cClieNombres}</td>
+					<td class="right">${element.cClieDNI}</td>
+					<td class="center"> ${formatoFecha(element.dClieFechaCreacion)}</td>
 					<td class="left">${element.cClieDireccion}</td>
 					<td class="rigth">${element.cClieTelefono}</td>
 					<td class="center">${formatoFecha(element.cClieFechNac)}</td>
