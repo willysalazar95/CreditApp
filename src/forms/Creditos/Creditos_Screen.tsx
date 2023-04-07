@@ -10,7 +10,6 @@ import {
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Creditos } from "../../clases/Creditos";
-import { Cliente } from "../../clases/Cliente";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 

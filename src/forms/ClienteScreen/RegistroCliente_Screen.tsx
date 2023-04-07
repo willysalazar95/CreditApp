@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
+import MapView, { Marker } from "react-native-maps";
 import { Cliente } from "../../clases/Cliente";
 import { formatoFecha } from "../../utils/utils";
 //CREADO POR AAGC
@@ -22,11 +22,34 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [apellido, setApellido] = useState("");
 	const [telefono, setTelefono] = useState("");
 	const [direccion, setDireccion] = useState("");
+	const [cLatitud, SETcLatitud] = useState("");
+	const [cLongitud, SETcLongitud] = useState("");
+
 	const [accionBoton, setAccionBoton] = useState("Guardar");
 	const [isEditing, setIsEditing] = useState(false);
 
 	const [fechaNac, setFechaNac] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
+
+	const [region, setRegion] = useState({
+		latitude: -12.026971,
+		longitude: -77.063492,
+		latitudeDelta: 0.0922,
+		longitudeDelta: 0.0421,
+	});
+	const [marker, setMarker] = useState({
+		latitude: -12.026971,
+		longitude: -77.063492,
+	});
+
+	const onMarkerDragEnd = (event: any) => {
+		setMarker({
+			latitude: event.nativeEvent.coordinate.latitude,
+			longitude: event.nativeEvent.coordinate.longitude,
+		});
+		SETcLatitud(event.nativeEvent.coordinate.latitude);
+		SETcLongitud(event.nativeEvent.coordinate.longitude);
+	};
 
 	useEffect(() => {
 		if (route.params && route.params.item) {
@@ -78,9 +101,9 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	return (
 		<View style={styles.ContenedorPrincipal}>
 			<ScrollView>
-				<Text style={styles.TituloContenedor}>
+				{/* <Text style={styles.TituloContenedor}>
 					{isEditing ? "Modificar " : "Nuevo"} Cliente
-				</Text>
+				</Text> */}
 				<View style={styles.TextInputContenedor}>
 					<Text style={styles.TextLabel}>DNI:</Text>
 					<TextInput
@@ -92,8 +115,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-				</View>
-				<View style={styles.TextInputContenedor}>
+					{/* </View> */}
+					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Nombre:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -103,8 +126,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-				</View>
-				<View style={styles.TextInputContenedor}>
+					{/* </View> */}
+					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Apellido:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -114,8 +137,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-				</View>
-				<View style={styles.TextInputContenedor}>
+					{/* </View> */}
+					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Teléfono:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -126,8 +149,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-				</View>
-				<View style={styles.TextInputContenedor}>
+					{/* </View> */}
+					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Dirección:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -137,9 +160,9 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-				</View>
+					{/* </View> */}
 
-				<View style={styles.TextInputContenedor}>
+					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Fecha Nac:</Text>
 					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
 						<Text style={styles.TextInput}>{formatoFecha(fechaNac.toString())}</Text>
@@ -156,6 +179,20 @@ const RegistroCliente_Screen = ({ route }: any) => {
 							/>
 						)}
 					</TouchableOpacity>
+					<MapView
+						maxZoomLevel={20}
+						minZoomLevel={14}
+						style={{ width: "100%", height: 200, top: 10, alignSelf: "center" }}
+						region={region}
+						onRegionChangeComplete={(region) => setRegion(region)}
+					>
+						<Marker
+							draggable
+							onDragEnd={onMarkerDragEnd}
+							coordinate={marker}
+							pinColor={"red"}
+						/>
+					</MapView>
 				</View>
 
 				<TouchableOpacity style={styles.button} onPress={handleEnviar}>
