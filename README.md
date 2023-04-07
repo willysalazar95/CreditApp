@@ -31,13 +31,21 @@ o simplemente puedes `escanear el codigo QR` con tu celular y te genera automati
 
 #### 1. Primer paso:
 
+Instalar Eas, si ya lo tienes instalado no es necesario
+
+```bash
+  npm install east
+```
+
+#### 2. Segundo paso:
+
 Crea un nuevo proyect ID para poder compilar en EXPO
 
 ```bash
   eas init
 ```
 
-#### 2. Segundo paso:
+#### 3. Tercer paso:
 
 Enlaza tu proyecto local con expo web para generar el apk
 
