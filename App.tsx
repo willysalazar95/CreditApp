@@ -3,12 +3,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import DrawerScreen from "./src/forms/Home/DrawerScreen";
-import RegistroScreen from "./src/forms/ClienteScreen/FrmRegistroCliente";
+import RegistroScreen from "./src/forms/ClienteScreen/RegistroCliente_Screen";
 
 import PrestamoScreen from "./src/forms/Creditos/Creditos_Screen";
-import ListarClienteScreen from "./src/forms/ClienteScreen/ListarClienteScreen";
-import FrmRegistroCliente from "./src/forms/ClienteScreen/FrmRegistroCliente";
-import ModificarCliente from "./src/forms/ClienteScreen/FrmRegistroCliente";
+import ListarClienteScreen from "./src/forms/ClienteScreen/ListarCliente_Screen";
+import ModificarCliente from "./src/forms/ClienteScreen/RegistroCliente_Screen";
 import FrmRegistrarPrestamo from "./src/forms/Creditos/RegistrarCredito_Screen";
 import PagarPrestamo from "./src/forms/Creditos/PagarCredito_Screen";
 import ListarCronogramaScreen from "./src/forms/Creditos/ListarCronograma_Screen";
@@ -70,11 +69,7 @@ function App() {
 				<Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
 
 				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
-				<Stack.Screen
-					name="RegistroPersona"
-					component={FrmRegistroCliente}
-					options={{ title: "Registro de Persona" }}
-				/>
+
 				<Stack.Screen
 					name="ModificarPersona"
 					component={ModificarCliente}

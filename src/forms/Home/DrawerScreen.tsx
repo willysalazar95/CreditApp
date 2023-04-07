@@ -8,7 +8,7 @@ import CierreScreen from "../Cierre/CierreScreen";
 import FlexScreen from "../Flex/FlexScreen";
 import ImprimirScreen from "../Impresion/ImprimirScreen";
 import ConfiguracionScreen from "../Configuracion/ConfiguracionScreen";
-import ListarClienteScreen from "../ClienteScreen/ListarClienteScreen";
+import ListarClienteScreen from "../ClienteScreen/ListarCliente_Screen";
 
 const Drawer = createDrawerNavigator();
 
