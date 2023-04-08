@@ -20,6 +20,8 @@ class Cliente {
 	private cClieFechNac: string;
 	private dClieFechaCreacion: string;
 	private nClieEstado: number;
+	private cClieLatitud: string;
+	private cClieLongitud: string;
 
 	constructor(
 		nClieID: number = 0,
@@ -30,7 +32,9 @@ class Cliente {
 		cClieTelefono: string = "",
 		cClieFechNac: string = "",
 		dClieFechaCreacion: string = "",
-		nClieEstado: number = 0
+		nClieEstado: number = 0,
+		cClieLatitud : string = "",
+		cClieLongitud : string = ""
 	) {
 		this.nClieID = nClieID;
 		this.cClieDNI = cClieDNI;
@@ -41,6 +45,8 @@ class Cliente {
 		this.cClieFechNac = cClieFechNac;
 		this.dClieFechaCreacion = dClieFechaCreacion;
 		this.nClieEstado = nClieEstado;
+		this.cClieLatitud = cClieLatitud;
+		this.cClieLongitud = cClieLongitud;
 	}
 
 	static url = `${configData.API_URL}/api/clientes`;
@@ -65,6 +71,7 @@ class Cliente {
 	async RegistrarCliente() {
 		const BASE_URL = `${Cliente.url}/RegistrarClientes`;
 		try {
+			console.log(this.cClieLatitud + " " + this.cClieLongitud);
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
@@ -75,6 +82,8 @@ class Cliente {
 					cClieDireccion: this.cClieDireccion,
 					cClieTelefono: this.cClieTelefono,
 					cClieFechNac: "20230101",
+					cClieLatitud: this.cClieLatitud,
+					cClieLongitud : this.cClieLongitud
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -111,8 +120,9 @@ class Cliente {
 					cClieDireccion: this.cClieDireccion,
 					cClieTelefono: this.cClieTelefono,
 					cClieFechNac: "2023-01-01",
-					// dClieFechaCreacion: Date().toString(),
 					nClieEstado: 1,
+					cClieLatitud: this.cClieLatitud,
+					cClieLongitud : this.cClieLongitud
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -156,7 +166,7 @@ class Cliente {
 			});
 
 			const Resp = response.data.code;
-			const Lista = response.data.data;
+			// const Lista = response.data.data;
 
 			if (Resp === 200) {
 				return { success: true, data: "OK" };

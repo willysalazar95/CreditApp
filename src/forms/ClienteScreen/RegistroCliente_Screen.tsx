@@ -23,7 +23,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [telefono, setTelefono] = useState("");
 	const [direccion, setDireccion] = useState("");
 	const [cLatitud, SETcLatitud] = useState("");
-	const [cLongitud, SETcLongitud] = useState("");
+	const [cLongitud, SETcLongitud] = useState(""); 
 
 	const [accionBoton, setAccionBoton] = useState("Guardar");
 	const [isEditing, setIsEditing] = useState(false);
@@ -81,7 +81,9 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			telefono,
 			fechaNac.toString(),
 			"",
-			0
+			0,
+			cLatitud,
+			cLongitud
 		);
 		const response = isEditing
 			? await datCliente.ActualizarCliente()

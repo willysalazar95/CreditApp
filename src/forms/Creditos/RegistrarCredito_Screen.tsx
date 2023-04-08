@@ -24,7 +24,7 @@ const RegistrarCredito_Screen = ({ route }: any) => {
   const [dFechaCred, SETdFechaCredito] = useState("");
   const [nIdPeriodo, SetnIdPeriodo] = useState("");
   const [nMonto, SetnMonto] = useState("");
-  const [nInteres, SetnInteres] = useState("");
+  const [nInteres, SetnInteres] = useState(0);
   const [nCuotas, SetnCuotas] = useState("");
 
   const ListarPeriodos = async () => {
@@ -134,7 +134,7 @@ const RegistrarCredito_Screen = ({ route }: any) => {
           textAlignVertical="top"
         />
       </View>
-      <View style={styles.TextInputContenedor}>
+      {/* <View style={styles.TextInputContenedor}>
         <Text style={styles.TextLabel}>Interes:</Text>
         <TextInput
           style={styles.TextInput}
@@ -145,7 +145,7 @@ const RegistrarCredito_Screen = ({ route }: any) => {
           placeholderTextColor="#D3D3D3"
           textAlignVertical="top"
         />
-      </View>
+      </View> */}
       <View style={styles.TextInputContenedor}>
         <Text style={styles.TextLabel}>Cuotas:</Text>
         <TextInput
