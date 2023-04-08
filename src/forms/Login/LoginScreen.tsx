@@ -40,6 +40,7 @@ export const LoginScreen = () => {
 			Alert.alert("OK", "Bienvenido " + response.data.cUsuUsuario + "!!");
 			console.log(response.data);
 			configData.nUsuId = response.data.nUsuID;
+			configData.cUsuario = username;
 			configData.nUsuTipo = response.data.nUsuTipo;
 			configData.nConfiguracionID = response.data.nConfiguracionID;
 			configData.nCredRutasID = response.data.nCredRutasID;

@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity } from "react-native";
 
+import { configData } from "../../../config";
+
 function Caja_Screen() {
+  const [cUsuario, SETcUsuario] = useState("");
+  const [nMontoApertura, SETnMontoApertura] = useState("");
+  const [nMontoCobrado, SETnMontoCobrado] = useState("");
+  const [nMontoCredito, SETnMontoCredito] = useState("");
+  const [nMontoFinal, SETnMontoFinal] = useState("");
+  
+  useEffect(() => {
+    SETcUsuario(configData.cUsuario.toString());
+    // SETnMontoApertura("0");
+    // SETnMontoCobrado("0");
+    // SETnMontoCredito("0");
+    // SETnMontoFinal("0");
+	});
+
+
   return (
     <View style={styles.ContenedorPrincipal}>
       <ScrollView>
@@ -9,17 +26,17 @@ function Caja_Screen() {
           <Text style={styles.TextLabel}>Usuario</Text>
           <TextInput
             style={styles.TextInput}
-            // value={dni}
-            // onChangeText={setDni}
-            placeholder="Ingrese dni"
+            value={cUsuario}
+            onChangeText={SETcUsuario}
+            placeholder="Ingrese usuario"
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"
           />
           <Text style={styles.TextLabel}>Monto Apertura:</Text>
           <TextInput
             style={styles.TextInput}
-            // value={nombre}
-            // onChangeText={setNombre}
+            value={nMontoApertura}
+            onChangeText={SETnMontoApertura}
             placeholder="Ingrese monto"
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"
@@ -27,8 +44,8 @@ function Caja_Screen() {
           <Text style={styles.TextLabel}>Monto Cobrado:</Text>
           <TextInput
             style={styles.TextInput}
-            // value={nombre}
-            // onChangeText={setNombre}
+            value={nMontoCobrado}
+            onChangeText={SETnMontoCobrado}
             placeholder="Ingrese monto"
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"
@@ -36,8 +53,8 @@ function Caja_Screen() {
           <Text style={styles.TextLabel}>Monto Credito:</Text>
           <TextInput
             style={styles.TextInput}
-            // value={nombre}
-            // onChangeText={setNombre}
+            value={nMontoCredito}
+            onChangeText={SETnMontoCredito}
             placeholder="Ingrese monto"
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"
@@ -45,8 +62,8 @@ function Caja_Screen() {
           <Text style={styles.TextLabel}>Monto Final:</Text>
           <TextInput
             style={styles.TextInput}
-            // value={nombre}
-            // onChangeText={setNombre}
+            value={nMontoFinal}
+            onChangeText={SETnMontoFinal}
             placeholder="Ingrese monto"
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"

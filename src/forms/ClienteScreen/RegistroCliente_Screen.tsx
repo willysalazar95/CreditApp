@@ -117,8 +117,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-					{/* </View> */}
-					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Nombre:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -128,8 +126,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-					{/* </View> */}
-					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Apellido:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -139,8 +135,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-					{/* </View> */}
-					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Teléfono:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -151,8 +145,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-					{/* </View> */}
-					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Dirección:</Text>
 					<TextInput
 						style={styles.TextInput}
@@ -162,9 +154,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
 					/>
-					{/* </View> */}
-
-					{/* <View style={styles.TextInputContenedor}> */}
 					<Text style={styles.TextLabel}>Fecha Nac:</Text>
 					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
 						<Text style={styles.TextInput}>{formatoFecha(fechaNac.toString())}</Text>
