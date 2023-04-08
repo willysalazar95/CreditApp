@@ -10,6 +10,7 @@ import ImprimirScreen from "../Impresion/ImprimirScreen";
 import ConfiguracionScreen from "../Configuracion/ConfiguracionScreen";
 import ListarClienteScreen from "../ClienteScreen/ListarCliente_Screen";
 import { LoginScreen } from "../Login/LoginScreen";
+import ListarUsuarioScreen from "../Usuarios/ListarUsuarios_Screen";
 
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +32,16 @@ export default function DrawerScreen() {
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="person-outline" size={size} color={color} />
+					),
+				}}
+			/>
+
+			<Drawer.Screen
+				name="Usuarios"
+				component={ListarUsuarioScreen}
+				options={{
+					drawerIcon: ({ focused, color, size }) => (
+						<Icon name="person-circle-outline" size={size} color={color} />
 					),
 				}}
 			/>

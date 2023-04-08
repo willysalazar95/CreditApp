@@ -2,15 +2,15 @@ import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 import * as Print from "expo-print";
-import { shareAsync } from "expo-sharing";
+
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Creditos } from "../../clases/Creditos";
 import {
 	convertirFechaAAAAMMDD,
 	formatoFecha,
 	formatoMonedaPeruana,
-	formatoTelefonoConCodigo,
 } from "../../utils/utils";
+import { Picker } from "@react-native-picker/picker";
 
 let html = "";
 
@@ -24,9 +24,10 @@ export const ReporteCreditos = () => {
 
 	const [showDatePickerIni, setShowDatePickerIni] = useState(false);
 	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
+
+	const [selectedValue, setSelectedValue] = useState("option1");
 	const print = async () => {
 		await GenerarHTMLReportCredito();
-
 		const options = {
 			html,
 			pageSize: "A4",
@@ -200,6 +201,21 @@ export const ReporteCreditos = () => {
 				</TouchableOpacity>
 			</View>
 
+			<View>
+				<Text style={styles.TextLabel}>Seleccione estado:</Text>
+				<View style={styles.picker}>
+					<Picker
+						selectedValue={selectedValue}
+						onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+						mode="dialog"
+					>
+						<Picker.Item label="Vigente" value="option1" />
+						<Picker.Item label="Cancelado" value="option2" />
+						<Picker.Item label="Moroso" value="option3" />
+					</Picker>
+				</View>
+			</View>
+
 			<TouchableOpacity style={styles.button} onPress={print}>
 				<Text style={styles.buttonText}>IMPRIMIR</Text>
 			</TouchableOpacity>
@@ -211,6 +227,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 20,
+		backgroundColor: "#fff",
 	},
 	date: {
 		fontSize: 20,
@@ -240,5 +257,12 @@ const styles = StyleSheet.create({
 		color: "#FFF",
 		fontSize: 20,
 		fontWeight: "bold",
+	},
+	picker: {
+		borderWidth: 1,
+		borderColor: "#ccc",
+		borderRadius: 5,
+		padding: 0,
+		fontSize: 16,
 	},
 });
