@@ -13,7 +13,6 @@ import { Creditos } from "../../clases/Creditos";
 
 const RegistrarCredito_Screen = ({ route }: any) => {
   const [options, setOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
   const navigation = useNavigation();
 
   const [selectedValue, setSelectedValue] = useState(0);
@@ -22,7 +21,6 @@ const RegistrarCredito_Screen = ({ route }: any) => {
   const [dni, SETcDNI] = useState("");
   const [nombre, SETcNombre] = useState("");
   const [dFechaCred, SETdFechaCredito] = useState("");
-  const [nIdPeriodo, SetnIdPeriodo] = useState("");
   const [nMonto, SetnMonto] = useState("");
   const [nInteres, SetnInteres] = useState("");
   const [nCuotas, SetnCuotas] = useState("");
@@ -130,18 +128,6 @@ const RegistrarCredito_Screen = ({ route }: any) => {
           onChangeText={SetnMonto}
           keyboardType="decimal-pad"
           placeholder="Ingrese monto"
-          placeholderTextColor="#D3D3D3"
-          textAlignVertical="top"
-        />
-      </View>
-      <View style={styles.TextInputContenedor}>
-        <Text style={styles.TextLabel}>Interes:</Text>
-        <TextInput
-          style={styles.TextInput}
-          value={nInteres}
-          onChangeText={SetnInteres}
-          keyboardType="decimal-pad"
-          placeholder="Ingrese Interes"
           placeholderTextColor="#D3D3D3"
           textAlignVertical="top"
         />
