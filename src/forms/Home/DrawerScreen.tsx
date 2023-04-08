@@ -35,16 +35,6 @@ export default function DrawerScreen() {
 					),
 				}}
 			/>
-
-			<Drawer.Screen
-				name="Usuarios"
-				component={ListarUsuarioScreen}
-				options={{
-					drawerIcon: ({ focused, color, size }) => (
-						<Icon name="person-circle-outline" size={size} color={color} />
-					),
-				}}
-			/>
 			<Drawer.Screen
 				name="Creditos"
 				component={Creditos_Screen}
@@ -55,6 +45,15 @@ export default function DrawerScreen() {
 				}}
 			/>
 			<Drawer.Screen
+				name="Usuarios"
+				component={ListarUsuarioScreen}
+				options={{
+					drawerIcon: ({ focused, color, size }) => (
+						<Icon name="person-circle-outline" size={size} color={color} />
+					),
+				}}
+			/>
+			{/* <Drawer.Screen
 				name="Pago"
 				component={PagoScreen}
 				options={{
@@ -62,8 +61,8 @@ export default function DrawerScreen() {
 						<Icon name="card-outline" size={size} color={color} />
 					),
 				}}
-			/>
-			<Drawer.Screen
+			/> */}
+			{/* <Drawer.Screen
 				name="Cierre"
 				component={CierreScreen}
 				options={{
@@ -71,9 +70,9 @@ export default function DrawerScreen() {
 						<Icon name="lock-closed-outline" size={size} color={color} />
 					),
 				}}
-			/>
+			/> */}
 			<Drawer.Screen
-				name="Flex"
+				name="Caja"
 				component={FlexScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
@@ -82,7 +81,7 @@ export default function DrawerScreen() {
 				}}
 			/>
 			<Drawer.Screen
-				name="Imprimir"
+				name="Reportes"
 				component={ImprimirScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
