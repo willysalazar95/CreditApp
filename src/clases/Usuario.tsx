@@ -93,4 +93,90 @@ export class Usuario {
 		}
 	}
 
+	async ListarUsuario() {
+		const BASE_URL = `${Usuario.url}/ListarUsuarios`;
+
+		try {
+			const response = await axios.get(BASE_URL);
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+			if (Resp === 200) {
+				return { success: true, data: Lista };
+			} else {
+				return { success: false, error: "Datos incorrectos" };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
+	async EliminarUsuario(usuario_id: string) {
+		const BASE_URL = `${Usuario.url}/EliminarUsuario`;
+
+		try {
+			const response = await axios({
+				method: "delete",
+				url: BASE_URL,
+				params: {
+					usuarios: usuario_id,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+
+			if (Resp === 200) {
+				return { success: true, data: "OK" };
+			} else {
+				return { success: false, error: Resp + " " + response.data.error.message };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
+
+	async ActualizarUsuario() {
+		const BASE_URL = `${Usuario.url}/ActualizarUsuario`;
+		try {
+			const response = await axios({
+				method: "put",
+				url: BASE_URL,
+				params: {
+					nUsuID: this.nUsuID,
+					cUsuUsuario: this.cUsuUsuario,
+					cUsuClave: this.cUsuClave,
+					nUsuTipo: this.nUsuTipo,
+					nClieID: this.nClieID,
+					bUsuEstado: this.bUsuEstado,
+					nConfiguracionID: this.nConfiguracionID,
+					nCredRutasID: this.nCredRutasID,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			console.log(response);
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+
+			if (Resp === 200) {
+				return { success: true, data: Lista[0] };
+			} else {
+				return { success: false, error: Resp + " " + response.data.error.message };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
 }
