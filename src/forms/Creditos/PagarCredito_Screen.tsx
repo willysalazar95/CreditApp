@@ -68,7 +68,7 @@ const PagarCredito_Screen = ({ route }: any) => {
 			0,
 			"",
 			0,
-			0,
+			nMontoAPagar,
 			0,
 			0,
 			0,

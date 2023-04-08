@@ -82,7 +82,7 @@ export class Creditos {
 					dFechaCred: this.dCredFechaPrest,
 					nIdPeriodo: this.nPerID,
 					nMonto: this.nCredMonto,
-					nInteres: this.nCredTasaInteres,
+					nInteres: 0,
 					nCuotas: this.nCredNroCuotas,
 				},
 				headers: {
