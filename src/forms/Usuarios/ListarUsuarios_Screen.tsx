@@ -84,6 +84,7 @@ const ListarUsuarioScreen = ({ route }: any) => {
 			<TouchableOpacity>
 				<View style={styles.cardBorder}>
 					<Text style={styles.cardTitle}>{`Usuario: ${item.cUsuUsuario}`}</Text>
+					<Text>{`Cliente: ${item.cliente.cClieNombres} ${item.cliente.cClieApellidos}`}</Text>
 					<Text>{`Tipo: ${
 						item.nUsuTipo === 1 ? "Administrador" : "Cobrador"
 					}`}</Text>

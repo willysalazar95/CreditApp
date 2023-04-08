@@ -80,7 +80,7 @@ const Creditos_Screen = () => {
 		);
 	};
 	const SelecClienteNuevoCredito = () => {
-		navigation.navigate("ListarPersonas", { opcion: 2 });
+		navigation.navigate("ListarPersonas", { pantalla: "credito" });
 	};
 
 	return (

@@ -33,8 +33,8 @@ class Cliente {
 		cClieFechNac: string = "",
 		dClieFechaCreacion: string = "",
 		nClieEstado: number = 0,
-		cClieLatitud : string = "",
-		cClieLongitud : string = ""
+		cClieLatitud: string = "",
+		cClieLongitud: string = ""
 	) {
 		this.nClieID = nClieID;
 		this.cClieDNI = cClieDNI;
@@ -83,7 +83,7 @@ class Cliente {
 					cClieTelefono: this.cClieTelefono,
 					cClieFechNac: "20230101",
 					cClieLatitud: this.cClieLatitud,
-					cClieLongitud : this.cClieLongitud
+					cClieLongitud: this.cClieLongitud,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -122,7 +122,7 @@ class Cliente {
 					cClieFechNac: "2023-01-01",
 					nClieEstado: 1,
 					cClieLatitud: this.cClieLatitud,
-					cClieLongitud : this.cClieLongitud
+					cClieLongitud: this.cClieLongitud,
 				},
 				headers: {
 					"Content-Type": "application/json",

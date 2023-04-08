@@ -37,7 +37,7 @@ export type RootStackParamList = {
 		userMontoPagar: any;
 		MontPagar: any;
 	};
-	ListarPersonas: { opcion: any };
+	ListarPersonas: { pantalla?: string; onSelect?: (cliente: any) => void };
 	ModificarPersona: { item: any } | undefined;
 	ListarCronograma: undefined;
 	ReporteCreditos: undefined;

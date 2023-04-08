@@ -23,8 +23,8 @@ const ListarClienteScreen = ({ route }: any) => {
 	const [query, setQuery] = useState("");
 	const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
 	const [isClienteCredito, setClienteCredito] = useState(false);
-	const navigation = useNavigation<homeScreenProp>();
 
+	const navigation = useNavigation<homeScreenProp>();
 	const ListarPersonas = async () => {
 		const DatCliente = new Cliente();
 		const response = await DatCliente.ListarCliente();
@@ -92,9 +92,14 @@ const ListarClienteScreen = ({ route }: any) => {
 		};
 
 		const handleSeleccionCliente = (item: any) => {
-			if (isClienteCredito) {
+			if (route.params?.pantalla === "credito") {
 				navigation.navigate("RegistrarPrestamo", { item });
-				// navigation.goBack();
+			}
+
+			if (route.params?.pantalla === "usuario") {
+				route.params.onSelect(item);
+				navigation.goBack();
+				console.log("pasa");
 			}
 		};
 
