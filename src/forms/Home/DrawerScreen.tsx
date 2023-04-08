@@ -5,7 +5,7 @@ import HomeScreen from "./HomeScreen";
 import Creditos_Screen from "../Creditos/Creditos_Screen";
 import PagoScreen from "../Pagos/PagoScreen";
 import CierreScreen from "../Cierre/CierreScreen";
-import FlexScreen from "../Flex/FlexScreen";
+import CajaScreen from "../Caja/Caja_Screen";
 import ImprimirScreen from "../Impresion/ImprimirScreen";
 import ConfiguracionScreen from "../Configuracion/ConfiguracionScreen";
 import ListarClienteScreen from "../ClienteScreen/ListarCliente_Screen";
@@ -73,7 +73,7 @@ export default function DrawerScreen() {
 			/> */}
 			<Drawer.Screen
 				name="Caja"
-				component={FlexScreen}
+				component={CajaScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="calculator-outline" size={size} color={color} />
