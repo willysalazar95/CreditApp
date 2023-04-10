@@ -56,7 +56,7 @@ class Caja{
 			const Resp = response.data.code;
 			const Lista = response.data.data;
 			if (Resp === 200) {
-				return { success: true, data: Lista };
+				return { success: true, data: Lista[0] };
 			} else {
 				return { success: false, error: "Datos incorrectos" };
 			}
@@ -64,6 +64,74 @@ class Caja{
 			return { success: false, error: error.message };
 		}
 	}
+
+	async AperturarCaja() {
+		const BASE_URL = `${Caja.url}/AperturarCaja`;
+		try {
+			const response = await axios({
+				method: "post",
+				url: BASE_URL,
+				params: {
+					cUsuID: this.nUsuID,
+					nMontoApertura: this.nMontoApertura,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+
+			if (Resp === 200) {
+				return { success: true, data: Lista[0] };
+			} else {
+				return { success: false, error: Resp + " " + response.data.error.message };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
+
+	async CierreCaja() {
+		const BASE_URL = `${Caja.url}/CierreCaja`;
+		try {
+			const response = await axios({
+				method: "post",
+				url: BASE_URL,
+				params: {
+					cUsuID: this.nUsuID,
+					nMontoCobradoEfectivo: this.nMontoCobradoEfectivo,
+					nMontoCredito: this.nMontoCredito,
+					nMontoFinal: this.nMontoFinal,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			console.log(response);
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+
+			if (Resp === 200) {
+				return { success: true, data: Lista[0] };
+			} else {
+				return { success: false, error: Resp + " " + response.data.error.message };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
+
+
 
 }
 export {Caja}

@@ -4,17 +4,26 @@ import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert 
 import { configData } from "../../../config";
 import { Caja } from "../../clases/Caja";
 
-function Caja_Screen() {
+const Caja_Screen = () => {
   const [cUsuario, SETcUsuario] = useState("");
   const [nMontoApertura, SETnMontoApertura] = useState("");
   const [nMontoCobrado, SETnMontoCobrado] = useState("");
   const [nMontoCredito, SETnMontoCredito] = useState("");
   const [nMontoFinal, SETnMontoFinal] = useState("");
-  const [nCajaEstado, SETnCajaEstado] = useState("0")
+
+  const [nCajaEstado, SETnCajaEstado] = useState(false);
+  const [bCargar, SETbCargar] = useState(true);
 
   useEffect(() => {
-    SETcUsuario(configData.cUsuario.toString());
-    ObtenerDatosCaja();
+    async function fetchData() {
+      SETcUsuario(configData.cUsuario);
+      // console.log(bCargar);
+      if (bCargar) {
+        await ObtenerDatosCaja();
+      }
+    }
+    fetchData();
+
   });
 
   const ObtenerDatosCaja = async () => {
@@ -31,17 +40,64 @@ function Caja_Screen() {
     );
 
     const Response = await Dat.ObtenerDatosCaja();
+
     if (Response.success) {
-      SETnCajaEstado(Response.data.nCajaEstado);
+      var bEstadoCaja = Response.data.nCajaEstado == "1" ? true : false
+      SETnCajaEstado(bEstadoCaja);
       SETnMontoApertura(Response.data.nMontoApertura);
       SETnMontoCobrado(Response.data.nMontoCobradoEfectivo);
       SETnMontoCredito(Response.data.nMontoCredito);
       SETnMontoFinal(Response.data.nMontoFinal);
-      
+
+      console.log(Response.data.nMontoCobradoEfectivo + " -- Apertura2")
     } else {
       Alert.alert("ERROR", Response.error);
     }
-    return 0
+    SETbCargar(false);
+  }
+
+  const EjecutarCaja = async () => {
+    var msg = nCajaEstado ? "cerrar caja" : "abrir caja"
+    Alert.alert(
+      "Confirmar Caja",
+      "¿Estás seguro que deseas " + msg + "?",
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+          onPress: () => { },
+        },
+        {
+          text: "Aceptar",
+          onPress: () => {
+            Procesar();
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  }
+
+  const Procesar = async () => {
+    const Dat = new Caja(
+      0,
+      configData.nUsuId,
+      "",
+      "",
+      0,
+      parseFloat(nMontoApertura),
+      parseFloat(nMontoCobrado),
+      parseFloat(nMontoCredito),
+      parseFloat(nMontoFinal)
+    )
+
+    const response = nCajaEstado ? await Dat.CierreCaja() : await Dat.AperturarCaja();
+    if (response.success) {
+      Alert.alert("OK", "Registrado Correctamente !!");
+      SETnCajaEstado(true);
+    } else {
+      Alert.alert("OK", "Error");
+    }
   }
 
   return (
@@ -60,18 +116,18 @@ function Caja_Screen() {
           <Text style={styles.TextLabel}>Monto Apertura:</Text>
           <TextInput
             style={styles.TextInput}
-            value={nMontoApertura}
+            value={nMontoApertura.toString()}
             onChangeText={SETnMontoApertura}
             placeholder="Ingrese monto"
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"
           />
-          {nCajaEstado === "1" &&
+          {nCajaEstado &&
             <View id="CierreCaja">
               <Text style={styles.TextLabel}>Monto Cobrado:</Text>
               <TextInput
                 style={styles.TextInput}
-                value={nMontoCobrado}
+                value={nMontoCobrado.toString()}
                 onChangeText={SETnMontoCobrado}
                 placeholder="Ingrese monto"
                 placeholderTextColor="#D3D3D3"
@@ -80,7 +136,7 @@ function Caja_Screen() {
               <Text style={styles.TextLabel}>Monto Credito:</Text>
               <TextInput
                 style={styles.TextInput}
-                value={nMontoCredito}
+                value={nMontoCredito.toString()}
                 onChangeText={SETnMontoCredito}
                 placeholder="Ingrese monto"
                 placeholderTextColor="#D3D3D3"
@@ -89,7 +145,7 @@ function Caja_Screen() {
               <Text style={styles.TextLabel}>Monto Final:</Text>
               <TextInput
                 style={styles.TextInput}
-                value={nMontoFinal}
+                value={nMontoFinal.toString()}
                 onChangeText={SETnMontoFinal}
                 placeholder="Ingrese monto"
                 placeholderTextColor="#D3D3D3"
@@ -97,7 +153,7 @@ function Caja_Screen() {
               />
             </View>
           }
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={EjecutarCaja}>
             <Text style={styles.buttonText}>GUARDAR</Text>
           </TouchableOpacity>
         </View>
