@@ -24,7 +24,7 @@ const ListarUsuarioScreen = ({ route }: any) => {
 
 	const ListarUsuarios = async () => {
 		const DatUsuario = new Usuario();
-		const response = await DatUsuario.ListarUsuario();
+		const response = await DatUsuario.ListarUsuario(0);
 		console.log(response);
 
 		setUsuarios(response.data);
@@ -32,7 +32,7 @@ const ListarUsuarioScreen = ({ route }: any) => {
 
 	const BuscarPersonas = async () => {
 		const DatUsuario = new Usuario();
-		const response = await DatUsuario.ListarUsuario();
+		const response = await DatUsuario.ListarUsuario(0);
 		const filteredData = response.data.filter((item: any) => {
 			return item.cUsuUsuario.toLowerCase().includes(query.toLowerCase());
 		});

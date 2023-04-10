@@ -93,11 +93,17 @@ export class Usuario {
 		}
 	}
 
-	async ListarUsuario() {
+	async ListarUsuario(nUsuID: number) {
 		const BASE_URL = `${Usuario.url}/ListarUsuarios`;
 
 		try {
-			const response = await axios.get(BASE_URL);
+			const response = await axios({
+				method: "get",
+				url: BASE_URL,
+				params: {
+					nUsuID,
+				},
+			});
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
@@ -129,7 +135,6 @@ export class Usuario {
 			});
 
 			const Resp = response.data.code;
-			const Lista = response.data.data;
 
 			if (Resp === 200) {
 				return { success: true, data: "OK" };
@@ -165,13 +170,41 @@ export class Usuario {
 				responseType: "json",
 			});
 
-			console.log(response);
-
 			const Resp = response.data.code;
 			const Lista = response.data.data;
 
 			if (Resp === 200) {
 				return { success: true, data: Lista[0] };
+			} else {
+				return { success: false, error: Resp + " " + response.data.error.message };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
+	async CambiarClave(nUsuID: number, cUsuClave: string) {
+		const BASE_URL = `${Usuario.url}/CambiarClave`;
+
+		try {
+			const response = await axios({
+				method: "put",
+				url: BASE_URL,
+				params: {
+					nUsuID,
+					cUsuClave,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			const Resp = response.data.code;
+
+			if (Resp === 200) {
+				return { success: true, data: "OK" };
 			} else {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
