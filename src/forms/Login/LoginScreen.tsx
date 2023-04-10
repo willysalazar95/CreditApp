@@ -45,7 +45,7 @@ export const LoginScreen = () => {
 			configData.nCredRutasID = response.data.nCredRutasID;
 
 			navigation.navigate("DrawerScreen");
-			console.log("pasa");
+			console.log(configData);
 		} else {
 			Alert.alert("ERROR", response.error);
 			setPassword("");
