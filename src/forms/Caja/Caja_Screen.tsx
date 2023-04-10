@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert } from "react-native";
 
 import { configData } from "../../../config";
+import { Caja } from "../../clases/Caja";
 
 function Caja_Screen() {
   const [cUsuario, SETcUsuario] = useState("");
@@ -9,15 +10,39 @@ function Caja_Screen() {
   const [nMontoCobrado, SETnMontoCobrado] = useState("");
   const [nMontoCredito, SETnMontoCredito] = useState("");
   const [nMontoFinal, SETnMontoFinal] = useState("");
-  
+  const [nCajaEstado, SETnCajaEstado] = useState("0")
+
   useEffect(() => {
     SETcUsuario(configData.cUsuario.toString());
-    // SETnMontoApertura("0");
-    // SETnMontoCobrado("0");
-    // SETnMontoCredito("0");
-    // SETnMontoFinal("0");
-	});
+    ObtenerDatosCaja();
+  });
 
+  const ObtenerDatosCaja = async () => {
+    const Dat = new Caja(
+      0,
+      configData.nUsuId,
+      "",
+      "",
+      0,
+      0,
+      0,
+      0,
+      0
+    );
+
+    const Response = await Dat.ObtenerDatosCaja();
+    if (Response.success) {
+      SETnCajaEstado(Response.data.nCajaEstado);
+      SETnMontoApertura(Response.data.nMontoApertura);
+      SETnMontoCobrado(Response.data.nMontoCobradoEfectivo);
+      SETnMontoCredito(Response.data.nMontoCredito);
+      SETnMontoFinal(Response.data.nMontoFinal);
+      
+    } else {
+      Alert.alert("ERROR", Response.error);
+    }
+    return 0
+  }
 
   return (
     <View style={styles.ContenedorPrincipal}>
@@ -41,34 +66,37 @@ function Caja_Screen() {
             placeholderTextColor="#D3D3D3"
             textAlignVertical="top"
           />
-          <Text style={styles.TextLabel}>Monto Cobrado:</Text>
-          <TextInput
-            style={styles.TextInput}
-            value={nMontoCobrado}
-            onChangeText={SETnMontoCobrado}
-            placeholder="Ingrese monto"
-            placeholderTextColor="#D3D3D3"
-            textAlignVertical="top"
-          />
-          <Text style={styles.TextLabel}>Monto Credito:</Text>
-          <TextInput
-            style={styles.TextInput}
-            value={nMontoCredito}
-            onChangeText={SETnMontoCredito}
-            placeholder="Ingrese monto"
-            placeholderTextColor="#D3D3D3"
-            textAlignVertical="top"
-          />
-          <Text style={styles.TextLabel}>Monto Final:</Text>
-          <TextInput
-            style={styles.TextInput}
-            value={nMontoFinal}
-            onChangeText={SETnMontoFinal}
-            placeholder="Ingrese monto"
-            placeholderTextColor="#D3D3D3"
-            textAlignVertical="top"
-          />
-
+          {nCajaEstado === "1" &&
+            <View id="CierreCaja">
+              <Text style={styles.TextLabel}>Monto Cobrado:</Text>
+              <TextInput
+                style={styles.TextInput}
+                value={nMontoCobrado}
+                onChangeText={SETnMontoCobrado}
+                placeholder="Ingrese monto"
+                placeholderTextColor="#D3D3D3"
+                textAlignVertical="top"
+              />
+              <Text style={styles.TextLabel}>Monto Credito:</Text>
+              <TextInput
+                style={styles.TextInput}
+                value={nMontoCredito}
+                onChangeText={SETnMontoCredito}
+                placeholder="Ingrese monto"
+                placeholderTextColor="#D3D3D3"
+                textAlignVertical="top"
+              />
+              <Text style={styles.TextLabel}>Monto Final:</Text>
+              <TextInput
+                style={styles.TextInput}
+                value={nMontoFinal}
+                onChangeText={SETnMontoFinal}
+                placeholder="Ingrese monto"
+                placeholderTextColor="#D3D3D3"
+                textAlignVertical="top"
+              />
+            </View>
+          }
           <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>GUARDAR</Text>
           </TouchableOpacity>
