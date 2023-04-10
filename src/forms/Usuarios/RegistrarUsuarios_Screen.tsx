@@ -14,7 +14,6 @@ import { configData } from "../../../config";
 import Icon from "react-native-vector-icons/Ionicons";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
-import { Cliente } from "../../clases/Cliente";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -124,6 +123,7 @@ const RegistroUsuario_Screen = ({ route }: any) => {
 					placeholder="Ingrese usuario"
 					placeholderTextColor="#D3D3D3"
 					textAlignVertical="center"
+					editable={isEditing ? false : true}
 				/>
 
 				<Text style={styles.TextLabel}>Cliente:</Text>
@@ -156,6 +156,7 @@ const RegistroUsuario_Screen = ({ route }: any) => {
 					placeholderTextColor="#D3D3D3"
 					textAlignVertical="center"
 					secureTextEntry={true}
+					editable={isEditing ? false : true}
 				/>
 
 				<Text style={styles.TextLabel}>Confirmar Clave:</Text>
@@ -167,6 +168,7 @@ const RegistroUsuario_Screen = ({ route }: any) => {
 					placeholderTextColor="#D3D3D3"
 					textAlignVertical="center"
 					secureTextEntry={true}
+					editable={isEditing ? false : true}
 				/>
 
 				<Text style={styles.TextLabel}>Seleccione Tipo:</Text>
