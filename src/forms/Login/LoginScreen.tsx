@@ -38,7 +38,6 @@ export const LoginScreen = () => {
 
 		if (response.success) {
 			Alert.alert("OK", "Bienvenido " + response.data.cUsuUsuario + "!!");
-			console.log(response.data);
 			configData.nUsuId = response.data.nUsuID;
 			configData.cUsuario = username;
 			configData.nUsuTipo = response.data.nUsuTipo;
@@ -46,6 +45,7 @@ export const LoginScreen = () => {
 			configData.nCredRutasID = response.data.nCredRutasID;
 
 			navigation.navigate("DrawerScreen");
+			console.log("pasa");
 		} else {
 			Alert.alert("ERROR", response.error);
 			setPassword("");

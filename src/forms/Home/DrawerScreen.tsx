@@ -9,8 +9,9 @@ import CajaScreen from "../Caja/Caja_Screen";
 import ImprimirScreen from "../Impresion/ImprimirScreen";
 import ConfiguracionScreen from "../Configuracion/ConfiguracionScreen";
 import ListarClienteScreen from "../ClienteScreen/ListarCliente_Screen";
-import { LoginScreen } from "../Login/LoginScreen";
+
 import ListarUsuarioScreen from "../Usuarios/ListarUsuarios_Screen";
+import { CerrarSesion } from "../Login/CerrarSesion";
 
 const Drawer = createDrawerNavigator();
 
@@ -101,7 +102,7 @@ export default function DrawerScreen() {
 
 			<Drawer.Screen
 				name="Cerrar Sesion"
-				component={LoginScreen}
+				component={CerrarSesion}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="close-outline" size={size} color={color} />
