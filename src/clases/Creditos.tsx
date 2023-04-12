@@ -16,6 +16,8 @@ export class Creditos {
 	private nCredMontoDeuda: Double;
 	private nCredPorcentajeDeuda: Double;
 	private nEstID: number;
+	private nUsuID: number;
+	private nCredRutasID: number;
 
 	static url = `${configData.API_URL}/api/Credito`;
 
@@ -32,7 +34,9 @@ export class Creditos {
 		nCredMontoPagado: Double = 0,
 		nCredMontoDeuda: Double = 0,
 		nCredPorcentajeDeuda: Double = 0,
-		nEstID: number = 0
+		nEstID: number = 0,
+		nUsuID: number = 0,
+		nCredRutasID : number =0
 	) {
 		this.nCredID = nCredID;
 		this.nClienID = nClieID;
@@ -47,6 +51,8 @@ export class Creditos {
 		this.nCredMontoDeuda = nCredMontoDeuda;
 		this.nCredPorcentajeDeuda = nCredPorcentajeDeuda;
 		this.nEstID = nEstID;
+		this.nUsuID = nUsuID;
+		this.nCredRutasID = nCredRutasID;
 	}
 
 	async ListarCreditos() {
@@ -84,6 +90,8 @@ export class Creditos {
 					nMonto: this.nCredMonto,
 					nInteres: 0,
 					nCuotas: this.nCredNroCuotas,
+					nUsuId : this.nUsuID,
+					nCredRutasID : this.nCredRutasID
 				},
 				headers: {
 					"Content-Type": "application/json",

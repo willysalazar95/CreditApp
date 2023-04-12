@@ -10,6 +10,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { Creditos } from "../../clases/Creditos";
+import { configData } from "../../../config";
 
 const RegistrarCredito_Screen = ({ route }: any) => {
   const [options, setOptions] = useState([]);
@@ -58,7 +59,9 @@ const RegistrarCredito_Screen = ({ route }: any) => {
       0,
       0,
       0,
-      0
+      0,
+      configData.nUsuId,
+      configData.nCredRutasID
     );
     const response = await _dCred.RegistroCredito();
     if (response.success) {
