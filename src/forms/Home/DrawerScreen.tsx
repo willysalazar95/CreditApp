@@ -12,6 +12,8 @@ import ListarClienteScreen from "../ClienteScreen/ListarCliente_Screen";
 
 import ListarUsuarioScreen from "../Usuarios/ListarUsuarios_Screen";
 import { CerrarSesion } from "../Login/CerrarSesion";
+import { CambiarContrasenia_Screen } from "../Usuarios/CambiarContrasenia_Screen";
+import { configData } from "../../../config";
 
 const Drawer = createDrawerNavigator();
 
@@ -45,15 +47,20 @@ export default function DrawerScreen() {
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Usuarios"
-				component={ListarUsuarioScreen}
-				options={{
-					drawerIcon: ({ focused, color, size }) => (
-						<Icon name="person-circle-outline" size={size} color={color} />
-					),
-				}}
-			/>
+			{configData.nUsuTipo == 1 ? (
+				<Drawer.Screen
+					name="Usuarios"
+					component={ListarUsuarioScreen}
+					options={{
+						drawerIcon: ({ focused, color, size }) => (
+							<Icon name="person-circle-outline" size={size} color={color} />
+						),
+					}}
+				/>
+			) : (
+				<></>
+			)}
+
 			{/* <Drawer.Screen
 				name="Pago"
 				component={PagoScreen}
@@ -100,6 +107,15 @@ export default function DrawerScreen() {
 				}}
 			/>
 
+			<Drawer.Screen
+				name="Cambiar Contraseña"
+				component={CambiarContrasenia_Screen}
+				options={{
+					drawerIcon: ({ focused, color, size }) => (
+						<Icon name="lock-closed-outline" size={size} color={color} />
+					),
+				}}
+			/>
 			<Drawer.Screen
 				name="Cerrar Sesion"
 				component={CerrarSesion}
