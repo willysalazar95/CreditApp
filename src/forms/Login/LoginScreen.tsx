@@ -43,7 +43,7 @@ export const LoginScreen = () => {
 			configData.nUsuTipo = response.data.nUsuTipo;
 			configData.nConfiguracionID = response.data.nConfiguracionID;
 			configData.nCredRutasID = response.data.nCredRutasID;
-
+			configData.nCajaId = response.data.caja.nCajaId;
 			navigation.navigate("DrawerScreen");
 			console.log(configData);
 		} else {
