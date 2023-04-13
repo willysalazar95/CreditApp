@@ -4,6 +4,7 @@ export const configData = { API_URL: "http://willy95.somee.com",
                             nUsuTipo : 0,
                             nConfiguracionID : 0,
                             nCredRutasID : 0,
+                            nCajaId : 0,
                             
                             nCredTasaInteres : 0,
                             nCredTasaMora : 0

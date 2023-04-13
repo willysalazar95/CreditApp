@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Touchable from "react-native-platform-touchable";
 import Icon from "react-native-vector-icons/Ionicons";
-import { configData } from "../../../config";
+// import { configData } from "../../../config";
 
 class HomeScreen extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class HomeScreen extends React.Component {
             <View style={styles.ContenedorWidget}>
               <Icon name="person-outline" size={70} color="#FFF"></Icon>
               {/* <Text style={styles.TotalTitle}> 2023</Text> */}
-              <Text style={styles.DetalleTitle}>CLIENTE  {configData.nConfiguracionID}</Text>
+              <Text style={styles.DetalleTitle}>CLIENTE</Text>
             </View>
           </Touchable>
 
