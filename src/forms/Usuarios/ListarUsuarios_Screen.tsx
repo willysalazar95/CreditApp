@@ -25,7 +25,6 @@ const ListarUsuarioScreen = ({ route }: any) => {
 	const ListarUsuarios = async () => {
 		const DatUsuario = new Usuario();
 		const response = await DatUsuario.ListarUsuario(0);
-		console.log(response);
 
 		setUsuarios(response.data);
 	};
