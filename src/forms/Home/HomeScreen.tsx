@@ -81,7 +81,7 @@ const HomeScreen = () => {
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
-						<Icon name="calculator-outline" size={70} color="#FFF"></Icon>
+						<Icon name="person-circle-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
 						<Text style={styles.DetalleTitle}>USUARIO</Text>
 					</View>
