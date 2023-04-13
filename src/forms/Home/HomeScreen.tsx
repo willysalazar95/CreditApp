@@ -25,12 +25,18 @@ const HomeScreen = () => {
 						<Icon name="person-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
 						<Text style={styles.DetalleTitle}>
-							CLIENTE {configData.nConfiguracionID}
+							CLIENTE
+							{/* {configData.nConfiguracionID} */}
 						</Text>
 					</View>
 				</Touchable>
 
-				<Touchable style={styles.widgets2}>
+				<Touchable
+					style={styles.widgets6}
+					onPress={() => {
+						navigation.navigate("ListarCreditos");
+					}}
+				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="cash-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
@@ -40,7 +46,12 @@ const HomeScreen = () => {
 			</View>
 
 			<View style={styles.CajaContenedor}>
-				<Touchable style={styles.widgets3}>
+				<Touchable
+					style={styles.widgets3}
+					onPress={() => {
+						navigation.navigate("ListarPagos");
+					}}
+				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="card-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
@@ -48,7 +59,12 @@ const HomeScreen = () => {
 					</View>
 				</Touchable>
 
-				<Touchable style={styles.widgets4}>
+				<Touchable
+					style={styles.widgets4}
+					onPress={() => {
+						navigation.navigate("ListarCierre");
+					}}
+				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="lock-closed-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
@@ -58,15 +74,25 @@ const HomeScreen = () => {
 			</View>
 
 			<View style={styles.CajaContenedor}>
-				<Touchable style={styles.widgets5}>
+				<Touchable
+					style={styles.widgets2}
+					onPress={() => {
+						navigation.navigate("ListarUsuarios");
+					}}
+				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="calculator-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
-						<Text style={styles.DetalleTitle}>FLEX</Text>
+						<Text style={styles.DetalleTitle}>USUARIO</Text>
 					</View>
 				</Touchable>
 
-				<Touchable style={styles.widgets6}>
+				<Touchable
+					style={styles.widgets5}
+					onPress={() => {
+						navigation.navigate("ListarImprimir");
+					}}
+				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="print-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
@@ -103,7 +129,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 	},
 	widgets2: {
-		backgroundColor: "#50E3C2",
+		backgroundColor: "#167762",
 		elevation: 2,
 		width: "44%",
 		marginLeft: 15,
@@ -162,12 +188,6 @@ const styles = StyleSheet.create({
 		flexDirection: "column",
 		alignItems: "center",
 	},
-	//   TotalTitle: {
-	//     fontSize: 24,
-	//     fontWeight: "bold",
-	//     color: "#FFF",
-	//     textAlign: "right",
-	//   },
 	DetalleTitle: {
 		fontSize: 18,
 		fontWeight: "bold",

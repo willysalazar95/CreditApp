@@ -22,6 +22,10 @@ import RegConfigCliente_Screen from "./src/forms/Configuracion/RegConfigCliente_
 import RegistroUsuarioConfig_Screen from "./src/forms/Usuarios/RegistroUsuarioConfig_Screen";
 import ListarUsuarioScreen from "./src/forms/Usuarios/ListarUsuarios_Screen";
 import RegistroUsuario_Screen from "./src/forms/Usuarios/RegistrarUsuarios_Screen";
+import Creditos_Screen from "./src/forms/Creditos/Creditos_Screen";
+import PagoScreen from "./src/forms/Pagos/PagoScreen";
+import ImprimirScreen from "./src/forms/Impresion/ImprimirScreen";
+import CierreScreen from "./src/forms/Cierre/CierreScreen";
 
 export type RootStackParamList = {
 	Login: undefined;
@@ -40,15 +44,18 @@ export type RootStackParamList = {
 	ListarPersonas: { pantalla?: string; onSelect?: (cliente: any) => void };
 	ModificarPersona: { item: any } | undefined;
 	ListarCronograma: undefined;
+	ListarCreditos: undefined;
 	ReporteCreditos: undefined;
+	ListarPagos: undefined;
 	ReportePagos: undefined;
 	ReporteClientes: undefined;
-
+	ListarCierre: undefined;
 	Configuracion_Screen: undefined;
 	RegConfigCliente_Screen: { item: any } | undefined;
 	RegistroUsuarioConfig_Screen: { item: any } | undefined;
 	ListarUsuarios: undefined;
 	RegistrarUsuarios: { item: any } | undefined;
+	ListarImprimir: undefined;
 	// Profile: { userId: string };
 	// Feed: { sort: 'latest' | 'top' } | undefined;
 };
@@ -128,6 +135,30 @@ function App() {
 					name="RegistrarUsuarios"
 					component={RegistroUsuario_Screen}
 					options={{ title: "Modificar Usuarios" }}
+				/>
+
+				<Stack.Screen
+					name="ListarCreditos"
+					component={Creditos_Screen}
+					options={{ title: "Listar Créditos" }}
+				/>
+
+				<Stack.Screen
+					name="ListarCierre"
+					component={CierreScreen}
+					options={{ title: "Listar Cierre" }}
+				/>
+
+				<Stack.Screen
+					name="ListarPagos"
+					component={PagoScreen}
+					options={{ title: "Listar Pagos" }}
+				/>
+
+				<Stack.Screen
+					name="ListarImprimir"
+					component={ImprimirScreen}
+					options={{ title: "Listar Imprimir" }}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
