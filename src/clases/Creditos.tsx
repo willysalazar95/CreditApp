@@ -18,7 +18,7 @@ export class Creditos {
 	private nEstID: number;
 	private nUsuID: number;
 	private nCredRutasID: number;
-
+	
 	static url = `${configData.API_URL}/api/Credito`;
 
 	constructor(
@@ -60,7 +60,8 @@ export class Creditos {
 		try {
 			const response = await axios.get(BASE_URL, {
 				params: {
-					nIdPers: 0,
+					nIdPers: this.nClienID,
+					nUsuId: this.nUsuID,
 				},
 			});
 
@@ -123,6 +124,7 @@ export class Creditos {
 				params: {
 					nIdCredigo: this.nCredID,
 					nMonto: this.nCredMonto,
+					nCajaId: configData.nCajaId,
 				},
 				headers: {
 					"Content-Type": "application/json",

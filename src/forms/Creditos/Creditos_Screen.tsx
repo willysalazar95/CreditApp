@@ -15,19 +15,53 @@ import { RootStackParamList } from "../../../App";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
+import { configData } from "../../../config";
+
 const Creditos_Screen = () => {
 	const [data, setData] = useState([]);
 	const navigation = useNavigation<homeScreenProp>();
 	const [query, setQuery] = useState("");
 
 	const ListarCreditos = async () => {
-		const _Dat = new Creditos();
+		const _Dat = new Creditos(
+			0,
+			0,
+			'',
+			0,
+			0,
+			0,
+			0,
+			0,
+			'',
+			0,
+			0,
+			0,
+			0,
+			configData.nUsuId,
+			configData.nCredRutasID
+		);
 		const response = await _Dat.ListarCreditos();
 		setData(response.data);
 	};
 
 	const BuscarCreditos = async () => {
-		const _Dat = new Creditos();
+		const _Dat = new Creditos(
+			0,
+			0,
+			'',
+			0,
+			0,
+			0,
+			0,
+			0,
+			'',
+			0,
+			0,
+			0,
+			0,
+			configData.nUsuId,
+			configData.nCredRutasID
+		);
 		const response = await _Dat.ListarCreditos();
 		const filteredData = response.data.filter((item: any) => {
 			return (item.cClieNombre ?? "").toLowerCase().includes(query.toLowerCase());
@@ -79,6 +113,7 @@ const Creditos_Screen = () => {
 			</TouchableOpacity>
 		);
 	};
+
 	const SelecClienteNuevoCredito = () => {
 		navigation.navigate("ListarPersonas", { pantalla: "credito" });
 	};
