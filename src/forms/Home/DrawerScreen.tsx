@@ -14,6 +14,7 @@ import ListarUsuarioScreen from "../Usuarios/ListarUsuarios_Screen";
 import { CerrarSesion } from "../Login/CerrarSesion";
 import { CambiarContrasenia_Screen } from "../Usuarios/CambiarContrasenia_Screen";
 import { configData } from "../../../config";
+import SimularCredito_Screen from "../Creditos/SimularCredito_Screen";
 
 const Drawer = createDrawerNavigator();
 
@@ -44,6 +45,15 @@ export default function DrawerScreen() {
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="cash-outline" size={size} color={color} />
+					),
+				}}
+			/>
+			<Drawer.Screen
+				name="Simular Crédito"
+				component={SimularCredito_Screen}
+				options={{
+					drawerIcon: ({ focused, color, size }) => (
+						<Icon name="card-outline" size={size} color={color} />
 					),
 				}}
 			/>
