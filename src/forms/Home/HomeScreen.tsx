@@ -18,8 +18,7 @@ const HomeScreen = () => {
 				<Touchable
 					style={styles.widgets1}
 					onPress={() => {
-						navigation.navigate("ListarPersonas", {});
-						navigation.setOptions({ headerTitle: 'Relacion de Clientes' });
+						navigation.navigate("ListarPersonas", {});						
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
