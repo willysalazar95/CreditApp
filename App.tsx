@@ -84,10 +84,13 @@ function App() {
 				<Stack.Screen
 					name="Configuracion_Screen"
 					component={Configuracion_Screen}
+					options={{ title: "Configuracion " }}
 				/>
 				<Stack.Screen
 					name="RegConfigCliente_Screen"
 					component={RegConfigCliente_Screen}
+					
+					options={{ title: "CConfigCliente" }}
 				/>
 
 				<Stack.Screen name="Prestamos" component={PrestamoScreen} />
@@ -100,14 +103,18 @@ function App() {
 					component={RegistroUsuarioConfig_Screen}
 				/>
 
-				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen} />
+				<Stack.Screen name="ListarPersonas" 
+				component={ListarClienteScreen} 				
+				options={{ title: "Lista de Clientes" }}
+				/>
 
 				<Stack.Screen
 					name="ModificarPersona"
 					component={ModificarCliente}
-					options={{ title: "Modifica Persona" }}
+					options={{ title: "Registro de Cliente" }}
 				/>
-				<Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} />
+				<Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} 
+					options={{ title: "Cronograma" }} />
 				<Stack.Screen
 					name="ReporteCreditos"
 					component={ReporteCreditos}
@@ -128,19 +135,19 @@ function App() {
 				<Stack.Screen
 					name="ListarUsuarios"
 					component={ListarUsuarioScreen}
-					options={{ title: "Usuarios" }}
+					options={{ title: "Lista de Usuarios" }}
 				/>
 
 				<Stack.Screen
 					name="RegistrarUsuarios"
 					component={RegistroUsuario_Screen}
-					options={{ title: "Modificar Usuarios" }}
+					options={{ title: "Registro de Usuarios" }}
 				/>
 
 				<Stack.Screen
 					name="ListarCreditos"
 					component={Creditos_Screen}
-					options={{ title: "Listar Créditos" }}
+					options={{ title: "Lista de Créditos" }}
 				/>
 
 				<Stack.Screen

@@ -19,6 +19,7 @@ const HomeScreen = () => {
 					style={styles.widgets1}
 					onPress={() => {
 						navigation.navigate("ListarPersonas", {});
+						navigation.setOptions({ headerTitle: 'Relacion de Clientes' });
 					}}
 				>
 					<View style={styles.ContenedorWidget}>

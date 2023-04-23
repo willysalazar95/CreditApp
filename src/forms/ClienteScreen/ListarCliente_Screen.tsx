@@ -65,7 +65,7 @@ const ListarClienteScreen = ({ route }: any) => {
 		const handleEliminar = (cliente: any) => {
 			setPersonaSeleccionada(cliente);
 			Alert.alert(
-				"Eliminar persona",
+				"Eliminar CLIENTE",
 				`¿Está seguro de que desea eliminar a ${cliente.cClieNombres} ${cliente.cClieApellidos}?`,
 				[
 					{
