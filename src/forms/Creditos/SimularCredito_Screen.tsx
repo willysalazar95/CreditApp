@@ -67,19 +67,19 @@ const SimularCredito_Screen = () => {
 				/>
 			</View>
 			<View style={styles.TextInputContenedor}>
-				<Text style={styles.TextLabel}>Monto Cuota:</Text>
+				<Text style={styles.TextLabel}>Cuota Mensual:</Text>
 				<TextInput
 					style={styles.TextInput}
 					value={cuotaMonto}
 					keyboardType="decimal-pad"
-					placeholder="Ingrese cuotas"
+					placeholder="Cuota Mensual"
 					placeholderTextColor="#D3D3D3"
 					textAlignVertical="top"
 					editable={false}
 				/>
 			</View>
 			<View style={styles.TextInputContenedor}>
-				<Text style={styles.TextLabel}>Total Interes:</Text>
+				<Text style={styles.TextLabel}>Interes generado:</Text>
 				<TextInput
 					style={styles.TextInput}
 					value={totalInteres}

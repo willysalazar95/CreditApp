@@ -33,7 +33,7 @@ export default function DrawerScreen() {
 			<Drawer.Screen
 				name="Clientes"
 				component={ListarClienteScreen}
-				options={{title:'Relacion de Clientes',
+				options={{title:'Clientes',
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="person-outline" size={size} color={color} />
 					),
