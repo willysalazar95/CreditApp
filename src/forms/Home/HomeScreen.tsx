@@ -20,7 +20,7 @@ const HomeScreen = () => {
 					style={styles.widgets1}
 					onPress={() => {
 						navigation.navigate("ListarPersonas", {} );
-						navigation.setOptions({ title: 'Relacion de Personas' });
+						navigation.setOptions({ title: 'Inicio' });
 						 
 					//	navigation.setOptions({ headerTitle: 'header Set in Navigator' });
 						  				
