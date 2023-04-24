@@ -108,6 +108,8 @@ const RegistroUsuario_Screen = ({ route }: any) => {
 			pantalla: "usuario",
 			onSelect: handleSelectClient,
 		});
+		
+		navigation.setOptions({ title: 'Relacion de Personas3333' });
 	};
 
 	return (

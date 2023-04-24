@@ -116,6 +116,7 @@ const Creditos_Screen = () => {
 
 	const SelecClienteNuevoCredito = () => {
 		navigation.navigate("ListarPersonas", { pantalla: "credito" });
+		navigation.setOptions({ title: 'Relacion de Personas2222' });
 	};
 
 	return (

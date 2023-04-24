@@ -20,11 +20,11 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerScreen() {
 	return (
-		<Drawer.Navigator initialRouteName="Home">
+		<Drawer.Navigator initialRouteName="Home" >
 			<Drawer.Screen
 				name="Home"
 				component={HomeScreen}
-				options={{
+				options={{ title:'Inicio',
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="home-outline" size={size} color={color} />
 					),
@@ -33,7 +33,7 @@ export default function DrawerScreen() {
 			<Drawer.Screen
 				name="Clientes"
 				component={ListarClienteScreen}
-				options={{
+				options={{title:'Relacion de Clientes',
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="person-outline" size={size} color={color} />
 					),

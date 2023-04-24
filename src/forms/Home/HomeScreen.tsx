@@ -11,6 +11,7 @@ type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const HomeScreen = () => {
 	const navigation = useNavigation<homeScreenProp>();
+	 
 
 	return (
 		<View style={styles.ContenedorPrincipal}>
@@ -18,7 +19,11 @@ const HomeScreen = () => {
 				<Touchable
 					style={styles.widgets1}
 					onPress={() => {
-						navigation.navigate("ListarPersonas", {});						
+						navigation.navigate("ListarPersonas", {} );
+						navigation.setOptions({ title: 'Relacion de Personas' });
+						 
+					//	navigation.setOptions({ headerTitle: 'header Set in Navigator' });
+						  				
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
