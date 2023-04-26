@@ -10,8 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const HomeScreen = () => {
-	const navigation = useNavigation<homeScreenProp>();
-	 
+	const navigation = useNavigation<homeScreenProp>();	 
 
 	return (
 		<View style={styles.ContenedorPrincipal}>
