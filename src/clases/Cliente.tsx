@@ -1,5 +1,6 @@
 import axios from "axios";
 import { configData } from "../../config";
+import { convertirFechaAAAAMMDD } from "../utils/utils";
 
 class Cliente {
 	private nClieID: number;
@@ -71,7 +72,6 @@ class Cliente {
 	async RegistrarCliente() {
 		const BASE_URL = `${Cliente.url}/RegistrarClientes`;
 		try {
-			console.log(this.cClieLatitud + " " + this.cClieLongitud);
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
@@ -81,7 +81,8 @@ class Cliente {
 					cClieApellidos: this.cClieApellidos,
 					cClieDireccion: this.cClieDireccion,
 					cClieTelefono: this.cClieTelefono,
-					cClieFechNac: "20230101",
+					cClieFechNac: this.cClieFechNac,
+					// dClieFechaCreacion :
 					cClieLatitud: this.cClieLatitud,
 					cClieLongitud: this.cClieLongitud,
 				},
@@ -119,8 +120,9 @@ class Cliente {
 					cClieApellidos: this.cClieApellidos,
 					cClieDireccion: this.cClieDireccion,
 					cClieTelefono: this.cClieTelefono,
-					cClieFechNac: "2023-01-01",
-					nClieEstado: 1,
+					cClieFechNac: this.cClieFechNac,
+					dClieFechaCreacion: convertirFechaAAAAMMDD(new Date()),
+					nClieEstado: this.nClieEstado,
 					cClieLatitud: this.cClieLatitud,
 					cClieLongitud: this.cClieLongitud,
 				},
@@ -131,8 +133,6 @@ class Cliente {
 				withCredentials: true,
 				responseType: "json",
 			});
-
-			console.log(response);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
