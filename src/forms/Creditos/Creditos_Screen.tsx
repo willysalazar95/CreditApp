@@ -86,7 +86,7 @@ const Creditos_Screen = () => {
 		};
 
 		const VerCronograma = () => {
-			navigation.navigate("ListarCronograma");
+			navigation.navigate("ListarCronograma_Screen", { credito: item });
 		};
 
 		return (

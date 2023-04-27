@@ -43,7 +43,7 @@ export type RootStackParamList = {
 	};
 	ListarPersonas: { pantalla?: string; onSelect?: (cliente: any) => void };
 	ModificarPersona: { item: any } | undefined;
-	ListarCronograma: undefined;
+	ListarCronograma_Screen: { credito: any };
 	ListarCreditos: undefined;
 	ReporteCreditos: undefined;
 	ListarPagos: undefined;
@@ -93,7 +93,7 @@ function App() {
 				<Stack.Screen name="ModificarPersona" component={ModificarCliente}
 					options={{ title: "Registro de Cliente" }}
 				/>
-				<Stack.Screen name="ListarCronograma" component={ListarCronogramaScreen} 
+				<Stack.Screen name="ListarCronograma_Screen" component={ListarCronogramaScreen} 
 					options={{ title: "Cronograma" }} />
 				<Stack.Screen name="ReporteCreditos" component={ReporteCreditos}
 					options={{ title: "Reporte de Créditos" }}

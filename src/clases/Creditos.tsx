@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Double } from "react-native/Libraries/Types/CodegenTypes";
 import { configData } from "../../config";
+import { convertirFechaAAAAMMDD } from "../utils/utils";
 
 export class Creditos {
 	private nCredID: number;
@@ -81,6 +82,7 @@ export class Creditos {
 	async RegistroCredito() {
 		const BASE_URL = `${Creditos.url}/RegistrarCredito`;
 		try {
+			// console.log(this.dCredFechaPrest); //2023015
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,

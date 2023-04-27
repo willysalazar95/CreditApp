@@ -11,6 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import { Creditos } from "../../clases/Creditos";
 import { configData } from "../../../config";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const RegistrarCredito_Screen = ({ route }: any) => {
   const [options, setOptions] = useState([]);
@@ -21,10 +23,13 @@ const RegistrarCredito_Screen = ({ route }: any) => {
   const [nIdPers, SETnIdPers] = useState(0);
   const [dni, SETcDNI] = useState("");
   const [nombre, SETcNombre] = useState("");
-  const [dFechaCred, SETdFechaCredito] = useState("");
   const [nMonto, SetnMonto] = useState("");
+
   const [nInteres, SetnInteres] = useState("");
   const [nCuotas, SetnCuotas] = useState("");
+
+  const [dFechaCred, SETdFechaCredito] = useState(new Date());
+	const [showDatePicker, setShowDatePicker] = useState(false);
 
   const ListarPeriodos = async () => {
     const dCred = new Creditos();
@@ -49,7 +54,7 @@ const RegistrarCredito_Screen = ({ route }: any) => {
     const _dCred = new Creditos(
       0,
       nIdPers,
-      dFechaCred,
+      convertirFechaAAAAMMDD(dFechaCred),
       selectedValue,
       parseInt(nMonto),
       parseInt(nInteres),
@@ -99,11 +104,21 @@ const RegistrarCredito_Screen = ({ route }: any) => {
       </View>
       <View style={styles.TextInputContenedor}>
         <Text style={styles.TextLabel}>Fecha Prestamo:</Text>
-        <TextInput
-          style={styles.TextInput}
-          value={dFechaCred}
-          onChangeText={SETdFechaCredito}
-        />
+        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+          <Text style={styles.TextInput}>{formatoFecha(dFechaCred.toString())}</Text>
+          {showDatePicker && (
+            <DateTimePicker
+              value={dFechaCred}
+              mode="date"
+              display="default"
+              onChange={(event, selectedDate) => {
+                const currentDate = selectedDate || dFechaCred;
+                setShowDatePicker(false);
+                SETdFechaCredito(currentDate);
+              }}
+            />
+          )}
+        </TouchableOpacity>
       </View>
       <View style={styles.TextInputContenedor}>
         <Text style={styles.TextLabel}>Periodo:</Text>
@@ -111,7 +126,6 @@ const RegistrarCredito_Screen = ({ route }: any) => {
           selectedValue={selectedValue}
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         >
-          {/* <Picker.Item label="--Selecciona--" value="" /> */}
           {options.map((item: any, index) => {
             return (
               <Picker.Item

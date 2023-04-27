@@ -1,85 +1,153 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import {
+	View,
+	StyleSheet,
+	Text,
+	TextInput,
+	FlatList,
+	TouchableOpacity,
+	Alert,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CalendarList } from "react-native-calendars";
+import { CreditosCronogramas } from "../../clases/CreditosCronogramas"
 
-const ListarCronograma_Screen = () => {
+const ListarCronograma_Screen = ({ route }: any) => {
 	const [data, setData] = useState([]);
 	const navigation = useNavigation();
-	const [query, setQuery] = useState("");
+	const [cNombreCliente, setcNombreCliente] = useState("");
 
-	const ListarCreditos = async () => {
-		/*const _Dat = new DatosCreditos();
-    const response = await _Dat.ListarCreditos();
-    setData(response.data);*/
+	const ListarCronograma = async () => {
+		const _Dat = new CreditosCronogramas();
+		const response = await _Dat.ListarCreditosCronogramas();
+		setData(response.data);
+		// console.log(response);
+	};
+
+	const renderItem = ({ item }: any) => {
+		return (
+			<TouchableOpacity>
+				<View style={styles.cardBorder}>
+					<Text style={styles.cardTitle}>
+						{`Cuota: ${item.nCronoCuota}`}
+					</Text>
+					{<Text>{`Monto : ${item.nCronoMonto}`}</Text>}
+					{<Text>{`Pagado: ${item.nCronoMontoPagado}`}</Text>}
+					<Text style={styles.cardTitle}>
+						{<Text>{`Saldo : ${item.nCronoMonto - item.nCronoMontoPagado}`}</Text>}
+					</Text>
+				</View>
+			</TouchableOpacity>
+		);
 	};
 
 	useEffect(() => {
-		//ListarCreditos();
-	}, []);
+		console.log(route);
+		if (route.params && route.params.credito) {
+			const credito = route.params.credito;
+			setcNombreCliente(credito.cClieDescripcion);
+		}
+
+		ListarCronograma();
+	}, [route.params]);
 
 	return (
-		<View style={styles.container}>
-			<CalendarList
-				markingType={"custom"}
-				markedDates={{
-					"2023-03-20": {
-						customStyles: {
-							container: {
-								backgroundColor: "green",
-								elevation: 2,
-							},
-							text: {
-								color: "white",
-								fontWeight: "bold",
-							},
-						},
-					},
-					"2023-03-29": {
-						customStyles: {
-							container: {
-								backgroundColor: "red",
-								elevation: 2,
-							},
-							text: {
-								color: "white",
-								fontWeight: "bold",
-							},
-						},
-					},
-					"2023-04-10": {
-						customStyles: {
-							container: {
-								backgroundColor: "yellow",
-								elevation: 2,
-							},
-							text: {
-								color: "black",
-								fontWeight: "bold",
-							},
-						},
-					},
-					"2023-04-15": {
-						customStyles: {
-							container: {
-								backgroundColor: "blue",
-								elevation: 2,
-							},
-							text: {
-								color: "white",
-								fontWeight: "bold",
-							},
-						},
-					},
+		<View style={styles.ContenedorPrincipalSearch}>
+			<View
+				style={{
+					marginVertical: 1,
+					marginHorizontal: 16,
+					flexDirection: "column",
+					flexWrap: "wrap",
 				}}
+			>
+				<Text>
+					Cliente : {cNombreCliente}
+				</Text>
+			</View>
+
+			<FlatList
+				style={{ width: "100%" }}
+				data={data}
+				renderItem={renderItem}
+				keyExtractor={(item, index) => index.toString()}
 			/>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
+	ContenedorPrincipalSearch: {
 		flex: 1,
+	},
+	ContenedorSearch: {
+		flexDirection: "row",
+		marginHorizontal: 10,
+		marginVertical: 5,
+	},
+
+	TextInputSearch: {
+		flex: 1,
+		marginRight: 5,
+		borderRadius: 10,
+		backgroundColor: "#FFF",
+		paddingHorizontal: 10,
+	},
+	TextInput: {
+		flex: 1,
+	},
+
+	BotonSearch: {
+		backgroundColor: "#5cb85c",
+		width: 50,
+		height: 40,
+		borderRadius: 5,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+
+	BotonAgregar: {
+		backgroundColor: "orange",
+		width: 50,
+		height: 40,
+		borderRadius: 5,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+
+	cardBorder: {
+		flex: 1,
+		margin: 5,
+		borderRadius: 10,
+		padding: 10,
+		backgroundColor: "#fff",
+	},
+	cardTitle: {
+		textTransform: "uppercase",
+		fontWeight: "bold",
+	},
+	buttonsContainer: {
+		flexDirection: "row",
+		justifyContent: "flex-end",
+		paddingRight: 10, // Agregar paddingRight para separación
+	},
+	buttonEdit: {
+		backgroundColor: "rgb(12,177,234)",
+		width: 50,
+		height: 40,
+		padding: 5,
+		borderRadius: 5,
+		marginRight: 5,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	buttonDelete: {
+		backgroundColor: "red",
+		width: 50,
+		height: 40,
+		padding: 5,
+		borderRadius: 5,
+		alignItems: "center",
+		justifyContent: "center",
 	},
 });
 
