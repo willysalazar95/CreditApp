@@ -11,11 +11,11 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import MapView, { Marker } from "react-native-maps";
-import Geolocation from 'react-native-geolocation-service';
-import { Platform, PermissionsAndroid } from 'react-native';
+import Geolocation from "react-native-geolocation-service";
+import { Platform, PermissionsAndroid } from "react-native";
 
 import { Cliente } from "../../clases/Cliente";
-import { formatoFecha } from "../../utils/utils";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 import { getRelativeCoords } from "react-native-reanimated";
 
 //CREADO POR AAGC
@@ -37,14 +37,14 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [showDatePicker, setShowDatePicker] = useState(false);
 
 	const [region, setRegion] = useState({
-		latitude: 0, 		//-12.026971,
-		longitude: 0, 		//-77.063492,
-		latitudeDelta: 0, 	//0.0922,
-		longitudeDelta: 0, 	//0.0421,
+		latitude: 0, //-12.026971,
+		longitude: 0, //-77.063492,
+		latitudeDelta: 0, //0.0922,
+		longitudeDelta: 0, //0.0421,
 	});
 	const [marker, setMarker] = useState({
-		latitude: 0, 	//-12.026971,
-		longitude: 0,	//-77.063492,
+		latitude: 0, //-12.026971,
+		longitude: 0, //-77.063492,
 	});
 
 	const onMarkerDragEnd = (event: any) => {
@@ -67,8 +67,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			setApellido(persona.cClieApellidos);
 			setDireccion(persona.cClieDireccion);
 			setTelefono(persona.cClieTelefono);
-			// setFechaNacimiento(persona.cPersFechNac);
-
+			setFechaNac(new Date(persona.cClieFechNac));
 			setIsEditing(true);
 			setAccionBoton("Modificar");
 		} else {
@@ -117,11 +116,11 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			apellido,
 			direccion,
 			telefono,
-			fechaNac.toString(),
+			convertirFechaAAAAMMDD(fechaNac),
 			"",
 			0,
-			"0", 	//cLatitud,
-			"0", 	//cLongitud
+			"0", //cLatitud,
+			"0" //cLongitud
 		);
 		const response = isEditing
 			? await datCliente.ActualizarCliente()
