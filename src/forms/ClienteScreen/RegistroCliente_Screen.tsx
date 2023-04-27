@@ -11,8 +11,13 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import MapView, { Marker } from "react-native-maps";
+import Geolocation from 'react-native-geolocation-service';
+import { Platform, PermissionsAndroid } from 'react-native';
+
 import { Cliente } from "../../clases/Cliente";
 import { formatoFecha } from "../../utils/utils";
+import { getRelativeCoords } from "react-native-reanimated";
+
 //CREADO POR AAGC
 const RegistroCliente_Screen = ({ route }: any) => {
 	const navigation = useNavigation();
@@ -23,7 +28,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [telefono, setTelefono] = useState("");
 	const [direccion, setDireccion] = useState("");
 	const [cLatitud, SETcLatitud] = useState("");
-	const [cLongitud, SETcLongitud] = useState(""); 
+	const [cLongitud, SETcLongitud] = useState("");
 
 	const [accionBoton, setAccionBoton] = useState("Guardar");
 	const [isEditing, setIsEditing] = useState(false);
@@ -32,14 +37,14 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [showDatePicker, setShowDatePicker] = useState(false);
 
 	const [region, setRegion] = useState({
-		latitude: -12.026971,
-		longitude: -77.063492,
-		latitudeDelta: 0.0922,
-		longitudeDelta: 0.0421,
+		latitude: 0, 		//-12.026971,
+		longitude: 0, 		//-77.063492,
+		latitudeDelta: 0, 	//0.0922,
+		longitudeDelta: 0, 	//0.0421,
 	});
 	const [marker, setMarker] = useState({
-		latitude: -12.026971,
-		longitude: -77.063492,
+		latitude: 0, 	//-12.026971,
+		longitude: 0,	//-77.063492,
 	});
 
 	const onMarkerDragEnd = (event: any) => {
@@ -69,7 +74,40 @@ const RegistroCliente_Screen = ({ route }: any) => {
 		} else {
 			setAccionBoton("Registrar");
 		}
+
+		// ObtenerUbicacion();
 	}, [route.params]);
+
+	// const ObtenerUbicacion = async () => {
+	// 	// ubicacion
+	// 	try {
+	// 		const granted = await PermissionsAndroid.request(
+	// 			PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+	// 			{
+	// 				title: 'Permiso de ubicación',
+	// 				message:
+	// 					'Esta aplicación necesita acceder a su ubicación para funcionar correctamente.',
+	// 				buttonNeutral: 'Preguntar más tarde',
+	// 				buttonNegative: 'Cancelar',
+	// 				buttonPositive: 'OK',
+	// 			},
+	// 		);
+	// 		if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+	// 			Geolocation.getCurrentPosition(
+	// 				position => {
+	// 					const { latitude, longitude } = position.coords;
+	// 					console.log(`Latitud: ${latitude}, Longitud: ${longitude}`);
+	// 				},
+	// 				error => console.log(error),
+	// 				{ enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+	// 			);
+	// 		} else {
+	// 			console.log('Permiso de ubicación denegado');
+	// 		}
+	// 	} catch (err) {
+	// 		console.warn(err);
+	// 	}
+	// }
 
 	const handleEnviar = async () => {
 		const datCliente = new Cliente(
@@ -82,8 +120,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			fechaNac.toString(),
 			"",
 			0,
-			cLatitud,
-			cLongitud
+			"0", 	//cLatitud,
+			"0", 	//cLongitud
 		);
 		const response = isEditing
 			? await datCliente.ActualizarCliente()
@@ -170,7 +208,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 							/>
 						)}
 					</TouchableOpacity>
-					<MapView
+					{/* <MapView
 						maxZoomLevel={20}
 						minZoomLevel={14}
 						style={{ width: "100%", height: 200, top: 10, alignSelf: "center" }}
@@ -183,7 +221,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 							coordinate={marker}
 							pinColor={"red"}
 						/>
-					</MapView>
+					</MapView> */}
 				</View>
 
 				<TouchableOpacity style={styles.button} onPress={handleEnviar}>
