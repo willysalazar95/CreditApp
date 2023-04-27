@@ -21,36 +21,28 @@ const Drawer = createDrawerNavigator();
 export default function DrawerScreen() {
 	return (
 		<Drawer.Navigator initialRouteName="Home" >
-			<Drawer.Screen
-				name="Home"
-				component={HomeScreen}
+			<Drawer.Screen name="Home" component={HomeScreen}
 				options={{ title:'Inicio',
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="home-outline" size={size} color={color} />
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Clientes"
-				component={ListarClienteScreen}
+			<Drawer.Screen name="Clientes" component={ListarClienteScreen}
 				options={{title:'Clientes',
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="person-outline" size={size} color={color} />
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Creditos"
-				component={Creditos_Screen}
+			<Drawer.Screen name="Creditos" component={Creditos_Screen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="cash-outline" size={size} color={color} />
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Simular Crédito"
-				component={SimularCredito_Screen}
+			<Drawer.Screen name="Simular Crédito" component={SimularCredito_Screen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="card-outline" size={size} color={color} />
@@ -58,9 +50,7 @@ export default function DrawerScreen() {
 				}}
 			/>
 			{configData.nUsuTipo == 1 ? (
-				<Drawer.Screen
-					name="Usuarios"
-					component={ListarUsuarioScreen}
+				<Drawer.Screen name="Usuarios" component={ListarUsuarioScreen}
 					options={{
 						drawerIcon: ({ focused, color, size }) => (
 							<Icon name="person-circle-outline" size={size} color={color} />
@@ -89,46 +79,35 @@ export default function DrawerScreen() {
 					),
 				}}
 			/> */}
-			<Drawer.Screen
-				name="Caja"
-				component={CajaScreen}
+			<Drawer.Screen name="Caja" component={CajaScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="calculator-outline" size={size} color={color} />
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Reportes"
-				component={ImprimirScreen}
+			<Drawer.Screen name="Reportes" component={ImprimirScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="print-outline" size={size} color={color} />
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Configuracion"
-				component={ConfiguracionScreen}
+			<Drawer.Screen name="Configuracion" component={ConfiguracionScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="settings-outline" size={size} color={color} />
 					),
 				}}
 			/>
-
-			<Drawer.Screen
-				name="Cambiar Contraseña"
-				component={CambiarContrasenia_Screen}
+			<Drawer.Screen name="Cambiar Contraseña" component={CambiarContrasenia_Screen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="lock-closed-outline" size={size} color={color} />
 					),
 				}}
 			/>
-			<Drawer.Screen
-				name="Cerrar Sesion"
-				component={CerrarSesion}
+			<Drawer.Screen name="Cerrar Sesion" component={CerrarSesion}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="close-outline" size={size} color={color} />
