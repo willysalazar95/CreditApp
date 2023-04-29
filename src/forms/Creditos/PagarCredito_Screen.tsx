@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Creditos } from "../../clases/Creditos";
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { round } from "react-native-reanimated";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -46,7 +47,7 @@ const PagarCredito_Screen = ({ route }: any) => {
 
 			let nMontoPag = 0;
 			nMontoPag = (credito.nCredMonto + credito.nCredMontoInteres) / credito.nCredNroCuotas;
-			SETnMontoAPagar(nMontoPag);
+			SETnMontoAPagar(Number((nMontoPag).toFixed(2)));
 			SETnNuevoSaldo(calcSaldoAnterior - nMontoPag);
 		}
 	}, [route.params]);
