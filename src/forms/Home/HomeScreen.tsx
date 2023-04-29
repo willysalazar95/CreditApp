@@ -58,7 +58,8 @@ const HomeScreen = () => {
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
-						<Icon name="card-outline" size={70} color="#FFF"></Icon>
+
+					 <Icon name="alarm-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
 						<Text style={styles.DetalleTitle}>SIMULADOR</Text>
 					</View>
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
 		marginBottom: 15,
 	},
 	widgets1: {
-		backgroundColor: "#5cb85c",
+		backgroundColor: "#00FF00",
 		elevation: 2,
 		width: "44%",
 		marginLeft: 15,
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
 		padding: 10,
 	},
 	widgets2: {
-		backgroundColor: "#167762",
+		backgroundColor: "#5cb85c",
 		elevation: 2,
 		width: "44%",
 		marginLeft: 15,
@@ -200,5 +201,7 @@ const styles = StyleSheet.create({
 		color: "#FFF",
 		marginRight: 5,
 	},
+
+
 });
 export default HomeScreen;
