@@ -38,7 +38,8 @@ const HomeScreen = () => {
 				<Touchable
 					style={styles.widgets6}
 					onPress={() => {
-						navigation.navigate("ListarCreditos");
+						navigation.navigate("ListarCreditos");						
+						navigation.setOptions({ title: 'CREDITO - Elija un cliente' });
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
@@ -53,26 +54,26 @@ const HomeScreen = () => {
 				<Touchable
 					style={styles.widgets3}
 					onPress={() => {
-						navigation.navigate("ListarPagos");
+						navigation.navigate("SimularCredito");
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="card-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
-						<Text style={styles.DetalleTitle}>PAGO </Text>
+						<Text style={styles.DetalleTitle}>SIMULADOR</Text>
 					</View>
 				</Touchable>
 
 				<Touchable
 					style={styles.widgets4}
 					onPress={() => {
-						navigation.navigate("ListarCierre");
+						navigation.navigate("ListarPagos");
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
-						<Icon name="lock-closed-outline" size={70} color="#FFF"></Icon>
+						<Icon name="card-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
-						<Text style={styles.DetalleTitle}>CIERRE</Text>
+						<Text style={styles.DetalleTitle}>PAGOS</Text>
 					</View>
 				</Touchable>
 			</View>
@@ -81,13 +82,13 @@ const HomeScreen = () => {
 				<Touchable
 					style={styles.widgets2}
 					onPress={() => {
-						navigation.navigate("ListarUsuarios");
+						navigation.navigate("ListarCierre");
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
-						<Icon name="person-circle-outline" size={70} color="#FFF"></Icon>
+						<Icon name="lock-closed-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
-						<Text style={styles.DetalleTitle}>USUARIO</Text>
+						<Text style={styles.DetalleTitle}>CIERRE</Text>
 					</View>
 				</Touchable>
 
@@ -100,7 +101,7 @@ const HomeScreen = () => {
 					<View style={styles.ContenedorWidget}>
 						<Icon name="print-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
-						<Text style={styles.DetalleTitle}>IMPRIMIR</Text>
+						<Text style={styles.DetalleTitle}>REPORTES</Text>
 					</View>
 				</Touchable>
 			</View>
