@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 
+import Icon from "react-native-vector-icons/FontAwesome";
 import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -18,44 +19,58 @@ function PagoScreen() {
 
   const [fechaInicio, setFechaInicio] = useState(new Date());
   const [fechaFin, setFechaFin] = useState(new Date());
-	const [showDatePicker, setShowDatePicker] = useState(false);
-
+	const [showDatePickerInicio, setShowDatePickerinicio] = useState(false);
+	
+	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
+	const BuscarPagos = async () => {
+		/*
+		const DatCliente = new Cliente();
+		const response = await DatCliente.ListarCliente();
+		const filteredData = response.data.filter((item: any) => {
+			return item.cClieNombres.toLowerCase().includes(query.toLowerCase());
+		});
+		setPersonas(filteredData);
+		 */
+	};
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
      
       <Text style={styles.TextLabel}>Desde:</Text>
-					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
+					<TouchableOpacity onPress={() => setShowDatePickerinicio(true)}>
 						<Text style={styles.TextInput}>{formatoFecha(fechaInicio.toString())}</Text>
-						{showDatePicker && (
+						{showDatePickerInicio && (
 							<DateTimePicker
 								value={fechaInicio}
 								mode="date"
 								display="default"
 								onChange={(event, selectedDate) => {
 									const currentDate = selectedDate || fechaInicio;
-									setShowDatePicker(false);
+									setShowDatePickerinicio(false);
 									setFechaInicio(currentDate);
 								}}
 							/>
 						)}
 					</TouchableOpacity>
           <Text style={styles.TextLabel}>Hasta:</Text>
-					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
+					<TouchableOpacity onPress={() => setShowDatePickerFin(true)}>
 						<Text style={styles.TextInput}>{formatoFecha(fechaFin.toString())}</Text>
-						{showDatePicker && (
+						{showDatePickerFin && (
 							<DateTimePicker
 								value={fechaFin}
 								mode="date"
 								display="default"
 								onChange={(event, selectedDate) => {
 									const currentDate = selectedDate || fechaFin;
-									setShowDatePicker(false);
+									setShowDatePickerFin(false);
 									setFechaFin(currentDate);
 								}}
 							/>
 						)}
 					</TouchableOpacity>
+					<TouchableOpacity style={styles.BotonSearch} onPress={BuscarPagos}>
+					<Icon name="search" size={24} color="#FFF" />
+				</TouchableOpacity>
     </View>
   );
 
@@ -100,6 +115,14 @@ const styles = StyleSheet.create({
 		color: "#FFF",
 		fontSize: 20,
 		fontWeight: "bold",
+	},
+	BotonSearch: {
+		backgroundColor: "#5cb85c",
+		width: 50,
+		height: 40,
+		borderRadius: 5,
+		alignItems: "center",
+		justifyContent: "center",
 	},
 })
 export default PagoScreen;
