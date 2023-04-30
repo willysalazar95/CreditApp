@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
-	View,
-	StyleSheet,
-	Text,
-	TextInput,
-	FlatList,
-	TouchableOpacity,
-	Alert,
+	View,StyleSheet,Text,FlatList,TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CreditosCronogramas } from "../../clases/CreditosCronogramas"
@@ -15,12 +9,13 @@ const ListarCronograma_Screen = ({ route }: any) => {
 	const [data, setData] = useState([]);
 	const navigation = useNavigation();
 	const [cNombreCliente, setcNombreCliente] = useState("");
+	const [nCredID, setnCredID] = useState(0);
 
 	const ListarCronograma = async () => {
+		console.log(nCredID + " Cod CRed")
 		const _Dat = new CreditosCronogramas();
-		const response = await _Dat.ListarCreditosCronogramas();
+		const response = await _Dat.ListarCreditosCronogramas(nCredID.toString());
 		setData(response.data);
-		// console.log(response);
 	};
 
 	const renderItem = ({ item }: any) => {
@@ -41,13 +36,20 @@ const ListarCronograma_Screen = ({ route }: any) => {
 	};
 
 	useEffect(() => {
-		console.log(route);
-		if (route.params && route.params.credito) {
-			const credito = route.params.credito;
-			setcNombreCliente(credito.cClieDescripcion);
+		async function fetchData() {
+			if (route.params && route.params.credito) {
+				const credito = route.params.credito;
+				setcNombreCliente(credito.cClieDescripcion);
+				setnCredID(credito.nCredID);
+
+				// await ListarCronograma();
+				const _Dat = new CreditosCronogramas();
+				const response = await _Dat.ListarCreditosCronogramas(credito.nCredID);
+				setData(response.data);
+			}
 		}
 
-		ListarCronograma();
+		fetchData();
 	}, [route.params]);
 
 	return (

@@ -35,6 +35,7 @@ Instalar Eas, si ya lo tienes instalado no es necesario
 
 ```bash
   npm install east
+  npm install -g expo-cli east
 ```
 
 #### 2. Segundo paso:

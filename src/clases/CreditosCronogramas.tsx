@@ -2,22 +2,22 @@ import axios from "axios";
 import { configData } from "../../config";
 
 export class CreditosCronogramas {
-	private nCredID: number;
+	private nCredID: string;
 	
 	static url = `${configData.API_URL}/api/CreditoCronograma`;
 
 	constructor(
-		nCredID: number = 0,
+		nCredID: string = "",
 	) {
 		this.nCredID = nCredID;
 	}
 
-	async ListarCreditosCronogramas() {
+	async ListarCreditosCronogramas( nCredID : string) {
 		const BASE_URL = `${CreditosCronogramas.url}/ObtenerCronogramaXCredito`;
 		try {
 			const response = await axios.get(BASE_URL, {
 				params: {
-					nIdCredito: 42, //this.nCredID,
+					nIdCredito: nCredID,
 				},
 			});
 
