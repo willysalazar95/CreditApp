@@ -36,7 +36,7 @@ export default function DrawerScreen() {
 				}}
 			/>
 			<Drawer.Screen name="Creditos" component={Creditos_Screen}
-				options={{title:'CREDITO - Elija un cliente',
+				options={{title:'Credito',
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="cash-outline" size={size} color={color} />
 					),

@@ -34,7 +34,9 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const [fechaNac, setFechaNac] = useState(new Date());
+	const [fechaAlta, setFechaAlta] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
+	const [showDatePicker2, setShowDatePicker2] = useState(false);
 
 	const [region, setRegion] = useState({
 		latitude: 0, //-12.026971,
@@ -68,6 +70,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			setDireccion(persona.cClieDireccion);
 			setTelefono(persona.cClieTelefono);
 			setFechaNac(new Date(persona.cClieFechNac));
+			setFechaAlta(new Date(persona.cClieFechAlta));
 			setIsEditing(true);
 			setAccionBoton("Modificar");
 		} else {
@@ -203,6 +206,22 @@ const RegistroCliente_Screen = ({ route }: any) => {
 									const currentDate = selectedDate || fechaNac;
 									setShowDatePicker(false);
 									setFechaNac(currentDate);
+								}}
+							/>
+						)}
+					</TouchableOpacity>
+					<Text style={styles.TextLabel}>Fecha Alta:</Text>
+					<TouchableOpacity onPress={() => setShowDatePicker2(true)}>
+						<Text style={styles.TextInput}>{formatoFecha(fechaAlta.toString())}</Text>
+						{showDatePicker2 && (
+							<DateTimePicker
+								value={fechaAlta}
+								mode="date"
+								display="default"
+								onChange={(event, selectedDate) => {
+									const currentDate = selectedDate || fechaAlta;
+									setShowDatePicker2(false);
+									setFechaAlta(currentDate);
 								}}
 							/>
 						)}
