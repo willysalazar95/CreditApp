@@ -13,44 +13,69 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Creditos } from "../../clases/Creditos";
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { round } from "react-native-reanimated";
+import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const PagarCredito_Screen = ({ route }: any) => {
 	const navigation = useNavigation<homeScreenProp>();
+	const { idCredito } = route.params;
 
-	const [nIdCredito, SETnIdCredito] = useState(0);
-	const [cPersNombre, SETcPersNombre] = useState("");
-	const [nMontoPrestado, SETnMontoPrestado] = useState("");
-	const [nMontoInteres, SETnMontoInteres] = useState("");
-	const [nSaldoAnterior, SETnSaldoAnterior] = useState(0);
-	const [nNuevoSaldo, SETnNuevoSaldo] = useState(0);
-	const [nTotalCuotas, SETnTotalCuotas] = useState(0);
+	const [nIdCredito, setNIdCredito] = useState(0);
+	const [cPersNombre, setCPersNombre] = useState("");
+	const [nMontoPrestado, setNMontoPrestado] = useState("");
+	const [nMontoInteres, setNMontoInteres] = useState("");
+	const [nSaldoAnterior, setNSaldoAnterior] = useState(0);
+	const [nNuevoSaldo, setNNuevoSaldo] = useState(0);
+	const [nTotalCuotas, setNTotalCuotas] = useState(0);
 
-	const [nMontoAPagar, SETnMontoAPagar] = useState(0.0);
+	const [nMontoAPagar, setNMontoAPagar] = useState(0.0);
+	const [nCronoMonto, setNCronoMonto] = useState(0.0);
+	const [nCronoCuota, setNCronoCuota] = useState(0.0);
+	const [cPerDescripcion, setCPerDescripcion] = useState("");
+	const [nCredNroCuotas, setNCredNroCuotas] = useState(0);
+	const [dCronoFechaVencimiento, setDCronoFechaVencimiento] = useState(
+		new Date()
+	);
+
+	const ObtenerPago = async () => {
+		const cc = new CreditosCronogramas();
+		const response = (await cc.ObtenerPago(idCredito)).data[0];
+
+		const { nCronoID, nCronoCuota, nCronoMonto, dCronoFechaVencimiento } =
+			response;
+
+		const { cClieNombres, cClieApellidos } = response.cliente;
+		const { nCredMonto, nCredMontoInteres, nCredNroCuotas, nCredMontoPagado } =
+			response.credito;
+
+		const { cPerDescripcion } = response.periodo;
+
+		let calcSaldoAnterior = 0;
+		calcSaldoAnterior = nCredMonto + nCredMontoInteres - nCredMontoPagado;
+
+		setCPersNombre(cClieNombres + " " + cClieApellidos);
+		setNMontoPrestado(nCredMonto);
+		setNSaldoAnterior(calcSaldoAnterior);
+		setNMontoInteres(nCredMontoInteres);
+		setNTotalCuotas(nCredNroCuotas);
+		setNIdCredito(idCredito);
+
+		let nMontoPag = 0;
+		nMontoPag = (nCredMonto + nCredMontoInteres) / nCredNroCuotas;
+		setNMontoAPagar(Number(nMontoPag.toFixed(2)));
+		setNNuevoSaldo(calcSaldoAnterior - nMontoPag);
+
+		setNCronoCuota(nCronoCuota);
+		setNCronoMonto(nCronoMonto);
+		setCPerDescripcion(cPerDescripcion);
+		setNCredNroCuotas(nCredNroCuotas);
+		setDCronoFechaVencimiento(dCronoFechaVencimiento);
+	};
 
 	useEffect(() => {
-		if (route.params && route.params.credito) {
-			const credito = route.params.credito;
-
-			let calcSaldoAnterior = 0;
-			calcSaldoAnterior =
-				credito.nCredMonto + credito.nCredMontoInteres - credito.nCredMontoPagado;
-
-			SETcPersNombre(credito.cClieDescripcion);
-			SETnMontoPrestado(credito.nCredMonto);
-			SETnSaldoAnterior(calcSaldoAnterior);
-			SETnMontoInteres(credito.nCredMontoInteres);
-			SETnTotalCuotas(credito.nCredNroCuotas);
-			SETnIdCredito(credito.nCredID);
-
-			let nMontoPag = 0;
-			nMontoPag = (credito.nCredMonto + credito.nCredMontoInteres) / credito.nCredNroCuotas;
-			SETnMontoAPagar(Number((nMontoPag).toFixed(2)));
-			SETnNuevoSaldo(calcSaldoAnterior - nMontoPag);
-		}
-	}, [route.params]);
+		ObtenerPago();
+	}, []);
 
 	const Regresar = () => {
 		navigation.goBack();
@@ -59,8 +84,8 @@ const PagarCredito_Screen = ({ route }: any) => {
 	const CalcularNuevoSaldo = (text: string) => {
 		const nCantidad = parseFloat(text);
 		const nNuevoSaldo = isNaN(nCantidad) ? 0 : nSaldoAnterior - nCantidad;
-		SETnNuevoSaldo(nNuevoSaldo);
-		SETnMontoAPagar(nCantidad);
+		setNNuevoSaldo(nNuevoSaldo);
+		setNMontoAPagar(nCantidad);
 	};
 
 	const GuardarPago = async () => {
@@ -132,16 +157,8 @@ const PagarCredito_Screen = ({ route }: any) => {
 						}}
 					>
 						<TextInput
-							style={{
-								width: "100%",
-								bottom: 10,
-								paddingHorizontal: 30,
-								marginRight: 10,
-								textAlign: "center",
-								fontSize: 40,
-								fontWeight: "bold",
-							}}
-							keyboardType="numeric"
+							style={styles.TextInput}
+							keyboardType="decimal-pad"
 							onChangeText={(text) => {
 								CalcularNuevoSaldo(text);
 							}}
@@ -155,9 +172,10 @@ const PagarCredito_Screen = ({ route }: any) => {
 						nMontoCredito={nMontoPrestado}
 						nSaldoPendiente={nSaldoAnterior}
 						nNuevoSaldo={nNuevoSaldo}
-						nProxCuota={1}
-						nCantCuotas={12}
-						cModalidadPago={"Diario"}
+						nProxCuota={nCronoCuota}
+						nCantCuotas={nCredNroCuotas}
+						cModalidadPago={cPerDescripcion}
+						dCronoFechaVencimiento={dCronoFechaVencimiento}
 						errorMessage={""}
 					/>
 
@@ -207,14 +225,14 @@ const styles = StyleSheet.create({
 		height: "100%",
 		backgroundColor: "#13A364",
 		marginLeft: "0%",
-		textAlign:"center",
+		textAlign: "center",
 	},
 	boton2: {
 		width: "40%",
 		height: "100%",
 		backgroundColor: "#CD154A",
 		marginLeft: "10%",
-		textAlign:"center",
+		textAlign: "center",
 	},
 	buttonText: {
 		color: "#fff",
@@ -310,6 +328,17 @@ const styles = StyleSheet.create({
 		textAlign: "center",
 		fontWeight: "bold",
 		marginBottom: 10,
+	},
+	TextInput: {
+		width: "100%",
+		borderWidth: 1,
+		borderColor: "#ccc",
+		borderRadius: 5,
+		padding: 10,
+		fontSize: 16,
+		height: 50,
+		textAlign: "right",
+		marginVertical: 10,
 	},
 });
 

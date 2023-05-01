@@ -26,13 +26,13 @@ const Creditos_Screen = () => {
 		const _Dat = new Creditos(
 			0,
 			0,
-			'',
+			"",
 			0,
 			0,
 			0,
 			0,
 			0,
-			'',
+			"",
 			0,
 			0,
 			0,
@@ -48,13 +48,13 @@ const Creditos_Screen = () => {
 		const _Dat = new Creditos(
 			0,
 			0,
-			'',
+			"",
 			0,
 			0,
 			0,
 			0,
 			0,
-			'',
+			"",
 			0,
 			0,
 			0,
@@ -82,7 +82,7 @@ const Creditos_Screen = () => {
 
 	const renderItem = ({ item }: any) => {
 		const PagarCredito = () => {
-			navigation.navigate("PagarPrestamo", { credito: item });
+			navigation.navigate("PagarPrestamo", { idCredito: item.nCredID });
 		};
 
 		const VerCronograma = () => {
@@ -116,7 +116,7 @@ const Creditos_Screen = () => {
 
 	const SelecClienteNuevoCredito = () => {
 		navigation.navigate("ListarPersonas", { pantalla: "credito" });
-		navigation.setOptions({ title: 'Relacion de Personas2222' });
+		navigation.setOptions({ title: "Relacion de Personas2222" });
 	};
 
 	return (

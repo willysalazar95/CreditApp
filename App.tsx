@@ -37,7 +37,7 @@ export type RootStackParamList = {
 	// RegistrarPersona: { item: any };
 	RegistrarPrestamo: { item: any };
 	RegistroPersona: undefined;
-	PagarPrestamo: { credito: any };
+	PagarPrestamo: { idCredito: number };
 	VoucherPago: {
 		userNombres: any;
 		userMontoPagar: any;
@@ -71,66 +71,107 @@ function App() {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				<Stack.Screen name="Login" component={LoginScreen}
-					options={{ title: "Login" }} />
+				<Stack.Screen
+					name="Login"
+					component={LoginScreen}
+					options={{ title: "Login" }}
+				/>
 				<Stack.Screen name="Register" component={RegistroScreen} />
-				<Stack.Screen name="DrawerScreen" component={DrawerScreen}
+				<Stack.Screen
+					name="DrawerScreen"
+					component={DrawerScreen}
 					options={{
 						// headerLeft?, // establece el botón de retroceso como nulo
 						headerShown: false, //oculta la barra de navegacion
 					}}
 				/>
-				<Stack.Screen name="Configuracion_Screen" component={Configuracion_Screen}
+				<Stack.Screen
+					name="Configuracion_Screen"
+					component={Configuracion_Screen}
 					options={{ title: "Configuracion " }}
 				/>
-				<Stack.Screen name="RegConfigCliente_Screen" component={RegConfigCliente_Screen}
+				<Stack.Screen
+					name="RegConfigCliente_Screen"
+					component={RegConfigCliente_Screen}
 					options={{ title: "CConfigCliente" }}
 				/>
 				<Stack.Screen name="Prestamos" component={PrestamoScreen} />
 				<Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
 				<Stack.Screen name="PagarPrestamo" component={PagarPrestamo} />
 				<Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
-				<Stack.Screen name="RegistroUsuarioConfig_Screen" component={RegistroUsuarioConfig_Screen} />
-				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen}
+				<Stack.Screen
+					name="RegistroUsuarioConfig_Screen"
+					component={RegistroUsuarioConfig_Screen}
+				/>
+				<Stack.Screen
+					name="ListarPersonas"
+					component={ListarClienteScreen}
 					options={{ title: "Lista de Clientes" }}
 				/>
-				<Stack.Screen name="ModificarPersona" component={ModificarCliente}
+				<Stack.Screen
+					name="ModificarPersona"
+					component={ModificarCliente}
 					options={{ title: "Registro de Cliente" }}
 				/>
-				<Stack.Screen name="ListarCronograma_Screen" component={ListarCronogramaScreen}
-					options={{ title: "Cronograma" }} />
-				<Stack.Screen name="ReporteCreditos" component={ReporteCreditos}
+				<Stack.Screen
+					name="ListarCronograma_Screen"
+					component={ListarCronogramaScreen}
+					options={{ title: "Cronograma" }}
+				/>
+				<Stack.Screen
+					name="ReporteCreditos"
+					component={ReporteCreditos}
 					options={{ title: "Reporte de Créditos" }}
 				/>
-				<Stack.Screen name="ReportePagos" component={ReportePagos}
+				<Stack.Screen
+					name="ReportePagos"
+					component={ReportePagos}
 					options={{ title: "Reporte de Pagos" }}
 				/>
-				<Stack.Screen name="ReporteClientes" component={ReporteClientes}
+				<Stack.Screen
+					name="ReporteClientes"
+					component={ReporteClientes}
 					options={{ title: "Reporte de Clientes" }}
 				/>
-				<Stack.Screen name="ListarUsuarios" component={ListarUsuarioScreen}
+				<Stack.Screen
+					name="ListarUsuarios"
+					component={ListarUsuarioScreen}
 					options={{ title: "Lista de Usuarios" }}
 				/>
-				<Stack.Screen name="RegistrarUsuarios" component={RegistroUsuario_Screen}
+				<Stack.Screen
+					name="RegistrarUsuarios"
+					component={RegistroUsuario_Screen}
 					options={{ title: "Registro de Usuarios" }}
 				/>
-				<Stack.Screen name="ListarCreditos" component={Creditos_Screen}
+				<Stack.Screen
+					name="ListarCreditos"
+					component={Creditos_Screen}
 					options={{ title: "Lista de Créditos" }}
 				/>
-				<Stack.Screen name="SimularCredito" component={SimularCredito_Screen}
+				<Stack.Screen
+					name="SimularCredito"
+					component={SimularCredito_Screen}
 					options={{ title: "Simular Crédito" }}
 				/>
 
-				<Stack.Screen name="Mapa_Screen" component={Mapa_Screen}
+				<Stack.Screen
+					name="Mapa_Screen"
+					component={Mapa_Screen}
 					options={{ title: "Mapa" }}
 				/>
-				<Stack.Screen name="ListarCierre" component={CierreScreen}
+				<Stack.Screen
+					name="ListarCierre"
+					component={CierreScreen}
 					options={{ title: "Listar Cierre" }}
 				/>
-				<Stack.Screen name="ListarPagos" component={PagoScreen}
+				<Stack.Screen
+					name="ListarPagos"
+					component={PagoScreen}
 					options={{ title: "Listar Pagos" }}
 				/>
-				<Stack.Screen name="ListarImprimir" component={ImprimirScreen}
+				<Stack.Screen
+					name="ListarImprimir"
+					component={ImprimirScreen}
 					options={{ title: "Listar Imprimir" }}
 				/>
 			</Stack.Navigator>

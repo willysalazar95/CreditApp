@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { formatoFecha } from "../utils/utils";
 
 export default function ResultCalculations(props: any) {
 	const {
@@ -10,6 +11,7 @@ export default function ResultCalculations(props: any) {
 		nProxCuota,
 		cModalidadPago,
 		errorMessage,
+		dCronoFechaVencimiento,
 	} = props;
 	// console.log(props)
 	return (
@@ -22,6 +24,10 @@ export default function ResultCalculations(props: any) {
 				nSaldoPendiente && (
 					<View style={styles.boxResult}>
 						<Text style={styles.tile}>Cronograma</Text>
+						<DataResult
+							title="Fecha Pago:"
+							value={formatoFecha(dCronoFechaVencimiento)}
+						/>
 						<DataResult title="Monto prestado:" value={`S/.${nMontoCredito}`} />
 						<DataResult title="Saldo anterior:" value={`S/.${nSaldoPendiente}`} />
 						<DataResult title="Nuevo saldo :" value={`S/.${nNuevoSaldo}`} />
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
 		color: "black",
 	},
 	boxResult: {
-		backgroundColor: "#ebebeb",
+		backgroundColor: "#f8f8f8",
 		padding: 20,
 		borderRadius: 5,
 		shadowColor: "black",

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-	View,StyleSheet,Text,FlatList,TouchableOpacity,
+	View,
+	StyleSheet,
+	Text,
+	FlatList,
+	TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { CreditosCronogramas } from "../../clases/CreditosCronogramas"
+import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 
 const ListarCronograma_Screen = ({ route }: any) => {
 	const [data, setData] = useState([]);
@@ -12,9 +16,9 @@ const ListarCronograma_Screen = ({ route }: any) => {
 	const [nCredID, setnCredID] = useState(0);
 
 	const ListarCronograma = async () => {
-		console.log(nCredID + " Cod CRed")
+		console.log(nCredID + " Cod CRed");
 		const _Dat = new CreditosCronogramas();
-		const response = await _Dat.ListarCreditosCronogramas(nCredID.toString());
+		const response = await _Dat.ListarCreditosCronogramas(nCredID);
 		setData(response.data);
 	};
 
@@ -22,9 +26,7 @@ const ListarCronograma_Screen = ({ route }: any) => {
 		return (
 			<TouchableOpacity>
 				<View style={styles.cardBorder}>
-					<Text style={styles.cardTitle}>
-						{`Cuota: ${item.nCronoCuota}`}
-					</Text>
+					<Text style={styles.cardTitle}>{`Cuota: ${item.nCronoCuota}`}</Text>
 					{<Text>{`Monto : ${item.nCronoMonto}`}</Text>}
 					{<Text>{`Pagado: ${item.nCronoMontoPagado}`}</Text>}
 					<Text style={styles.cardTitle}>
@@ -62,9 +64,7 @@ const ListarCronograma_Screen = ({ route }: any) => {
 					flexWrap: "wrap",
 				}}
 			>
-				<Text>
-					Cliente : {cNombreCliente}
-				</Text>
+				<Text>Cliente : {cNombreCliente}</Text>
 			</View>
 
 			<FlatList
