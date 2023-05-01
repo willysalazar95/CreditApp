@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-	View,
-	StyleSheet,
-	Text,
-} from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Geolocation from "react-native-geolocation-service";
 
@@ -11,31 +7,31 @@ import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
-const [marker, setMarker] = useState({
-	latitude: 0, //-12.026971,
-	longitude: 0, //-77.063492,
-});
 
-const [cLatitud, SETcLatitud] = useState("");
+const RegistroClienteMapa_Screen = ({ route }: any) => {
+	const [marker, setMarker] = useState({
+		latitude: 0, //-12.026971,
+		longitude: 0, //-77.063492,
+	});
+
+	const [cLatitud, SETcLatitud] = useState("");
 	const [cLongitud, SETcLongitud] = useState("");
 
-const onMarkerDragEnd = (event: any) => {
-	setMarker({
-		latitude: event.nativeEvent.coordinate.latitude,
-		longitude: event.nativeEvent.coordinate.longitude,
+	const onMarkerDragEnd = (event: any) => {
+		setMarker({
+			latitude: event.nativeEvent.coordinate.latitude,
+			longitude: event.nativeEvent.coordinate.longitude,
+		});
+		SETcLatitud(event.nativeEvent.coordinate.latitude);
+		SETcLongitud(event.nativeEvent.coordinate.longitude);
+	};
+
+	const [region, setRegion] = useState({
+		latitude: 0, //-12.026971,
+		longitude: 0, //-77.063492,
+		latitudeDelta: 0, //0.0922,
+		longitudeDelta: 0, //0.0421,
 	});
-	SETcLatitud(event.nativeEvent.coordinate.latitude);
-	SETcLongitud(event.nativeEvent.coordinate.longitude);
-};
-
-const [region, setRegion] = useState({
-	latitude: 0, //-12.026971,
-	longitude: 0, //-77.063492,
-	latitudeDelta: 0, //0.0922,
-	longitudeDelta: 0, //0.0421,
-});
-const RegistroClienteMapa_Screen = ({ route }: any) => {
-
 	// const ObtenerUbicacion = async () => {
 	// 	// ubicacion
 	// 	try {
@@ -74,20 +70,20 @@ const RegistroClienteMapa_Screen = ({ route }: any) => {
 					<Text>Cliente Mapa</Text>
 				</View>
 			</View>
-		 <MapView
-						maxZoomLevel={20}
-						minZoomLevel={14}
-						style={{ width: "100%", height: 200, top: 10, alignSelf: "center" }}
-						region={region}
-						onRegionChangeComplete={(region) => setRegion(region)}
-					>
-						<Marker
-							draggable
-							onDragEnd={onMarkerDragEnd}
-							coordinate={marker}
-							pinColor={"red"}
-						/>
-					</MapView> 
+			{/* <MapView
+				maxZoomLevel={20}
+				minZoomLevel={14}
+				style={{ width: "100%", height: 200, top: 10, alignSelf: "center" }}
+				region={region}
+				onRegionChangeComplete={(region) => setRegion(region)}
+			>
+				<Marker
+					draggable
+					onDragEnd={onMarkerDragEnd}
+					coordinate={marker}
+					pinColor={"red"}
+				/>
+			</MapView> */}
 		</View>
 	);
 };
