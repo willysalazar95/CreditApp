@@ -24,7 +24,7 @@ import ListarUsuarioScreen from "./src/forms/Usuarios/ListarUsuarios_Screen";
 import RegistroUsuario_Screen from "./src/forms/Usuarios/RegistrarUsuarios_Screen";
 import Creditos_Screen from "./src/forms/Creditos/Creditos_Screen";
 import SimularCredito_Screen from "./src/forms/Creditos/SimularCredito_Screen";
-//import Mapa_Screen from "./src/forms/ClienteScreen/RegistroClienteMapa_Screen";
+import Mapa_Screen from "./src/forms/ClienteScreen/RegistroClienteMapa_Screen";
 import PagoScreen from "./src/forms/Pagos/PagoScreen";
 import ImprimirScreen from "./src/forms/Impresion/ImprimirScreen";
 import CierreScreen from "./src/forms/Cierre/CierreScreen";
@@ -47,8 +47,8 @@ export type RootStackParamList = {
 	ModificarPersona: { item: any } | undefined;
 	ListarCronograma_Screen: { credito: any };
 	ListarCreditos: undefined;
-	SimularCredito: undefined;	
-	//MapaScreen: undefined;
+	SimularCredito: undefined;
+	Mapa_Screen: { item: any } | undefined;
 	ReporteCreditos: undefined;
 	ListarPagos: undefined;
 	ReportePagos: undefined;
@@ -72,32 +72,32 @@ function App() {
 		<NavigationContainer>
 			<Stack.Navigator>
 				<Stack.Screen name="Login" component={LoginScreen}
-					options={{ title: "Login" }}/>
+					options={{ title: "Login" }} />
 				<Stack.Screen name="Register" component={RegistroScreen} />
 				<Stack.Screen name="DrawerScreen" component={DrawerScreen}
 					options={{
 						// headerLeft?, // establece el botón de retroceso como nulo
 						headerShown: false, //oculta la barra de navegacion
-					}} 
+					}}
 				/>
 				<Stack.Screen name="Configuracion_Screen" component={Configuracion_Screen}
 					options={{ title: "Configuracion " }}
 				/>
-				<Stack.Screen name="RegConfigCliente_Screen" component={RegConfigCliente_Screen}					
+				<Stack.Screen name="RegConfigCliente_Screen" component={RegConfigCliente_Screen}
 					options={{ title: "CConfigCliente" }}
-				/> 
+				/>
 				<Stack.Screen name="Prestamos" component={PrestamoScreen} />
 				<Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
 				<Stack.Screen name="PagarPrestamo" component={PagarPrestamo} />
 				<Stack.Screen name="VoucherPago" component={FrmVoucherPago} />
-				<Stack.Screen name="RegistroUsuarioConfig_Screen" component={RegistroUsuarioConfig_Screen}/>
-				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen} 				
-				options={{ title: "Lista de Clientes" }}
+				<Stack.Screen name="RegistroUsuarioConfig_Screen" component={RegistroUsuarioConfig_Screen} />
+				<Stack.Screen name="ListarPersonas" component={ListarClienteScreen}
+					options={{ title: "Lista de Clientes" }}
 				/>
 				<Stack.Screen name="ModificarPersona" component={ModificarCliente}
 					options={{ title: "Registro de Cliente" }}
 				/>
-				<Stack.Screen name="ListarCronograma_Screen" component={ListarCronogramaScreen} 
+				<Stack.Screen name="ListarCronograma_Screen" component={ListarCronogramaScreen}
 					options={{ title: "Cronograma" }} />
 				<Stack.Screen name="ReporteCreditos" component={ReporteCreditos}
 					options={{ title: "Reporte de Créditos" }}
@@ -120,16 +120,16 @@ function App() {
 				<Stack.Screen name="SimularCredito" component={SimularCredito_Screen}
 					options={{ title: "Simular Crédito" }}
 				/>
-	{/*			
-	<Stack.Screen name="MapaScreen" component={Mapa_Screen}
+
+				<Stack.Screen name="Mapa_Screen" component={Mapa_Screen}
 					options={{ title: "Mapa" }}
-				/>*/}
-				<Stack.Screen name="ListarCierre" component={CierreScreen} 
+				/>
+				<Stack.Screen name="ListarCierre" component={CierreScreen}
 					options={{ title: "Listar Cierre" }}
-				/> 
-				<Stack.Screen name="ListarPagos" component={PagoScreen} 
+				/>
+				<Stack.Screen name="ListarPagos" component={PagoScreen}
 					options={{ title: "Listar Pagos" }}
-				/> 
+				/>
 				<Stack.Screen name="ListarImprimir" component={ImprimirScreen}
 					options={{ title: "Listar Imprimir" }}
 				/>
