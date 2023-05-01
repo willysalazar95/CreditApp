@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import ResultCalculationsPago from "../../Components/ResultCalculationsPago";
 import { useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/Ionicons";
 import { Creditos } from "../../clases/Creditos";
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -23,19 +23,20 @@ const PagarCredito_Screen = ({ route }: any) => {
 
 	const [nIdCredito, setNIdCredito] = useState(0);
 	const [cPersNombre, setCPersNombre] = useState("");
-	const [nMontoPrestado, setNMontoPrestado] = useState("");
-	const [nMontoInteres, setNMontoInteres] = useState("");
-	const [nSaldoAnterior, setNSaldoAnterior] = useState(0);
-	const [nNuevoSaldo, setNNuevoSaldo] = useState(0);
+	const [nMontoPrestado, setNMontoPrestado] = useState(0.0);
+	const [nMontoInteres, setNMontoInteres] = useState(0.0);
+	const [nSaldoAnterior, setNSaldoAnterior] = useState(0.0);
+	const [nNuevoSaldo, setNNuevoSaldo] = useState(0.0);
 	const [nTotalCuotas, setNTotalCuotas] = useState(0);
 
-	const [nMontoAPagar, setNMontoAPagar] = useState(0.0);
+	const [nMontoAPagar, setNMontoAPagar] = useState("");
 	const [nCronoMonto, setNCronoMonto] = useState(0.0);
-	const [nCronoCuota, setNCronoCuota] = useState(0.0);
+	const [nCronoCuota, setNCronoCuota] = useState(0);
 	const [cPerDescripcion, setCPerDescripcion] = useState("");
 	const [nCredNroCuotas, setNCredNroCuotas] = useState(0);
+	const [nPagoCuota, setNPagoCuota] = useState(0.0);
 	const [dCronoFechaVencimiento, setDCronoFechaVencimiento] = useState(
-		new Date()
+		new Date().toString()
 	);
 
 	const ObtenerPago = async () => {
@@ -52,10 +53,12 @@ const PagarCredito_Screen = ({ route }: any) => {
 		const { cPerDescripcion } = response.periodo;
 
 		let calcSaldoAnterior = 0;
+
 		calcSaldoAnterior = nCredMonto + nCredMontoInteres - nCredMontoPagado;
 
 		setCPersNombre(cClieNombres + " " + cClieApellidos);
 		setNMontoPrestado(nCredMonto);
+
 		setNSaldoAnterior(calcSaldoAnterior);
 		setNMontoInteres(nCredMontoInteres);
 		setNTotalCuotas(nCredNroCuotas);
@@ -63,7 +66,10 @@ const PagarCredito_Screen = ({ route }: any) => {
 
 		let nMontoPag = 0;
 		nMontoPag = (nCredMonto + nCredMontoInteres) / nCredNroCuotas;
-		setNMontoAPagar(Number(nMontoPag.toFixed(2)));
+		console.log(nCredMonto, nCredMontoInteres, nCredNroCuotas, nCronoMonto);
+
+		setNMontoAPagar(String(nMontoPag.toFixed(2)));
+		setNPagoCuota(nMontoPag);
 		setNNuevoSaldo(calcSaldoAnterior - nMontoPag);
 
 		setNCronoCuota(nCronoCuota);
@@ -81,11 +87,17 @@ const PagarCredito_Screen = ({ route }: any) => {
 		navigation.goBack();
 	};
 
-	const CalcularNuevoSaldo = (text: string) => {
-		const nCantidad = parseFloat(text);
-		const nNuevoSaldo = isNaN(nCantidad) ? 0 : nSaldoAnterior - nCantidad;
+	const CalcularNuevoSaldo = () => {
+		const nuevaCantidad = isNaN(parseFloat(nMontoAPagar))
+			? 0.0
+			: parseFloat(nMontoAPagar);
+
+		const nNuevoSaldo = nSaldoAnterior - nuevaCantidad;
 		setNNuevoSaldo(nNuevoSaldo);
-		setNMontoAPagar(nCantidad);
+	};
+
+	const OnChangeMontoAPagar = (text: string) => {
+		setNMontoAPagar(text);
 	};
 
 	const GuardarPago = async () => {
@@ -94,12 +106,12 @@ const PagarCredito_Screen = ({ route }: any) => {
 			0,
 			"",
 			0,
-			nMontoAPagar,
+			parseFloat(nMontoAPagar),
 			0,
 			0,
 			0,
 			"",
-			nMontoAPagar,
+			parseFloat(nMontoAPagar),
 			0,
 			0,
 			0
@@ -137,16 +149,26 @@ const PagarCredito_Screen = ({ route }: any) => {
 		<View style={{ flex: 1, backgroundColor: "#fff" }}>
 			<ScrollView
 				style={{
-					marginVertical: 20,
-					marginHorizontal: 16,
 					flexDirection: "column",
-					top: "2%",
 				}}
 			>
 				<View style={styles.contenedor}>
 					<View>
-						<Text style={styles.tile}>{cPersNombre}</Text>
+						<Text style={styles.title}>{cPersNombre}</Text>
 					</View>
+
+					<ResultCalculationsPago
+						nMontoCredito={nMontoPrestado}
+						nMontoInteres={nMontoInteres}
+						nSaldoPendiente={nSaldoAnterior}
+						nNuevoSaldo={nNuevoSaldo}
+						nProxCuota={nCronoCuota}
+						nCantCuotas={nCredNroCuotas}
+						cModalidadPago={cPerDescripcion}
+						dCronoFechaVencimiento={dCronoFechaVencimiento}
+						nPagoCuota={nPagoCuota}
+						errorMessage={""}
+					/>
 
 					<View
 						style={{
@@ -159,26 +181,11 @@ const PagarCredito_Screen = ({ route }: any) => {
 						<TextInput
 							style={styles.TextInput}
 							keyboardType="decimal-pad"
-							onChangeText={(text) => {
-								CalcularNuevoSaldo(text);
-							}}
-						>
-							{nMontoAPagar}
-						</TextInput>
+							onChangeText={OnChangeMontoAPagar}
+							onBlur={CalcularNuevoSaldo}
+							value={String(nMontoAPagar)}
+						></TextInput>
 					</View>
-
-					<ResultCalculationsPago
-						text1={""}
-						nMontoCredito={nMontoPrestado}
-						nSaldoPendiente={nSaldoAnterior}
-						nNuevoSaldo={nNuevoSaldo}
-						nProxCuota={nCronoCuota}
-						nCantCuotas={nCredNroCuotas}
-						cModalidadPago={cPerDescripcion}
-						dCronoFechaVencimiento={dCronoFechaVencimiento}
-						errorMessage={""}
-					/>
-
 					<View
 						style={{
 							marginVertical: 1,
@@ -188,10 +195,10 @@ const PagarCredito_Screen = ({ route }: any) => {
 						}}
 					>
 						<Text style={styles.boton2} onPress={Regresar}>
-							<Icon name="times" size={30} color="#fff" />
+							<Icon name="close-outline" size={30} color="#fff" />
 						</Text>
 						<Text style={styles.boton1} onPress={GuardarPago}>
-							<Icon name="check" size={30} color="#fff" />
+							<Icon name="checkmark-outline" size={30} color="#fff" />
 						</Text>
 					</View>
 					<View style={{ marginTop: 10 }} />
@@ -208,11 +215,10 @@ const styles = StyleSheet.create({
 	contenedor: {
 		alignSelf: "center",
 		height: "100%",
-
 		width: "100%",
-
 		bottom: 1,
 		marginBottom: "100%",
+		marginTop: 20,
 	},
 	boton0: {
 		width: "50%",
@@ -222,17 +228,21 @@ const styles = StyleSheet.create({
 
 	boton1: {
 		width: "40%",
-		height: "100%",
+		// height: "100%",
 		backgroundColor: "#13A364",
 		marginLeft: "0%",
 		textAlign: "center",
+		borderTopRightRadius: 10,
+		borderBottomRightRadius: 10,
 	},
 	boton2: {
 		width: "40%",
-		height: "100%",
+		// height: "100%",
 		backgroundColor: "#CD154A",
 		marginLeft: "10%",
 		textAlign: "center",
+		borderTopLeftRadius: 10,
+		borderBottomLeftRadius: 10,
 	},
 	buttonText: {
 		color: "#fff",
@@ -322,9 +332,9 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		padding: 5,
 	},
-	tile: {
+	title: {
 		color: "#0033A9",
-		fontSize: 40,
+		fontSize: 30,
 		textAlign: "center",
 		fontWeight: "bold",
 		marginBottom: 10,
@@ -335,10 +345,10 @@ const styles = StyleSheet.create({
 		borderColor: "#ccc",
 		borderRadius: 5,
 		padding: 10,
-		fontSize: 16,
-		height: 50,
-		textAlign: "right",
-		marginVertical: 10,
+		fontSize: 50,
+
+		textAlign: "center",
+		marginBottom: 10,
 	},
 });
 

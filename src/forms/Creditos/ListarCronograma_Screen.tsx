@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
+import { formatoFecha, formatoMonedaPeruana } from "../../utils/utils";
 
 const ListarCronograma_Screen = ({ route }: any) => {
 	const [data, setData] = useState([]);
@@ -25,12 +26,33 @@ const ListarCronograma_Screen = ({ route }: any) => {
 	const renderItem = ({ item }: any) => {
 		return (
 			<TouchableOpacity>
-				<View style={styles.cardBorder}>
+				<View
+					style={[
+						styles.cardBorder,
+						item.nCronoEstado === 1
+							? { backgroundColor: "rgba(0, 255, 0, 0.2)" }
+							: item.nCronoMontoPagado > 0
+							? { backgroundColor: "rgba(255, 165, 0, 0.2)" }
+							: { backgroundColor: "rgba(255, 0, 0, 0.2)" },
+					]}
+				>
 					<Text style={styles.cardTitle}>{`Cuota: ${item.nCronoCuota}`}</Text>
-					{<Text>{`Monto : ${item.nCronoMonto}`}</Text>}
-					{<Text>{`Pagado: ${item.nCronoMontoPagado}`}</Text>}
-					<Text style={styles.cardTitle}>
-						{<Text>{`Saldo : ${item.nCronoMonto - item.nCronoMontoPagado}`}</Text>}
+					<Text style={styles.cardDesc}>{`Fecha Vencimiento: ${formatoFecha(
+						item.dCronoFechaVencimiento
+					)}`}</Text>
+					<Text style={styles.cardDesc}>{`Fecha Pago: ${formatoFecha(
+						item.dCronoFechaPago
+					)}`}</Text>
+					<Text style={styles.cardDesc}>{`Monto a Pagar : ${formatoMonedaPeruana(
+						item.nCronoMonto
+					)}`}</Text>
+					<Text style={styles.cardDesc}>{`Monto Pagado: ${formatoMonedaPeruana(
+						item.nCronoMontoPagado
+					)}`}</Text>
+					<Text style={styles.cardDesc}>
+						<Text>{`Saldo : ${formatoMonedaPeruana(
+							item.nCronoMonto - item.nCronoMontoPagado
+						)}`}</Text>
 					</Text>
 				</View>
 			</TouchableOpacity>
@@ -59,7 +81,7 @@ const ListarCronograma_Screen = ({ route }: any) => {
 			<View
 				style={{
 					marginVertical: 1,
-					marginHorizontal: 16,
+					marginHorizontal: 20,
 					flexDirection: "column",
 					flexWrap: "wrap",
 				}}
@@ -68,7 +90,7 @@ const ListarCronograma_Screen = ({ route }: any) => {
 			</View>
 
 			<FlatList
-				style={{ width: "100%" }}
+				style={{ width: "100%", paddingHorizontal: 20 }}
 				data={data}
 				renderItem={renderItem}
 				keyExtractor={(item, index) => index.toString()}
@@ -83,7 +105,7 @@ const styles = StyleSheet.create({
 	},
 	ContenedorSearch: {
 		flexDirection: "row",
-		marginHorizontal: 10,
+		marginHorizontal: 20,
 		marginVertical: 5,
 	},
 
@@ -92,7 +114,7 @@ const styles = StyleSheet.create({
 		marginRight: 5,
 		borderRadius: 10,
 		backgroundColor: "#FFF",
-		paddingHorizontal: 10,
+		paddingHorizontal: 20,
 	},
 	TextInput: {
 		flex: 1,
@@ -118,13 +140,13 @@ const styles = StyleSheet.create({
 
 	cardBorder: {
 		flex: 1,
-		margin: 5,
+		marginBottom: 10,
 		borderRadius: 10,
 		padding: 10,
 		backgroundColor: "#fff",
 	},
 	cardTitle: {
-		textTransform: "uppercase",
+		// textTransform: "uppercase",
 		fontWeight: "bold",
 	},
 	buttonsContainer: {
@@ -150,6 +172,9 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		alignItems: "center",
 		justifyContent: "center",
+	},
+	cardDesc: {
+		color: "gray",
 	},
 });
 

@@ -4,11 +4,14 @@ export const convertirFechaAAAAMMDD = (fecha: Date): string => {
 	return fecha.toISOString().slice(0, 10).replace(/-/g, "");
 };
 
-export function formatoMonedaPeruana(moneda: number) {
+export const formatoMonedaPeruana = (moneda: number): string => {
 	return "S/ " + moneda.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-}
+};
 
 export function formatoFecha(fecha: string): string {
+	if (fecha.substring(0, 8) === "1/1/1900") {
+		return "";
+	}
 	let fechaObj = new Date(fecha);
 	let dia = fechaObj.getDate().toString().padStart(2, "0");
 	let mes = (fechaObj.getMonth() + 1).toString().padStart(2, "0");
