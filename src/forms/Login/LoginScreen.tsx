@@ -58,7 +58,7 @@ export const LoginScreen = () => {
 
 	return (
 		<View style={styles.ContenedorPrincipal}>
-			<Text style={styles.TituloContenedor}>Bienvenido a CreditApp</Text>
+			<Text style={styles.TituloContenedor}>MyBANKito</Text>
 			<View style={styles.TextInputContainer}>
 				<Text style={styles.TextLabel}>USUARIO</Text>
 				<TextInput

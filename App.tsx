@@ -24,6 +24,7 @@ import ListarUsuarioScreen from "./src/forms/Usuarios/ListarUsuarios_Screen";
 import RegistroUsuario_Screen from "./src/forms/Usuarios/RegistrarUsuarios_Screen";
 import Creditos_Screen from "./src/forms/Creditos/Creditos_Screen";
 import SimularCredito_Screen from "./src/forms/Creditos/SimularCredito_Screen";
+//import Mapa_Screen from "./src/forms/ClienteScreen/RegistroClienteMapa_Screen";
 import PagoScreen from "./src/forms/Pagos/PagoScreen";
 import ImprimirScreen from "./src/forms/Impresion/ImprimirScreen";
 import CierreScreen from "./src/forms/Cierre/CierreScreen";
@@ -46,7 +47,8 @@ export type RootStackParamList = {
 	ModificarPersona: { item: any } | undefined;
 	ListarCronograma_Screen: { credito: any };
 	ListarCreditos: undefined;
-	SimularCredito: undefined;
+	SimularCredito: undefined;	
+	//MapaScreen: undefined;
 	ReporteCreditos: undefined;
 	ListarPagos: undefined;
 	ReportePagos: undefined;
@@ -118,6 +120,10 @@ function App() {
 				<Stack.Screen name="SimularCredito" component={SimularCredito_Screen}
 					options={{ title: "Simular Crédito" }}
 				/>
+	{/*			
+	<Stack.Screen name="MapaScreen" component={Mapa_Screen}
+					options={{ title: "Mapa" }}
+				/>*/}
 				<Stack.Screen name="ListarCierre" component={CierreScreen} 
 					options={{ title: "Listar Cierre" }}
 				/> 
