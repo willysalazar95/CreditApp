@@ -45,7 +45,6 @@ export const LoginScreen = () => {
 			configData.nCredRutasID = response.data.nCredRutasID;
 			configData.nCajaId = response.data.caja.nCajaId;
 			navigation.navigate("DrawerScreen");
-			console.log(configData);
 		} else {
 			Alert.alert("ERROR", response.error);
 			setPassword("");

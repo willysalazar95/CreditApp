@@ -70,7 +70,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			setDireccion(persona.cClieDireccion);
 			setTelefono(persona.cClieTelefono);
 			setFechaNac(new Date(persona.cClieFechNac));
-			setFechaAlta(new Date(persona.cClieFechAlta));
+			setFechaAlta(new Date(persona.dClieFechaAlta));
 			setIsEditing(true);
 			setAccionBoton("Modificar");
 		} else {
@@ -123,7 +123,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			"",
 			0,
 			"0", //cLatitud,
-			"0" //cLongitud
+			"0", //cLongitud
+			convertirFechaAAAAMMDD(fechaAlta)
 		);
 		const response = isEditing
 			? await datCliente.ActualizarCliente()
