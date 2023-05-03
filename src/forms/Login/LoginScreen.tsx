@@ -57,7 +57,7 @@ export const LoginScreen = () => {
 
 	return (
 		<View style={styles.ContenedorPrincipal}>
-			<Text style={styles.TituloContenedor}>MyBANKito</Text>
+			<Text style={styles.TituloContenedor}>MiBanKito</Text>
 			<View style={styles.TextInputContainer}>
 				<Text style={styles.TextLabel}>USUARIO</Text>
 				<TextInput
