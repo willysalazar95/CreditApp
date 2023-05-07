@@ -32,7 +32,7 @@ export default function ResultCalculations({
 		<View style={styles.content}>
 			{nSaldoPendiente == null || nSaldoPendiente == 0 ? (
 				<View>
-					<Text style={styles.tilecancelado}>EL PRESTAMO FUE CANCELADO</Text>
+					<Text> CARGANDO... </Text>
 				</View>
 			) : (
 				nSaldoPendiente && (
@@ -96,9 +96,9 @@ export default function ResultCalculations({
 					</>
 				)
 			)}
-			<View>
+			{/* <View>
 				<Text style={styles.error}>{errorMessage}</Text>
-			</View>
+			</View> */}
 		</View>
 	);
 }
