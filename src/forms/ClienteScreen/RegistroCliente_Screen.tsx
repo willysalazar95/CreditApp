@@ -18,14 +18,14 @@ import { Cliente } from "../../clases/Cliente";
 import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 import { getRelativeCoords } from "react-native-reanimated";
 
-
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import { configData } from "../../../config";
 
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 //CREADO POR AAGC
 const RegistroCliente_Screen = ({ route }: any) => {
-	const navigation = useNavigation();
+	const navigation = useNavigation<homeScreenProp>();
 	const [nIdPers, setNidPers] = useState(0);
 	const [dni, setDni] = useState("");
 	const [nombre, setNombre] = useState("");
@@ -42,10 +42,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [fechaAlta, setFechaAlta] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [showDatePicker2, setShowDatePicker2] = useState(false);
-	const goToMapa = () => {
-	//	navigation.navigate("Mapa");
-	};
-
 
 	const [region, setRegion] = useState({
 		latitude: 0, //-12.026971,
@@ -150,6 +146,9 @@ const RegistroCliente_Screen = ({ route }: any) => {
 		}
 	};
 
+	const abrirMapa = () => {
+		navigation.navigate("Mapa_Screen", { item: "" });
+	};
 	return (
 		<View style={styles.ContenedorPrincipal}>
 			<ScrollView>
@@ -252,11 +251,11 @@ const RegistroCliente_Screen = ({ route }: any) => {
 					</MapView> */}
 				</View>
 
+				<TouchableOpacity style={styles.buttonMapa} onPress={abrirMapa}>
+					<Text style={styles.buttonMapaText}>Mapa</Text>
+				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={handleEnviar}>
 					<Text style={styles.buttonText}>{accionBoton}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.buttonMapa} onPress={handleEnviar}>
-					<Text style={styles.buttonMapaText}>Mapa</Text>
 				</TouchableOpacity>
 			</ScrollView>
 		</View>
