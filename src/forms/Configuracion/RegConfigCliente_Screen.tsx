@@ -49,9 +49,12 @@ const RegConfigCliente_Screen = ({ route }: any) => {
       apellido,
       direccion,
       telefono,
-      fechaNac.toString(),
+      convertirFechaAAAAMMDD(fechaNac),
       "",
-      0
+      0,
+      "0", //cLatitud,
+			"0", //cLongitud
+			""
     );
 
     const response = await datCliente.RegistrarCliente()
