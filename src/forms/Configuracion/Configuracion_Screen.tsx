@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, StyleSheet, Button, Alert } from "react-native";
+import { View, Text, TextInput, StyleSheet, Button, Alert, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native"
 import { Configuracion } from "../../clases/Configuracion";
 // import RegConfigCliente_Screen from "./RegConfigCliente_Screen";
 
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { Picker } from "@react-native-picker/picker";
+import { Creditos } from "../../clases/Creditos";
+import { Constantes } from "../../clases/Constantes";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -16,7 +19,18 @@ const Configuracion_Screen = () => {
 	const [Telefono, SETTelefono] = useState("");
 	const [TasaInteres, SETTasaInteres] = useState("");
 	const [TasaMora, SETTasaMora] = useState("");
+
+	const [selectedValue, setSelectedValue] = useState(0);
+	const [options, setOptions] = useState([]);
+	const [bCargado, SETbCargado] = useState(false);
+
 	const navigation = useNavigation<homeScreenProp>();
+
+	useEffect(() => {
+		if (!bCargado) {
+			ListarTipoInteres();
+		}
+	});
 
 	const handleGuardar = async () => {
 		try {
@@ -25,6 +39,7 @@ const Configuracion_Screen = () => {
 				RazonSocial,
 				Direccion,
 				Telefono,
+				selectedValue,
 				parseInt(TasaInteres),
 				parseInt(TasaMora)
 			);
@@ -37,11 +52,11 @@ const Configuracion_Screen = () => {
 						{
 							text: "Ok",
 							onPress: () =>
-							navigation.navigate("RegConfigCliente_Screen", {item : response.data})
+								navigation.navigate("RegConfigCliente_Screen", { item: response.data })
 						},
 					],
 				);
-				
+
 			} else {
 				console.log("ERROR", response.error);
 			}
@@ -50,61 +65,90 @@ const Configuracion_Screen = () => {
 		}
 	};
 
+	const ListarTipoInteres = async () => {
+		const dCred = new Constantes(
+			"1002"
+		);
+		const Datos = await dCred.ObtenerConstante();
+		if (Datos.success) {
+			setOptions(Datos.data);
+			SETbCargado(true);
+		}
+	};
+
 	return (
 		<View style={styles.container}>
-			<View style={styles.formulario}>
-				<Text style={styles.label}>RUC</Text>
-				<TextInput
-					style={styles.input}
-					value={RUC}
-					onChangeText={SETRuc}
-					keyboardType="numeric"
-					maxLength={8}
-				/>
+			<ScrollView>
+				<View style={styles.formulario}>
+					<Text style={styles.label}>RUC</Text>
+					<TextInput
+						style={styles.input}
+						value={RUC}
+						onChangeText={SETRuc}
+						keyboardType="numeric"
+						maxLength={8}
+					/>
 
-				<Text style={styles.label}>RAZON SOCIAL</Text>
-				<TextInput 
-					style={styles.input} 
-					value={RazonSocial} 
-					onChangeText={SETRazonSocial} 
-				/>
+					<Text style={styles.label}>RAZON SOCIAL</Text>
+					<TextInput
+						style={styles.input}
+						value={RazonSocial}
+						onChangeText={SETRazonSocial}
+					/>
 
-				<Text style={styles.label}>Direccion</Text>
-				<TextInput
-					style={styles.input}
-					value={Direccion}
-					onChangeText={SETDireccion}
-				/>
+					<Text style={styles.label}>Direccion</Text>
+					<TextInput
+						style={styles.input}
+						value={Direccion}
+						onChangeText={SETDireccion}
+					/>
 
-				<Text style={styles.label}>Telefono</Text>
-				<TextInput
-					style={styles.input}
-					value={Telefono}
-					keyboardType="numeric"
-					maxLength={9}
-					onChangeText={SETTelefono}
-				/>
+					<Text style={styles.label}>Telefono</Text>
+					<TextInput
+						style={styles.input}
+						value={Telefono}
+						keyboardType="numeric"
+						maxLength={9}
+						onChangeText={SETTelefono}
+					/>
 
-				<Text style={styles.label}>Tasa Interes</Text>
-				<TextInput
-					style={styles.input}
-					value={TasaInteres}
-					onChangeText={SETTasaInteres}
-					keyboardType="phone-pad"
-					maxLength={10}
-				/>
+					<Text style={styles.label}>Tipo de Interes:</Text>
+					<Picker
+						selectedValue={selectedValue}
+						onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+					>
+						{options.map((item: any, index) => {
+							return (
+								<Picker.Item
+									label={item.cConsDescripcion}
+									value={item.nConsValor}
+									key={index}
+								/>
+							);
+						})}
+					</Picker>
 
-				<Text style={styles.label}>Tasa Mora</Text>
-				<TextInput
-					style={styles.input}
-					value={TasaMora}
-					onChangeText={SETTasaMora}
-					keyboardType="phone-pad"
-					maxLength={10}
-				/>
+					<Text style={styles.label}>Tasa Interes</Text>
+					<TextInput
+						style={styles.input}
+						value={TasaInteres}
+						onChangeText={SETTasaInteres}
+						keyboardType="phone-pad"
+						maxLength={10}
+					/>
 
-				<Button title="Guardar" onPress={handleGuardar} />
-			</View>
+					<Text style={styles.label}>Tasa Mora</Text>
+					<TextInput
+						style={styles.input}
+						value={TasaMora}
+						onChangeText={SETTasaMora}
+						keyboardType="phone-pad"
+						maxLength={10}
+					/>
+
+					<Button title="Guardar" onPress={handleGuardar} />
+				</View>
+			</ScrollView>
 		</View>
 	);
 };
