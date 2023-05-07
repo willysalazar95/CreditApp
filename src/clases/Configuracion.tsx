@@ -6,6 +6,7 @@ class Configuracion {
 	private cEmpresaRazonSocial: string;
 	private cDireccion: string;
 	private cTelefono: string;
+	private nTipoInteres : number;
 	private nTasaCredito: number;
     private nTasaMora: number;
 
@@ -14,6 +15,7 @@ class Configuracion {
 		cEmpresaRazonSocial: string = "",
 		cDireccion: string = "",
 		cTelefono: string = "",
+		nTipoInteres: number = 1,
 		nTasaCredito: number = 0,
         nTasaMora: number = 0,
 	) {
@@ -21,6 +23,7 @@ class Configuracion {
 		this.cEmpresaRazonSocial = cEmpresaRazonSocial;
 		this.cDireccion = cDireccion;
 		this.cTelefono = cTelefono;
+		this.nTipoInteres = nTipoInteres;
         this.nTasaCredito = nTasaCredito;
 		this.nTasaMora = nTasaMora;
 	}
@@ -38,6 +41,7 @@ class Configuracion {
 					cEmpresaRazonSocial: this.cEmpresaRazonSocial,
 					cDireccion: this.cDireccion,
 					cTelefono: this.cTelefono,
+					nTipoInteres: this.nTipoInteres,
 					nTasaCredito: this.nTasaCredito,
 					nTasaMora: this.nTasaMora,
 				},

@@ -12,7 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Cliente } from "../../clases/Cliente";
-
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
@@ -49,9 +49,12 @@ const RegConfigCliente_Screen = ({ route }: any) => {
       apellido,
       direccion,
       telefono,
-      fechaNac.toString(),
+      convertirFechaAAAAMMDD(fechaNac),
       "",
-      0
+      0,
+      "0", //cLatitud,
+			"0", //cLongitud
+			""
     );
 
     const response = await datCliente.RegistrarCliente()
@@ -144,27 +147,21 @@ const RegConfigCliente_Screen = ({ route }: any) => {
 
         <View style={styles.TextInputContenedor}>
           <Text style={styles.TextLabel}>Fecha Nac:</Text>
-          <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-            <Text style={styles.TextInput}>
-              {fechaNac.toLocaleDateString("es-ES", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric"
-              })}
-            </Text>
-            {showDatePicker && (
-              <DateTimePicker
-                value={fechaNac}
-                mode="date"
-                display="default"
-                onChange={(event, selectedDate) => {
-                  const currentDate = selectedDate || fechaNac;
-                  setShowDatePicker(false);
-                  setFechaNac(currentDate);
-                }}
-              />
-            )}
-          </TouchableOpacity>
+					<TouchableOpacity onPress={() => setShowDatePicker(true)}>
+						<Text style={styles.TextInput}>{formatoFecha(fechaNac.toString())}</Text>
+						{showDatePicker && (
+							<DateTimePicker
+								value={fechaNac}
+								mode="date"
+								display="default"
+								onChange={(event, selectedDate) => {
+									const currentDate = selectedDate || fechaNac;
+									setShowDatePicker(false);
+									setFechaNac(currentDate);
+								}}
+							/>
+						)}
+					</TouchableOpacity>
         </View>
 
         <TouchableOpacity style={styles.button} onPress={handleEnviar}>
