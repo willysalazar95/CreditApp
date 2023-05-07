@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	Alert,
+	Image,
 } from "react-native";
 import Icono from "react-native-vector-icons/FontAwesome";
 
@@ -57,29 +58,51 @@ export const LoginScreen = () => {
 
 	return (
 		<View style={styles.ContenedorPrincipal}>
-			<Text style={styles.TituloContenedor}>MiBanKito</Text>
+			<Text
+				style={[styles.TituloContenedor, { marginTop: 100, color: "#6E955C" }]}
+			>
+				Bienvenido a
+			</Text>
+			<Text style={[styles.TituloContenedor, { color: "#426E4F" }]}>
+				MyBankito
+			</Text>
+			<View
+				style={{
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					marginTop: 20,
+				}}
+			>
+				<Image
+					style={{ width: 70, height: 70 }}
+					source={require("../../../assets/adaptive-icon.png")}
+				/>
+			</View>
+
 			<View style={styles.TextInputContainer}>
-				<Text style={styles.TextLabel}>USUARIO</Text>
+				<Text style={styles.TextLabel}>Usuario</Text>
 				<TextInput
 					style={styles.TextInput}
 					value={username}
+					placeholder="Ingrese Usuario"
 					onChangeText={setUsername}
 				/>
 			</View>
 			<View style={[styles.TextInputContainerPass, { position: "relative" }]}>
-				<Text style={styles.TextLabel}>CLAVE</Text>
+				<Text style={styles.TextLabel}>Contraseña</Text>
 				{/* //implementar ojo de contraseña */}
 				<TextInput
 					style={styles.TextInput}
 					// secureTextEntry={true}
 					value={password}
 					onChangeText={setPassword}
+					placeholder="Ingrese contraseña"
 					secureTextEntry={hidePass ? true : false}
 				/>
 				<Icono
 					name={hidePass ? "eye-slash" : "eye"}
 					size={15}
-					color="grey"
 					onPress={() => setHidePass(!hidePass)}
 					style={styles.ojo}
 				/>
@@ -90,12 +113,14 @@ export const LoginScreen = () => {
 				disabled={isLoading}
 			>
 				<Text style={styles.buttonText}>
-					{isLoading ? "Cargando..." : "Iniciar Sesión"}
+					{isLoading ? "Cargando..." : "Ingresar"}
 				</Text>
 			</TouchableOpacity>
 
 			<View style={styles.nuevacuenta}>
-				<Text style={styles.createAccountTitle}>¿No tienes cuenta? Crea una</Text>
+				<Text style={styles.createAccountTitle}>
+					¿Aún no tiene cuenta? Crea una
+				</Text>
 				<TouchableOpacity onPress={goToRegister}>
 					<Text style={styles.createAccountTitleButton}> aquí.</Text>
 				</TouchableOpacity>
@@ -106,7 +131,7 @@ export const LoginScreen = () => {
 const styles = StyleSheet.create({
 	ContenedorPrincipal: {
 		flex: 1,
-		backgroundColor: "#FFFFFF",
+		backgroundColor: "#F3F8FC",
 		padding: 50,
 		borderRadius: 10,
 		justifyContent: "center",
@@ -114,30 +139,34 @@ const styles = StyleSheet.create({
 	TituloContenedor: {
 		fontSize: 26,
 		fontWeight: "bold",
-		marginBottom: 20,
-		color: "#5cb85c",
+
 		textAlign: "center",
 	},
 	TextInputContainer: {
 		marginBottom: 20,
-		marginTop: 300,
+		marginTop: 150,
 	},
 	TextLabel: {
-		color: "#CCC",
+		color: "#426E4F",
+
+		fontWeight: "bold",
 	},
 	TextInputContainerPass: {
 		marginBottom: 20,
 	},
 	TextInput: {
-		borderBottomColor: "#5cb85c",
-		borderBottomWidth: 1,
+		// borderBottomColor: "#5cb85c",
+		backgroundColor: "#fff",
+		borderRadius: 10,
+		marginTop: 5,
 		padding: 10,
-		fontSize: 18,
+		fontSize: 14,
+		color: "#808080",
 	},
 	button: {
-		backgroundColor: "#5cb85c",
+		backgroundColor: "#386640",
 		padding: 10,
-		borderRadius: 5,
+		borderRadius: 10,
 		alignItems: "center",
 		marginTop: 20,
 		height: 50,
@@ -148,24 +177,28 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 	},
 	nuevacuenta: {
+		display: "flex",
+		alignItems: "center",
 		flexDirection: "row",
 		marginTop: 10,
+		justifyContent: "center",
 	},
 	createAccountTitle: {
-		color: "#CCC",
-		fontSize: 18,
+		color: "#426E4F",
+		fontSize: 12,
 	},
 	createAccountTitleButton: {
-		color: "#5cb85c",
+		color: "#426E4F",
 		fontWeight: "bold",
-		fontSize: 20,
+		textDecorationStyle: "dashed",
+		fontSize: 12,
 	},
 	ojo: {
 		position: "absolute",
 		top: 40,
 		right: 10,
 		zIndex: 1,
-		color: "#5cb85c",
+		color: "#ccc",
 	},
 });
 //
