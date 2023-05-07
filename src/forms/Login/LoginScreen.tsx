@@ -3,18 +3,19 @@ import { useNavigation } from "@react-navigation/native";
 import {
 	View,
 	Text,
-	TextInput,
 	StyleSheet,
 	TouchableOpacity,
 	Alert,
 	Image,
 } from "react-native";
-import Icono from "react-native-vector-icons/FontAwesome";
 
 import { Usuario } from "../../clases/Usuario";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import { configData } from "../../../config";
+import { TextInputControl } from "../../Components/TextInputControl";
+import { TextInputPasswordControl } from "../../Components/TextInputPasswordControl";
+import { ButtonSendControl } from "../../Components/ButtonSendControl";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -57,7 +58,7 @@ export const LoginScreen = () => {
 	};
 
 	return (
-		<View style={styles.ContenedorPrincipal}>
+		<View style={styles.Container}>
 			<Text
 				style={[styles.TituloContenedor, { marginTop: 100, color: "#6E955C" }]}
 			>
@@ -80,42 +81,28 @@ export const LoginScreen = () => {
 				/>
 			</View>
 
-			<View style={styles.TextInputContainer}>
-				<Text style={styles.TextLabel}>Usuario</Text>
-				<TextInput
-					style={styles.TextInput}
-					value={username}
-					placeholder="Ingrese Usuario"
-					onChangeText={setUsername}
-				/>
-			</View>
-			<View style={[styles.TextInputContainerPass, { position: "relative" }]}>
-				<Text style={styles.TextLabel}>Contraseña</Text>
-				{/* //implementar ojo de contraseña */}
-				<TextInput
-					style={styles.TextInput}
-					// secureTextEntry={true}
-					value={password}
-					onChangeText={setPassword}
-					placeholder="Ingrese contraseña"
-					secureTextEntry={hidePass ? true : false}
-				/>
-				<Icono
-					name={hidePass ? "eye-slash" : "eye"}
-					size={15}
-					onPress={() => setHidePass(!hidePass)}
-					style={styles.ojo}
-				/>
-			</View>
-			<TouchableOpacity
-				style={styles.button}
-				onPress={handleLogin}
-				disabled={isLoading}
-			>
-				<Text style={styles.buttonText}>
-					{isLoading ? "Cargando..." : "Ingresar"}
-				</Text>
-			</TouchableOpacity>
+			<TextInputControl
+				style={{ marginTop: 100, marginBottom: 10 }}
+				title="Usuario"
+				placeholder="Ingrese usuario"
+				value={username}
+				keyboardType="default"
+				functionChangeText={setUsername}
+			/>
+			<TextInputPasswordControl
+				title="Contraseña"
+				placeholder="Ingrese contraseña"
+				value={password}
+				activePassword={hidePass}
+				functionChangeText={setPassword}
+				functionActivePassword={() => setHidePass(!hidePass)}
+			/>
+
+			<ButtonSendControl
+				style={{ marginTop: 20 }}
+				title="Ingresar"
+				functionSend={handleLogin}
+			/>
 
 			<View style={styles.nuevacuenta}>
 				<Text style={styles.createAccountTitle}>
@@ -129,53 +116,24 @@ export const LoginScreen = () => {
 	);
 };
 const styles = StyleSheet.create({
-	ContenedorPrincipal: {
+	Container: {
 		flex: 1,
 		backgroundColor: "#F3F8FC",
-		padding: 50,
+		padding: 40,
 		borderRadius: 10,
 		justifyContent: "center",
 	},
 	TituloContenedor: {
 		fontSize: 26,
 		fontWeight: "bold",
-
+		lineHeight: 26,
 		textAlign: "center",
 	},
 	TextInputContainer: {
 		marginBottom: 20,
 		marginTop: 150,
 	},
-	TextLabel: {
-		color: "#426E4F",
 
-		fontWeight: "bold",
-	},
-	TextInputContainerPass: {
-		marginBottom: 20,
-	},
-	TextInput: {
-		// borderBottomColor: "#5cb85c",
-		backgroundColor: "#fff",
-		borderRadius: 10,
-		marginTop: 5,
-		padding: 10,
-		fontSize: 14,
-		color: "#808080",
-	},
-	button: {
-		backgroundColor: "#386640",
-		padding: 10,
-		borderRadius: 10,
-		alignItems: "center",
-		marginTop: 20,
-		height: 50,
-	},
-	buttonText: {
-		color: "#FFF",
-		fontSize: 20,
-		fontWeight: "bold",
-	},
 	nuevacuenta: {
 		display: "flex",
 		alignItems: "center",
@@ -192,13 +150,6 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		textDecorationStyle: "dashed",
 		fontSize: 12,
-	},
-	ojo: {
-		position: "absolute",
-		top: 40,
-		right: 10,
-		zIndex: 1,
-		color: "#ccc",
 	},
 });
 //

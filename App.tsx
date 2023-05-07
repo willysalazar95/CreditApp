@@ -88,12 +88,12 @@ function App() {
 				<Stack.Screen
 					name="Configuracion_Screen"
 					component={Configuracion_Screen}
-					options={{ title: "Configuracion " }}
+					options={{ title: "Creación Empresa" }}
 				/>
 				<Stack.Screen
 					name="RegConfigCliente_Screen"
 					component={RegConfigCliente_Screen}
-					options={{ title: "CConfigCliente" }}
+					options={{ title: "Creación Cliente" }}
 				/>
 				<Stack.Screen name="Prestamos" component={PrestamoScreen} />
 				<Stack.Screen name="RegistrarPrestamo" component={FrmRegistrarPrestamo} />
@@ -102,6 +102,7 @@ function App() {
 				<Stack.Screen
 					name="RegistroUsuarioConfig_Screen"
 					component={RegistroUsuarioConfig_Screen}
+					options={{ title: "Registro Usuario" }}
 				/>
 				<Stack.Screen
 					name="ListarPersonas"
