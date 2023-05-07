@@ -16,11 +16,17 @@ import { RootStackParamList } from "../../../App";
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 import { configData } from "../../../config";
+import { formatoFecha } from "../../utils/utils";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const Creditos_Screen = () => {
 	const [data, setData] = useState([]);
 	const navigation = useNavigation<homeScreenProp>();
 	const [query, setQuery] = useState("");
+	const [abrirFechaInicio, setAbrirFechaInicio] = useState(false);
+	const [abrirFechaFin, setAbrirFechaFin] = useState(false);
+	const [fechaInicio, setFechaInicio] = useState(new Date());
+	const [fechaFin, setFechaFin] = useState(new Date());
 
 	const ListarCreditos = async () => {
 		const _Dat = new Creditos(
@@ -142,6 +148,36 @@ const Creditos_Screen = () => {
 					<Icon name="plus" size={24} color="#FFF" />
 				</TouchableOpacity>
 			</View>
+			<View style={styles.ContenedorFechas}>
+				<TouchableOpacity
+					style={[styles.TextInput, { marginRight: 10 }]}
+					onPress={() => setAbrirFechaInicio(true)}
+				>
+					<Text>{formatoFecha(fechaInicio.toString())}</Text>
+					{abrirFechaInicio && (
+						<DateTimePicker
+							value={fechaInicio}
+							mode="date"
+							display="default"
+							onChange={(event, selectedDate) => {
+								const currentDate = selectedDate || fechaInicio;
+								setAbrirFechaInicio(false);
+								setFechaInicio(currentDate);
+							}}
+						/>
+					)}
+				</TouchableOpacity>
+
+				<TouchableOpacity
+					style={styles.TextInput}
+					onPress={() => setAbrirFechaFin(true)}
+				>
+					<Text>{formatoFecha(fechaFin.toString())}</Text>
+					{abrirFechaFin && (
+						<DateTimePicker value={fechaFin} mode="date" display="default" />
+					)}
+				</TouchableOpacity>
+			</View>
 			<FlatList
 				style={{ width: "100%" }}
 				data={data}
@@ -168,8 +204,20 @@ const styles = StyleSheet.create({
 		backgroundColor: "#FFF",
 		paddingHorizontal: 10,
 	},
+	ContenedorFechas: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "center",
+		alignItems: "center",
+		height: 60,
+		paddingHorizontal: 10,
+	},
 	TextInput: {
+		width: "50%",
 		flex: 1,
+		borderRadius: 10,
+		backgroundColor: "#FFF",
+		padding: 10,
 	},
 	BotonSearch: {
 		backgroundColor: "#5cb85c",
