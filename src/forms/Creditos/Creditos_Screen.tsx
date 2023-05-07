@@ -16,7 +16,7 @@ import { RootStackParamList } from "../../../App";
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 import { configData } from "../../../config";
-import { formatoFecha } from "../../utils/utils";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 const Creditos_Screen = () => {
@@ -44,7 +44,9 @@ const Creditos_Screen = () => {
 			0,
 			0,
 			configData.nUsuId,
-			configData.nCredRutasID
+			configData.nCredRutasID,
+			convertirFechaAAAAMMDD(fechaInicio),
+			convertirFechaAAAAMMDD(fechaFin)
 		);
 		const response = await _Dat.ListarCreditos();
 		setData(response.data);
@@ -66,11 +68,13 @@ const Creditos_Screen = () => {
 			0,
 			0,
 			configData.nUsuId,
-			configData.nCredRutasID
+			configData.nCredRutasID,
+			convertirFechaAAAAMMDD(fechaInicio),
+			convertirFechaAAAAMMDD(fechaFin)
 		);
 		const response = await _Dat.ListarCreditos();
 		const filteredData = response.data.filter((item: any) => {
-			return (item.cClieNombre ?? "").toLowerCase().includes(query.toLowerCase());
+			return (item.cClieDescripcion ?? "").toLowerCase().includes(query.toLowerCase());
 		});
 		setData(filteredData);
 		setQuery("");
@@ -174,7 +178,13 @@ const Creditos_Screen = () => {
 				>
 					<Text>{formatoFecha(fechaFin.toString())}</Text>
 					{abrirFechaFin && (
-						<DateTimePicker value={fechaFin} mode="date" display="default" />
+						<DateTimePicker value={fechaFin} mode="date" display="default"
+							onChange={(event, selectedDate) => {
+								const currentDate = selectedDate || fechaFin;
+								setAbrirFechaFin(false);
+								setFechaFin(currentDate);
+							}}
+						/>
 					)}
 				</TouchableOpacity>
 			</View>

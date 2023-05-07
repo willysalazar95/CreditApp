@@ -19,6 +19,8 @@ export class Creditos {
 	private nEstID: number;
 	private nUsuID: number;
 	private nCredRutasID: number;
+	private dFecIni: string;
+	private dFecFin: string;
 	
 	static url = `${configData.API_URL}/api/Credito`;
 
@@ -37,7 +39,9 @@ export class Creditos {
 		nCredPorcentajeDeuda: Double = 0,
 		nEstID: number = 0,
 		nUsuID: number = 0,
-		nCredRutasID : number =0
+		nCredRutasID : number =0,
+		dFecIni: string = "",
+		dFecFin: string = ""
 	) {
 		this.nCredID = nCredID;
 		this.nClienID = nClieID;
@@ -54,6 +58,8 @@ export class Creditos {
 		this.nEstID = nEstID;
 		this.nUsuID = nUsuID;
 		this.nCredRutasID = nCredRutasID;
+		this.dFecIni = dFecIni;
+		this.dFecFin = dFecFin
 	}
 
 	async ListarCreditos() {
@@ -63,12 +69,13 @@ export class Creditos {
 				params: {
 					nIdPers: this.nClienID,
 					nUsuId: this.nUsuID,
+					dFecIni: this.dFecIni,
+					dFecFin: this.dFecFin
 				},
 			});
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
-
 			if (Resp === 200) {
 				return { success: true, data: Lista };
 			} else {
