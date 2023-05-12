@@ -59,14 +59,7 @@ export const LoginScreen = () => {
 
 	return (
 		<View style={styles.Container}>
-			<Text
-				style={[styles.TituloContenedor, { marginTop: 100, color: "#6E955C" }]}
-			>
-				Bienvenido a
-			</Text>
-			<Text style={[styles.TituloContenedor, { color: "#426E4F" }]}>
-				MyBankito
-			</Text>
+
 			<View
 				style={{
 					display: "flex",
@@ -80,6 +73,13 @@ export const LoginScreen = () => {
 					source={require("../../../assets/adaptive-icon.png")}
 				/>
 			</View>
+			<Text
+				style={[styles.TituloContenedor, { marginTop: 20, color: "#6E955C" }]}
+			>
+				<Text style={[styles.TituloContenedor, { color: "#426E4F" }]}>
+					MyBankito
+				</Text>
+			</Text>
 
 			<TextInputControl
 				style={{ marginTop: 100, marginBottom: 10 }}
