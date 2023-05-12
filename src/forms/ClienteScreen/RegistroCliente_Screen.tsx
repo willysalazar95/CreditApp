@@ -129,7 +129,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			0,
 			"0", //cLatitud,
 			"0", //cLongitud
-			convertirFechaAAAAMMDD(fechaAlta)
+			convertirFechaAAAAMMDD(fechaAlta),
+			configData.nConfiguracionID.toString()
 		);
 		const response = isEditing
 			? await datCliente.ActualizarCliente()

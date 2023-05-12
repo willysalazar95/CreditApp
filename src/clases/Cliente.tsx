@@ -24,6 +24,7 @@ class Cliente {
 	private cClieLatitud: string;
 	private cClieLongitud: string;
 	private cFechaAlta: string;
+	private nIdEmpresa: string;
 
 	constructor(
 		nClieID: number = 0,
@@ -37,7 +38,8 @@ class Cliente {
 		nClieEstado: number = 0,
 		cClieLatitud: string = "",
 		cClieLongitud: string = "",
-		cFechaAlta: string = ""
+		cFechaAlta: string = "",
+		nIdEmpresa : string = ""
 	) {
 		this.nClieID = nClieID;
 		this.cClieDNI = cClieDNI;
@@ -51,6 +53,7 @@ class Cliente {
 		this.cClieLatitud = cClieLatitud;
 		this.cClieLongitud = cClieLongitud;
 		this.cFechaAlta = cFechaAlta;
+		this.nIdEmpresa = nIdEmpresa;
 	}
 
 	static url = `${configData.API_URL}/api/clientes`;
@@ -58,7 +61,20 @@ class Cliente {
 	async ListarCliente() {
 		const BASE_URL = `${Cliente.url}/ListarClientes`;
 		try {
-			const response = await axios.get(BASE_URL);
+			// const response = await axios.get(BASE_URL);
+			const response = await axios({
+				method: "get",
+				url: BASE_URL,
+				params: {
+					nIdEmpresa: this.nIdEmpresa,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
@@ -88,6 +104,7 @@ class Cliente {
 					cClieLatitud: this.cClieLatitud,
 					cClieLongitud: this.cClieLongitud,
 					dClieFechaAlta : this.cFechaAlta,
+					nIdEmpresa : this.nIdEmpresa,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -160,6 +177,7 @@ class Cliente {
 				url: BASE_URL,
 				params: {
 					codigo: this.nClieID,
+					nIdEmpresa: this.nIdEmpresa,
 				},
 				headers: {
 					"Content-Type": "application/json",

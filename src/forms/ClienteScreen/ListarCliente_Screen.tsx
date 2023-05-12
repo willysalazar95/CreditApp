@@ -12,7 +12,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Cliente } from "../../clases/Cliente";
 
 import Icon from "react-native-vector-icons/FontAwesome";
-
+import { configData } from "../../../config";
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 
@@ -26,13 +26,19 @@ const ListarClienteScreen = ({ route }: any) => {
 
 	const navigation = useNavigation<homeScreenProp>();
 	const ListarPersonas = async () => {
-		const DatCliente = new Cliente();
+		const DatCliente = new Cliente(
+			0,"","","","","","","",1,"","","",
+			configData.nConfiguracionID.toString()
+		);
 		const response = await DatCliente.ListarCliente();
 		setPersonas(response.data);
 	};
 
 	const BuscarPersonas = async () => {
-		const DatCliente = new Cliente();
+		const DatCliente = new Cliente(
+			0,"","","","","","","",1,"","","",
+			configData.nConfiguracionID.toString()
+		);
 		const response = await DatCliente.ListarCliente();
 		const filteredData = response.data.filter((item: any) => {
 			return item.cClieNombres.toLowerCase().includes(query.toLowerCase());
@@ -76,7 +82,10 @@ const ListarClienteScreen = ({ route }: any) => {
 						text: "Eliminar",
 						style: "destructive",
 						onPress: async () => {
-							const DatCliente = new Cliente(cliente.nClieID);
+							const DatCliente = new Cliente(
+								cliente.nClieID,"","","","","","","",0,
+								"","","",configData.nConfiguracionID.toString()
+							);
 							const response = await DatCliente.EliminarCliente();
 
 							if (response.success) {
