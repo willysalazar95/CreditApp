@@ -294,11 +294,11 @@ const RegistroCliente_Screen = ({ route }: any) => {
 					</MapView> */}
 				</View>
 
-				<TouchableOpacity style={styles.buttonMapa} onPress={abrirMapa}>
-					<Text style={styles.buttonMapaText}>Mapa</Text>
-				</TouchableOpacity>
 				<TouchableOpacity style={styles.button} onPress={handleEnviar}>
 					<Text style={styles.buttonText}>{accionBoton}</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.buttonMapa} onPress={abrirMapa}>
+					<Text style={styles.buttonMapaText}>Mapa</Text>
 				</TouchableOpacity>
 				<AlertaModal
 					titulo={tituloModal}
