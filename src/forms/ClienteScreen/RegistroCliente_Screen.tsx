@@ -22,6 +22,8 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import { configData } from "../../../config";
 
+import AlertaModal from "../../utils/AlertModal"
+
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 //CREADO POR AAGC
 const RegistroCliente_Screen = ({ route }: any) => {
@@ -42,6 +44,8 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [fechaAlta, setFechaAlta] = useState(new Date());
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [showDatePicker2, setShowDatePicker2] = useState(false);
+
+	const [MensajeModal1, setMensajeModal1] = useState("");
 
 	const [region, setRegion] = useState({
 		latitude: 0, //-12.026971,
@@ -135,21 +139,59 @@ const RegistroCliente_Screen = ({ route }: any) => {
 		const response = isEditing
 			? await datCliente.ActualizarCliente()
 			: await datCliente.RegistrarCliente();
+		 console.log("aqui estamos");
 		if (response.success) {
 			if (isEditing) {
-				Alert.alert("OK", "Modificado Correctamente " + "!!");
+				//Alert.alert("OK", "Modificado Correctamente " + "!!");
+				setTituloModal("MyBankito");
+				setMensajeModal1("Registro actualizado ");
+				setAlertVisible(true);
 			} else {
-				Alert.alert("OK", "Registrado Correctamente " + "!!");
+				//Alert.alert("OK", "Registrado Correctamente " + "!!");
+				setTituloModal("MyBankito");
+				setMensajeModal1("Registrado Correctamente ");
+				setAlertVisible(true);
 			}
-			navigation.goBack();
+			setAlertVisible(true);
+			//navigation.goBack();
 		} else {
-			Alert.alert("ERROR", response.error);
+			//Alert.alert("ERROR", response.error);
+			setTituloModal("MyBankito");
+			setMensajeModal1("ERROR" + response.error);
+			setAlertVisible(true);
 		}
+		//Para que funcione la ventana modal
+		console.log(MensajeModal1);
+		
 	};
 
 	const abrirMapa = () => {
 		navigation.navigate("Mapa_Screen", { item: "" });
 	};
+
+
+	//Inicio Ventana Modal - Prueba
+	const [isAlertVisible, setAlertVisible] = useState(false);
+	const [tituloModal, setTituloModal] = useState('');
+	const [alertMessage, setAlertMessage] = useState('');
+
+	const ocultarAlertaModal = () => {
+		setAlertVisible(false);
+	};
+
+	const abrirAlertaModal = () => {
+		const timestamp = Date.now();
+		if (timestamp % 2 === 0) {
+			setTituloModal('even');
+			setAlertMessage(`timestamp is even!: ${timestamp}`);
+		} else {
+			setTituloModal('odd');
+			setAlertMessage(`timestamp is odd!: ${timestamp}`);
+		}
+		setAlertVisible(true);
+	};
+	//Fin de Ventana Modal
+
 	return (
 		<View style={styles.ContenedorPrincipal}>
 			<ScrollView>
@@ -258,7 +300,17 @@ const RegistroCliente_Screen = ({ route }: any) => {
 				<TouchableOpacity style={styles.button} onPress={handleEnviar}>
 					<Text style={styles.buttonText}>{accionBoton}</Text>
 				</TouchableOpacity>
+				<AlertaModal
+					titulo={tituloModal}
+					mensaje={MensajeModal1}
+					visible={isAlertVisible}
+					onConfirm={ocultarAlertaModal}
+				/>
+
+				 
+
 			</ScrollView>
+
 		</View>
 	);
 };

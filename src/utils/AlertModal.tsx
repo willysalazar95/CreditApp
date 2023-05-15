@@ -1,53 +1,51 @@
-import React, { useState, useEffect, Children } from "react";
+import React, { useState, useEffect } from "react";
 import {
     View,
     StyleSheet,
-    Text, 
+    Text,
     TouchableOpacity,
 } from "react-native";
-
+import { Modal } from "react-native";
 //Intstalamos la dependencia :
 //yarn add react-native-elements
-
-const Modal = ({ tituloModal, mensajeModal, estado, cambiarEstado, children }) => {
+const AlertModal = ({
+    titulo,
+    mensaje,
+    visible,
+    onConfirm,
+}: {
+    titulo: string;
+    mensaje: string;
+    visible: boolean;
+    onConfirm: () => void;
+}) => {
     return (
         <>
-            <Modal isVisible={estado} backdropTransitionOutTiming={0}>
+            <Modal
+                transparent
+                animationType="slide"
+                hardwareAccelerated
+                visible={visible} >
                 <View style={styles.modalFondo}>
-                    <View style={[styles.modalVentana, styles.modalSombra]}>
+                    <View style={styles.modalVentana}>
                         <View style={styles.modalTitulo}>
-                            <Text style={styles.modalTitulo}>{tituloModal}</Text>
+                            <Text style={styles.modalTituloText}>{titulo}</Text>
                         </View>
                         <View style={styles.modalMensaje}>
-                            <Text >{mensajeModal}</Text>
+                            <Text style={styles.modalMensajeTexto}>{mensaje}</Text>
                         </View>
-                        <TouchableOpacity style={styles.modalBoton} onPress={cambiarEstado}>
-                            <Text style={styles.modalBotonText}>Aceptar</Text>
-                        </TouchableOpacity>
+                        <View style={{justifyContent:"center",flex:1,alignContent:"center"}}>
+                            <TouchableOpacity style={styles.modalBoton} onPress={onConfirm}>
+                                <Text style={styles.modalBotonText}>Ok</Text>
+                            </TouchableOpacity>
+                        </View>
+
                     </View>
                 </View>
             </Modal>
-
-            {
-/*estado&&
-
-            <Overlay>
-                <ContenedorModal>
-                    <EncabezadoModal>
-                        <h3>Titulo</h3>
-                    </EncabezadoModal>
-                    <BotonCerrar>X</BotonCerrar>
-                    {children}
-                </ContenedorModal>
-
-            </Overlay>
-*/ }
         </>
-
-
-
     );
-}
+};
 
 const styles = StyleSheet.create({
     modalFondo: {
@@ -59,34 +57,52 @@ const styles = StyleSheet.create({
     modalVentana:
     {
         width: "80%",
+        height: "30%",
         backgroundColor: "white",
-        paddingHorizontal: 20,
-        paddingVertical: 30,
+        paddingHorizontal: 0,
+        paddingVertical: 0,
         borderRadius: 20,
-        elevation: 20,
+        elevation: 0,
     },
     modalTitulo: {
         width: '100%',
-        height: 40,
-        alignItems: 'flex-end',
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "#5cb85c",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        marginTop: 0,
+    },
+    modalTituloText: {
+        fontSize: 20,
+        color: "white",
+        textAlign: "center",
         justifyContent: 'center',
     },
     modalMensaje: {
         alignItems: 'center',
         justifyContent: 'center',
-
+        width: '100%',
+        height: "20%",
+        top: 40,
     },
     modalMensajeTexto: {
         alignItems: 'center',
         justifyContent: 'center',
-
+        fontSize: 20,
     },
     modalBoton: {
         alignItems: 'center',
         justifyContent: 'center',
+        width: "50%",
+        height: 30,
+        backgroundColor: "#5cb85c",
+        borderRadius: 10,         
     },
     modalBotonText: {
-        fontSize: 12,
+        fontSize: 20,
+        color:"white"
     },
     modalSombra: {
         alignSelf: 'center',
@@ -102,9 +118,7 @@ const styles = StyleSheet.create({
     },
 })
 
-
-export default Modal
-
+export default AlertModal
 
 
 /*
