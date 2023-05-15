@@ -139,7 +139,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 		const response = isEditing
 			? await datCliente.ActualizarCliente()
 			: await datCliente.RegistrarCliente();
-		 console.log("aqui estamos");
+		  
 		if (response.success) {
 			if (isEditing) {
 				//Alert.alert("OK", "Modificado Correctamente " + "!!");

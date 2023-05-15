@@ -34,9 +34,9 @@ const AlertModal = ({
                         <View style={styles.modalMensaje}>
                             <Text style={styles.modalMensajeTexto}>{mensaje}</Text>
                         </View>
-                        <View style={{justifyContent:"center",flex:1,alignContent:"center"}}>
+                        <View  style={styles.modalBotonesContenedor} >
                             <TouchableOpacity style={styles.modalBoton} onPress={onConfirm}>
-                                <Text style={styles.modalBotonText}>Ok</Text>
+                                <Text style={styles.modalBotonText}>Aceptar</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -92,17 +92,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         fontSize: 20,
     },
-    modalBoton: {
+    modalBotonesContenedor:
+    {
+        width: "100%",
+        top:60,
+        display: "flex", 
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    modalBoton: {
+             
         width: "50%",
-        height: 30,
+        height: "40%",
         backgroundColor: "#5cb85c",
-        borderRadius: 10,         
+        borderRadius: 10,                
     },
     modalBotonText: {
         fontSize: 20,
-        color:"white"
+        color:"white",
+        textAlign: "center",
     },
     modalSombra: {
         alignSelf: 'center',
