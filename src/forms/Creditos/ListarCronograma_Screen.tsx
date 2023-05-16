@@ -17,7 +17,7 @@ const ListarCronograma_Screen = ({ route }: any) => {
 	const [nCredID, setnCredID] = useState(0);
 
 	const ListarCronograma = async () => {
-		console.log(nCredID + " Cod CRed");
+		// console.log(nCredID + " Cod CRed");
 		const _Dat = new CreditosCronogramas();
 		const response = await _Dat.ListarCreditosCronogramas(nCredID);
 		setData(response.data);
@@ -44,14 +44,15 @@ const ListarCronograma_Screen = ({ route }: any) => {
 						item.dCronoFechaPago
 					)}`}</Text>
 					<Text style={styles.cardDesc}>{`Monto a Pagar : ${formatoMonedaPeruana(
-						item.nCronoMonto
+						item.nCronoMonto + item.nCronoInteres + item.nCronoMora
 					)}`}</Text>
 					<Text style={styles.cardDesc}>{`Monto Pagado: ${formatoMonedaPeruana(
-						item.nCronoMontoPagado
+						item.nCronoMontoPagado + item.nCronoInteresPagado + item.nCronoMoraPagada
 					)}`}</Text>
 					<Text style={styles.cardDesc}>
 						<Text>{`Saldo : ${formatoMonedaPeruana(
-							item.nCronoMonto - item.nCronoMontoPagado
+							(item.nCronoMonto + item.nCronoInteres + item.nCronoMora) - 
+							(item.nCronoMontoPagado + item.nCronoInteresPagado + item.nCronoMoraPagada)
 						)}`}</Text>
 					</Text>
 				</View>
