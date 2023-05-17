@@ -15,6 +15,8 @@ import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 
+import AlertaModal from "../../utils/AlertModal"
+
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const PagarCredito_Screen = ({ route }: any) => {
@@ -35,9 +37,21 @@ const PagarCredito_Screen = ({ route }: any) => {
 	const [cPerDescripcion, setCPerDescripcion] = useState("");
 	const [nCredNroCuotas, setNCredNroCuotas] = useState(0);
 	const [nPagoCuota, setNPagoCuota] = useState(0.0);
+
+	const [MensajeModal1, setMensajeModal1] = useState("");
+	const [isAlertVisible, setAlertVisible] = useState(false);
+	const [tituloModal, setTituloModal] = useState('');
+	const [alertMessage, setAlertMessage] = useState('');
+
+	const ocultarAlertaModal = () => {
+		setAlertVisible(false);
+	};
+
+
 	const [dCronoFechaVencimiento, setDCronoFechaVencimiento] = useState(
 		new Date().toString()
 	);
+
 
 	const ObtenerPago = async () => {
 		const cc = new CreditosCronogramas();
@@ -118,6 +132,21 @@ const PagarCredito_Screen = ({ route }: any) => {
 		);
 		const response = await _dCred.RegistroCreditoPago();
 		if (response.success) {
+			navigation.navigate(
+				"VoucherPago",
+
+				{
+					userNombres: cPersNombre,
+					userMontoPagar: nMontoAPagar,
+					MontPagar: nMontoAPagar,
+				}
+			)
+			setTituloModal("MyBankito");
+			setMensajeModal1("Pago guardado correctamente ");
+			setAlertVisible(true);
+
+			{
+/*
 			Alert.alert(
 				"Aviso",
 				"Pago guardado correctamente",
@@ -138,10 +167,14 @@ const PagarCredito_Screen = ({ route }: any) => {
 				],
 				{ cancelable: false }
 			);
+			*/}
 
 			// navigation.goBack();
 		} else {
-			Alert.alert("ERROR", response.error);
+			//Alert.alert("ERROR", response.error);
+			setTituloModal("MyBankito");
+			setMensajeModal1("ERROR" + response.error);
+			setAlertVisible(true);
 		}
 	};
 
@@ -203,6 +236,12 @@ const PagarCredito_Screen = ({ route }: any) => {
 					</View>
 					<View style={{ marginTop: 10 }} />
 				</View>
+				<AlertaModal
+					titulo={tituloModal}
+					mensaje={MensajeModal1}
+					visible={isAlertVisible}
+					onConfirm={ocultarAlertaModal}
+				/>
 			</ScrollView>
 		</View>
 	);

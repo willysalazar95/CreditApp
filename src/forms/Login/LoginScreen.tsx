@@ -17,6 +17,8 @@ import { TextInputControl } from "../../Components/TextInputControl";
 import { TextInputPasswordControl } from "../../Components/TextInputPasswordControl";
 import { ButtonSendControl } from "../../Components/ButtonSendControl";
 
+import AlertaModal from "../../utils/AlertModal"
+
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 export const LoginScreen = () => {
@@ -26,6 +28,15 @@ export const LoginScreen = () => {
 	// const navigation = useNavigation();
 	const navigation = useNavigation<homeScreenProp>();
 	const [isLoading, setIsLoading] = useState(false);
+	//Inicio Ventana Modal - Prueba
+	const [MensajeModal1, setMensajeModal1] = useState("");
+	const [isAlertVisible, setAlertVisible] = useState(false);
+	const [tituloModal, setTituloModal] = useState('');
+	const [alertMessage, setAlertMessage] = useState('');
+
+	const ocultarAlertaModal = () => {
+		setAlertVisible(false);
+	};
 
 	useEffect(() => {
 		navigation.setOptions({ headerShown: false });
@@ -37,9 +48,8 @@ export const LoginScreen = () => {
 		const usu = new Usuario(0, username, password, 0, 0, 0);
 		const response = await usu.loginUser();
 		setIsLoading(false);
-
 		if (response.success) {
-			Alert.alert("OK", "Bienvenido " + response.data.cUsuUsuario + "!!");
+			//Alert.alert("OK", "Bienvenido " + response.data.cUsuUsuario + "!!");
 			configData.nUsuId = response.data.nUsuID;
 			configData.cUsuario = username;
 			configData.nUsuTipo = response.data.nUsuTipo;
@@ -47,8 +57,14 @@ export const LoginScreen = () => {
 			configData.nCredRutasID = response.data.nCredRutasID;
 			configData.nCajaId = response.data.caja.nCajaId;
 			navigation.navigate("DrawerScreen");
+			setTituloModal("MyBankito");
+			setMensajeModal1("Bienvenido : " + response.data.cUsuUsuario + "!!");
+			setAlertVisible(true);			
 		} else {
-			Alert.alert("ERROR", response.error);
+			//Alert.alert("ERROR", response.error);
+			setTituloModal("MyBankito");
+			setMensajeModal1("ERROR : " + response.error);
+			setAlertVisible(true);
 			setPassword("");
 		}
 	};
@@ -111,6 +127,12 @@ export const LoginScreen = () => {
 				<TouchableOpacity onPress={goToRegister}>
 					<Text style={styles.createAccountTitleButton}> aquí.</Text>
 				</TouchableOpacity>
+				<AlertaModal
+					titulo={tituloModal}
+					mensaje={MensajeModal1}
+					visible={isAlertVisible}
+					onConfirm={ocultarAlertaModal}
+				/>
 			</View>
 		</View>
 	);

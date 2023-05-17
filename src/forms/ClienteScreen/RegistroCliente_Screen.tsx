@@ -45,8 +45,6 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [showDatePicker, setShowDatePicker] = useState(false);
 	const [showDatePicker2, setShowDatePicker2] = useState(false);
 
-	const [MensajeModal1, setMensajeModal1] = useState("");
-
 	const [region, setRegion] = useState({
 		latitude: 0, //-12.026971,
 		longitude: 0, //-77.063492,
@@ -171,6 +169,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 
 
 	//Inicio Ventana Modal - Prueba
+	const [MensajeModal1, setMensajeModal1] = useState("");
 	const [isAlertVisible, setAlertVisible] = useState(false);
 	const [tituloModal, setTituloModal] = useState('');
 	const [alertMessage, setAlertMessage] = useState('');
@@ -179,17 +178,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 		setAlertVisible(false);
 	};
 
-	const abrirAlertaModal = () => {
-		const timestamp = Date.now();
-		if (timestamp % 2 === 0) {
-			setTituloModal('even');
-			setAlertMessage(`timestamp is even!: ${timestamp}`);
-		} else {
-			setTituloModal('odd');
-			setAlertMessage(`timestamp is odd!: ${timestamp}`);
-		}
-		setAlertVisible(true);
-	};
+	 
 	//Fin de Ventana Modal
 
 	return (

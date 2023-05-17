@@ -14,12 +14,23 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 
 import DateTimePicker from "@react-native-community/datetimepicker";
+import AlertaModal from "../../utils/AlertModal"
 
 function PagoScreen() {
 
   const [fechaInicio, setFechaInicio] = useState(new Date());
   const [fechaFin, setFechaFin] = useState(new Date());
 	const [showDatePickerInicio, setShowDatePickerinicio] = useState(false);
+	
+	const [MensajeModal1, setMensajeModal1] = useState("");
+	const [isAlertVisible, setAlertVisible] = useState(false);
+	const [tituloModal, setTituloModal] = useState('');
+	const [alertMessage, setAlertMessage] = useState('');
+
+	const ocultarAlertaModal = () => {
+		setAlertVisible(false);
+	};
+	 
 	
 	const [showDatePickerFin, setShowDatePickerFin] = useState(false);
 	const BuscarPagos = async () => {
@@ -71,6 +82,7 @@ function PagoScreen() {
 					<TouchableOpacity style={styles.BotonSearch} onPress={BuscarPagos}>
 					<Icon name="search" size={24} color="#FFF" />
 				</TouchableOpacity>
+				 
     </View>
   );
 
