@@ -15,6 +15,7 @@ import { CerrarSesion } from "../Login/CerrarSesion";
 import { CambiarContrasenia_Screen } from "../Usuarios/CambiarContrasenia_Screen";
 import { configData } from "../../../config";
 import SimularCredito_Screen from "../Creditos/SimularCredito_Screen";
+import OtrosIngresos_Screen from "../Ingresos/OtrosIngresos_Screen";
 
 const Drawer = createDrawerNavigator();
 
@@ -60,29 +61,17 @@ export default function DrawerScreen() {
 			) : (
 				<></>
 			)}
-
-			{/* <Drawer.Screen
-				name="Pago"
-				component={PagoScreen}
-				options={{
-					drawerIcon: ({ focused, color, size }) => (
-						<Icon name="card-outline" size={size} color={color} />
-					),
-				}}
-			/> */}
-			{/* <Drawer.Screen
-				name="Cierre"
-				component={CierreScreen}
-				options={{
-					drawerIcon: ({ focused, color, size }) => (
-						<Icon name="lock-closed-outline" size={size} color={color} />
-					),
-				}}
-			/> */}
 			<Drawer.Screen name="Caja" component={CajaScreen}
 				options={{
 					drawerIcon: ({ focused, color, size }) => (
 						<Icon name="calculator-outline" size={size} color={color} />
+					),
+				}}
+			/>
+			<Drawer.Screen name="Otros Ingresos" component={OtrosIngresos_Screen}
+				options={{title:'Otros Ingresos',
+					drawerIcon: ({ focused, color, size }) => (
+						<Icon name="cash-outline" size={size} color={color} />
 					),
 				}}
 			/>
