@@ -22,7 +22,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import { configData } from "../../../config";
 
-import AlertaModal from "../../utils/AlertModal"
+import AlertaModal from "../../utils/AlertModal";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 //CREADO POR AAGC
@@ -32,6 +32,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 	const [dni, setDni] = useState("");
 	const [nombre, setNombre] = useState("");
 	const [apellido, setApellido] = useState("");
+	const [correo, setCorreo] = useState("");
 	const [telefono, setTelefono] = useState("");
 	const [direccion, setDireccion] = useState("");
 	const [cLatitud, SETcLatitud] = useState("");
@@ -132,12 +133,13 @@ const RegistroCliente_Screen = ({ route }: any) => {
 			"0", //cLatitud,
 			"0", //cLongitud
 			convertirFechaAAAAMMDD(fechaAlta),
-			configData.nConfiguracionID.toString()
+			configData.nConfiguracionID.toString(),
+			correo
 		);
 		const response = isEditing
 			? await datCliente.ActualizarCliente()
 			: await datCliente.RegistrarCliente();
-		  
+
 		if (response.success) {
 			if (isEditing) {
 				//Alert.alert("OK", "Modificado Correctamente " + "!!");
@@ -160,25 +162,22 @@ const RegistroCliente_Screen = ({ route }: any) => {
 		}
 		//Para que funcione la ventana modal
 		console.log(MensajeModal1);
-		
 	};
 
 	const abrirMapa = () => {
 		navigation.navigate("Mapa_Screen", { item: "" });
 	};
 
-
 	//Inicio Ventana Modal - Prueba
 	const [MensajeModal1, setMensajeModal1] = useState("");
 	const [isAlertVisible, setAlertVisible] = useState(false);
-	const [tituloModal, setTituloModal] = useState('');
-	const [alertMessage, setAlertMessage] = useState('');
+	const [tituloModal, setTituloModal] = useState("");
+	const [alertMessage, setAlertMessage] = useState("");
 
 	const ocultarAlertaModal = () => {
 		setAlertVisible(false);
 	};
 
-	 
 	//Fin de Ventana Modal
 
 	return (
@@ -215,6 +214,15 @@ const RegistroCliente_Screen = ({ route }: any) => {
 						placeholder="Ingrese apellido"
 						placeholderTextColor="#D3D3D3"
 						textAlignVertical="top"
+					/>
+					<Text style={styles.TextLabel}>Correo:</Text>
+					<TextInput
+						style={styles.TextInput}
+						value={correo}
+						onChangeText={setCorreo}
+						placeholder="Correo"
+						placeholderTextColor="#D3D3D3"
+						textAlignVertical="center"
 					/>
 					<Text style={styles.TextLabel}>Teléfono:</Text>
 					<TextInput
@@ -295,11 +303,7 @@ const RegistroCliente_Screen = ({ route }: any) => {
 					visible={isAlertVisible}
 					onConfirm={ocultarAlertaModal}
 				/>
-
-				 
-
 			</ScrollView>
-
 		</View>
 	);
 };

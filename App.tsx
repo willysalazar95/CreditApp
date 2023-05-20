@@ -28,6 +28,9 @@ import Mapa_Screen from "./src/forms/ClienteScreen/RegistroClienteMapa_Screen";
 import PagoScreen from "./src/forms/Pagos/PagoScreen";
 import ImprimirScreen from "./src/forms/Impresion/ImprimirScreen";
 import CierreScreen from "./src/forms/Cierre/CierreScreen";
+import { RecuperarCuenta_Screen } from "./src/forms/Usuarios/RecuperarCuenta_Screen";
+import { VerificarCodigoCorreo_Screen } from "./src/forms/Usuarios/VerificarCodigoCorreo_Screen";
+import { RestablecerContrasenia_Screen } from "./src/forms/Usuarios/RestablecerContrasenia_Screen";
 
 export type RootStackParamList = {
 	Login: undefined;
@@ -60,6 +63,9 @@ export type RootStackParamList = {
 	ListarUsuarios: undefined;
 	RegistrarUsuarios: { item: any } | undefined;
 	ListarImprimir: undefined;
+	RecuperarCuenta: undefined;
+	VerificarCodigoCorreo: { correo: string };
+	RestablecerContrasenia: { correo: string };
 	// Profile: { userId: string };
 	// Feed: { sort: 'latest' | 'top' } | undefined;
 };
@@ -174,6 +180,21 @@ function App() {
 					name="ListarImprimir"
 					component={ImprimirScreen}
 					options={{ title: "Listar Imprimir" }}
+				/>
+				<Stack.Screen
+					name="RecuperarCuenta"
+					component={RecuperarCuenta_Screen}
+					options={{ title: "Recuperar Cuenta" }}
+				/>
+				<Stack.Screen
+					name="VerificarCodigoCorreo"
+					component={VerificarCodigoCorreo_Screen}
+					options={{ title: "Verificación" }}
+				/>
+				<Stack.Screen
+					name="RestablecerContrasenia"
+					component={RestablecerContrasenia_Screen}
+					options={{ title: "Restablecer" }}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
