@@ -31,6 +31,7 @@ import CierreScreen from "./src/forms/Cierre/CierreScreen";
 import { RecuperarCuenta_Screen } from "./src/forms/Usuarios/RecuperarCuenta_Screen";
 import { VerificarCodigoCorreo_Screen } from "./src/forms/Usuarios/VerificarCodigoCorreo_Screen";
 import { RestablecerContrasenia_Screen } from "./src/forms/Usuarios/RestablecerContrasenia_Screen";
+import OtrosIngresos_Screen from "./src/forms/Ingresos/OtrosIngresos_Screen";
 
 export type RootStackParamList = {
 	Login: undefined;
@@ -40,6 +41,7 @@ export type RootStackParamList = {
 	// RegistrarPersona: { item: any };
 	RegistrarPrestamo: { item: any };
 	RegistroPersona: undefined;
+	OtrosIngresos:undefined;
 	PagarPrestamo: { idCredito: number };
 	VoucherPago: {
 		userNombres: any;
@@ -195,6 +197,11 @@ function App() {
 					name="RestablecerContrasenia"
 					component={RestablecerContrasenia_Screen}
 					options={{ title: "Restablecer" }}
+				/>
+				<Stack.Screen
+					name="OtrosIngresos"
+					component={OtrosIngresos_Screen}
+					options={{ title: "Otros Ingresos" }}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>
