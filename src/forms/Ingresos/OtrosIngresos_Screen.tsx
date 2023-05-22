@@ -10,12 +10,16 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+ 
+import { Picker } from "@react-native-picker/picker";
+
 
 import { Cliente } from "../../clases/Cliente";
 
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import { configData } from "../../../config";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
 
 import AlertaModal from "../../utils/AlertModal"
 
@@ -54,6 +58,13 @@ const OtrosIngresos_Screen = () => {
     };
 
 
+    const [dni, setDni] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [tipoIngreso, setTipoIngreso] = useState("");
+    const [fecha, setFecha] = useState(new Date());
+    const [monto, setMonto] = useState(0);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+
     //Inicio Ventana Modal - Prueba
     const [MensajeModal1, setMensajeModal1] = useState("");
     const [isAlertVisible, setAlertVisible] = useState(false);
@@ -74,8 +85,8 @@ const OtrosIngresos_Screen = () => {
                     <Text style={styles.TextLabel}>DNI:</Text>
                     <TextInput
                         style={styles.TextInput}
-                        // value={dni}
-                        // onChangeText={setDni}
+                        value={dni}
+                        onChangeText={setDni}
                         keyboardType="numeric"
                         placeholder="Ingrese dni"
                         placeholderTextColor="#D3D3D3"
@@ -84,51 +95,72 @@ const OtrosIngresos_Screen = () => {
                     <Text style={styles.TextLabel}>Nombre:</Text>
                     <TextInput
                         style={styles.TextInput}
-                        // value={nombre}
-                        // onChangeText={setNombre}
-                        placeholder="Iingrese nombre"
+                        value={nombre}
+                        onChangeText={setNombre}
+                        placeholder="Ingrese nombre"
                         placeholderTextColor="#D3D3D3"
                         textAlignVertical="top"
                     />
-                    <Text style={styles.TextLabel}>Apellido:</Text>
-                    <TextInput
-                        style={styles.TextInput}
-                        // value={apellido}
-                        // onChangeText={setApellido}
-                        placeholder="Ingrese apellido"
-                        placeholderTextColor="#D3D3D3"
-                        textAlignVertical="top"
-                    />
-                    <Text style={styles.TextLabel}>Teléfono:</Text>
-                    <TextInput
-                        style={styles.TextInput}
-                        // value={telefono}
-                        // onChangeText={setTelefono}
-                        keyboardType="phone-pad"
-                        placeholder="Ingrese telefono"
-                        placeholderTextColor="#D3D3D3"
-                        textAlignVertical="top"
-                    />
-                    <Text style={styles.TextLabel}>Dirección:</Text>
-                    <TextInput
-                        style={styles.TextInput}
-                        // value={direccion}
-                        // onChangeText={setDireccion}
-                        placeholder="Ingrese direccion"
-                        placeholderTextColor="#D3D3D3"
-                        textAlignVertical="top"
-                    />
-                </View>
+                    <Text style={styles.TextLabel}>Tipo Ingreso:</Text>
+                    
+                        {/*
+                        <View style={styles.TextInputContenedor}>
+                            <Text style={styles.TextLabel}>Periodo:</Text>
+                            <Picker
+                                selectedValue={selectedValue}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                            >
+                                {options.map((item: any, index) => {
+                                    return (
+                                        <Picker.Item
+                                            label={item.cPerDescripcion}
+                                            value={item.nPerID}
+                                            key={index}
+                                        />
+                                    );
+                                })}
+                            </Picker>
+                        </View>
+                        */}
+                        
+                        <Text style={styles.TextLabel}>Monto:</Text>
+                        <TextInput
+                            style={styles.TextInput}
+                            keyboardType="number-pad"
+                            //  value={monto}
+                            //onChangeText={setMonto}
+                            placeholder="Ingrese Monto"
+                            placeholderTextColor="#D3D3D3"
+                            textAlignVertical="top"
+                        />
+                        <Text style={styles.TextLabel}>Fecha:</Text>
+                        <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+                            <Text style={styles.TextInput}>{formatoFecha(fecha.toString())}</Text>
+                            {showDatePicker && (
+                                <DateTimePicker
+                                    value={fecha}
+                                    mode="date"
+                                    display="default"
+                                    onChange={(event, selectedDate) => {
+                                        const currentDate = selectedDate || fecha;
+                                        setShowDatePicker(false);
+                                        setFecha(currentDate);
+                                    }}
+                                />
+                            )}
+                        </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={handleEnviar}>
-                    <Text style={styles.buttonText}>Boton</Text>
-                </TouchableOpacity>
-                <AlertaModal
-                    titulo={tituloModal}
-                    mensaje={MensajeModal1}
-                    visible={isAlertVisible}
-                    onConfirm={ocultarAlertaModal}
-                />
+                    </View>
+
+                    <TouchableOpacity style={styles.button} onPress={handleEnviar}>
+                        <Text style={styles.buttonText}>Grabar</Text>
+                    </TouchableOpacity>
+                    <AlertaModal
+                        titulo={tituloModal}
+                        mensaje={MensajeModal1}
+                        visible={isAlertVisible}
+                        onConfirm={ocultarAlertaModal}
+                    />
 
 
 
