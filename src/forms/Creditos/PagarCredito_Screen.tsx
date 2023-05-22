@@ -15,7 +15,7 @@ import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 
-import AlertaModal from "../../utils/AlertModal"
+import AlertaModal from "../../utils/AlertModal";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -40,35 +40,37 @@ const PagarCredito_Screen = ({ route }: any) => {
 
 	const [MensajeModal1, setMensajeModal1] = useState("");
 	const [isAlertVisible, setAlertVisible] = useState(false);
-	const [tituloModal, setTituloModal] = useState('');
-	const [alertMessage, setAlertMessage] = useState('');
+	const [tituloModal, setTituloModal] = useState("");
+	const [alertMessage, setAlertMessage] = useState("");
+	const [montoPagado, setMontoPagado] = useState(0);
 
 	const ocultarAlertaModal = () => {
 		setAlertVisible(false);
 	};
 
-
 	const [dCronoFechaVencimiento, setDCronoFechaVencimiento] = useState(
 		new Date().toString()
 	);
 
-
 	const ObtenerPago = async () => {
 		const cc = new CreditosCronogramas();
+
 		const response = (await cc.ObtenerPago(idCredito)).data[0];
+		//obtener datos
 
-		const { nCronoID, nCronoCuota, nCronoMonto, dCronoFechaVencimiento } =
+		const { nCronoCuota, nCronoMonto, dCronoFechaVencimiento, nCronoInteres } =
 			response;
-
 		const { cClieNombres, cClieApellidos } = response.cliente;
-		const { nCredMonto, nCredMontoInteres, nCredNroCuotas, nCredMontoPagado } =
-			response.credito;
-
+		const {
+			nCredMonto,
+			nCredMontoInteres,
+			nCredNroCuotas,
+			nCredMontoPagado,
+			nCredSaldo,
+		} = response.credito;
 		const { cPerDescripcion } = response.periodo;
 
-		let calcSaldoAnterior = 0;
-
-		calcSaldoAnterior = nCredMonto + nCredMontoInteres - nCredMontoPagado;
+		const calcSaldoAnterior = nCredMonto - nCronoMonto;
 
 		setCPersNombre(cClieNombres + " " + cClieApellidos);
 		setNMontoPrestado(nCredMonto);
@@ -78,19 +80,23 @@ const PagarCredito_Screen = ({ route }: any) => {
 		setNTotalCuotas(nCredNroCuotas);
 		setNIdCredito(idCredito);
 
-		let nMontoPag = 0;
-		nMontoPag = (nCredMonto + nCredMontoInteres) / nCredNroCuotas;
-		console.log(nCredMonto, nCredMontoInteres, nCredNroCuotas, nCronoMonto);
+		const nuevoSaldo =
+			nCredMonto +
+			nCredMontoInteres -
+			(nCronoMonto + nCronoInteres + nCredMontoPagado);
+
+		const nMontoPag = nCronoMonto + nCronoInteres;
 
 		setNMontoAPagar(String(nMontoPag.toFixed(2)));
 		setNPagoCuota(nMontoPag);
-		setNNuevoSaldo(calcSaldoAnterior - nMontoPag);
+		setNNuevoSaldo(nuevoSaldo);
 
 		setNCronoCuota(nCronoCuota);
 		setNCronoMonto(nCronoMonto);
 		setCPerDescripcion(cPerDescripcion);
 		setNCredNroCuotas(nCredNroCuotas);
 		setDCronoFechaVencimiento(dCronoFechaVencimiento);
+		setMontoPagado(nCredMontoPagado);
 	};
 
 	useEffect(() => {
@@ -140,13 +146,13 @@ const PagarCredito_Screen = ({ route }: any) => {
 					userMontoPagar: nMontoAPagar,
 					MontPagar: nMontoAPagar,
 				}
-			)
+			);
 			setTituloModal("MyBankito");
 			setMensajeModal1("Pago guardado correctamente ");
 			setAlertVisible(true);
 
 			{
-/*
+				/*
 			Alert.alert(
 				"Aviso",
 				"Pago guardado correctamente",
@@ -167,7 +173,8 @@ const PagarCredito_Screen = ({ route }: any) => {
 				],
 				{ cancelable: false }
 			);
-			*/}
+			*/
+			}
 
 			// navigation.goBack();
 		} else {
@@ -193,13 +200,14 @@ const PagarCredito_Screen = ({ route }: any) => {
 					<ResultCalculationsPago
 						nMontoCredito={nMontoPrestado}
 						nMontoInteres={nMontoInteres}
-						nSaldoPendiente={nSaldoAnterior}
+						nSaldoPendiente={nNuevoSaldo}
 						nNuevoSaldo={nNuevoSaldo}
 						nProxCuota={nCronoCuota}
 						nCantCuotas={nCredNroCuotas}
 						cModalidadPago={cPerDescripcion}
 						dCronoFechaVencimiento={dCronoFechaVencimiento}
 						nPagoCuota={nPagoCuota}
+						nMontoPagado={montoPagado}
 						errorMessage={""}
 					/>
 

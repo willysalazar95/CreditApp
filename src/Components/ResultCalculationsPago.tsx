@@ -13,6 +13,7 @@ interface Props {
 	errorMessage: string;
 	dCronoFechaVencimiento: string;
 	nPagoCuota: number;
+	nMontoPagado: number;
 }
 
 export default function ResultCalculations({
@@ -26,18 +27,12 @@ export default function ResultCalculations({
 	errorMessage,
 	dCronoFechaVencimiento,
 	nPagoCuota,
+	nMontoPagado,
 }: Props) {
 	// console.log(props)
 	return (
 		<View style={styles.content}>
-			{nSaldoPendiente == null || nSaldoPendiente == 0 ? (
-				<View>
-					<Text> CARGANDO... </Text>
-				</View>
-			) : (
-				nSaldoPendiente && (
-					<>
-						{/* <View style={styles.boxResult}>
+			{/* <View style={styles.boxResult}>
 							<Text style={styles.tile}>Cronograma</Text>
 							<DataResult
 								title="Fecha Pago:"
@@ -52,50 +47,50 @@ export default function ResultCalculations({
 							/>
 							<DataResult title="Modalidad de cobro :" value={`${cModalidadPago}`} />
 						</View> */}
-						<View style={styles.boxResult}>
-							<Text style={styles.title}>Crédito</Text>
+			<View style={styles.boxResult}>
+				<Text style={styles.title}>Crédito</Text>
 
-							<DataResult
-								title="Monto prestado:"
-								value={formatoMonedaPeruana(nMontoCredito)}
-							/>
-							<DataResult
-								title="Intereses:"
-								value={formatoMonedaPeruana(nMontoInteres)}
-							/>
-							<View style={styles.hr} />
-							<DataResult
-								title="Total a Pagar:"
-								value={formatoMonedaPeruana(nMontoCredito + nMontoInteres)}
-							/>
-							<DataResult
-								title="Total Saldo:"
-								value={formatoMonedaPeruana(nSaldoPendiente)}
-							/>
-							{/* <DataResult
+				<DataResult
+					title="Monto prestado:"
+					value={formatoMonedaPeruana(nMontoCredito)}
+				/>
+				<DataResult
+					title="Intereses:"
+					value={formatoMonedaPeruana(nMontoInteres)}
+				/>
+				<View style={styles.hr} />
+				<DataResult
+					title="Total a Pagar:"
+					value={formatoMonedaPeruana(nMontoCredito + nMontoInteres)}
+				/>
+
+				{/* <DataResult
 								title="Nuevo saldo :"
 								value={formatoMonedaPeruana(nNuevoSaldo)}
 							/> */}
-							<DataResult
-								title="Total cuotas pagadas :"
-								value={`${nProxCuota - 1} de ${nCantCuotas}`}
-							/>
-							<DataResult title="Modalidad de cobro :" value={`${cModalidadPago}`} />
-						</View>
-						<View style={styles.boxResult}>
-							<Text style={styles.title}>{`Pagar Cuota ${nProxCuota}`}</Text>
-							<DataResult
-								title="Fecha Última Pago:"
-								value={formatoFecha(dCronoFechaVencimiento)}
-							/>
-							<DataResult
-								title="Pago Cuota:"
-								value={formatoMonedaPeruana(nPagoCuota)}
-							/>
-						</View>
-					</>
-				)
-			)}
+				<DataResult
+					title="Total cuotas pagadas :"
+					value={`${nProxCuota - 1} de ${nCantCuotas}`}
+				/>
+				<DataResult title="Modalidad de cobro :" value={`${cModalidadPago}`} />
+			</View>
+			<View style={styles.boxResult}>
+				<Text style={styles.title}>{`Pagar Cuota ${nProxCuota}`}</Text>
+				<DataResult
+					title="Fecha Última Pago:"
+					value={formatoFecha(dCronoFechaVencimiento)}
+				/>
+				<DataResult title="Pago Cuota:" value={formatoMonedaPeruana(nPagoCuota)} />
+				<DataResult
+					title="Próximo Saldo:"
+					value={formatoMonedaPeruana(nSaldoPendiente)}
+				/>
+				<DataResult
+					title="Total Pagado:"
+					value={formatoMonedaPeruana(nMontoPagado)}
+				/>
+			</View>
+
 			{/* <View>
 				<Text style={styles.error}>{errorMessage}</Text>
 			</View> */}
