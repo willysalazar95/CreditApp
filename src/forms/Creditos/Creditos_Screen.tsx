@@ -74,7 +74,9 @@ const Creditos_Screen = () => {
 		);
 		const response = await _Dat.ListarCreditos();
 		const filteredData = response.data.filter((item: any) => {
-			return (item.cClieDescripcion ?? "").toLowerCase().includes(query.toLowerCase());
+			return (item.cClieDescripcion ?? "")
+				.toLowerCase()
+				.includes(query.toLowerCase());
 		});
 		setData(filteredData);
 		setQuery("");
@@ -98,6 +100,7 @@ const Creditos_Screen = () => {
 		const VerCronograma = () => {
 			navigation.navigate("ListarCronograma_Screen", { credito: item });
 		};
+		console.log(item);
 
 		return (
 			<TouchableOpacity>
@@ -106,7 +109,7 @@ const Creditos_Screen = () => {
 						{item.cClieDescripcion} {item.dCredFechaFin.substring(0, 10)}
 					</Text>
 					<Text style={styles.cardTitle}>
-						MONTO TOTAL S/. {item.nCredMontoDeuda} {"\n"}
+						MONTO TOTAL S/. {item.nCredMonto + item.nCredMontoInteres} {"\n"}
 						PENDIENTE S/. {item.nCredMontoDeuda - item.nCredMontoPagado}
 					</Text>
 					<View style={styles.buttonsContainer}>
@@ -178,7 +181,10 @@ const Creditos_Screen = () => {
 				>
 					<Text>{formatoFecha(fechaFin.toString())}</Text>
 					{abrirFechaFin && (
-						<DateTimePicker value={fechaFin} mode="date" display="default"
+						<DateTimePicker
+							value={fechaFin}
+							mode="date"
+							display="default"
 							onChange={(event, selectedDate) => {
 								const currentDate = selectedDate || fechaFin;
 								setAbrirFechaFin(false);
