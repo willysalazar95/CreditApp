@@ -68,13 +68,13 @@ const HomeScreen = () => {
 				<Touchable
 					style={styles.widgets4}
 					onPress={() => {
-						navigation.navigate("ListarPagos");
+						navigation.navigate("OtrosIngresos");
 					}}
 				>
 					<View style={styles.ContenedorWidget}>
 						<Icon name="card-outline" size={70} color="#FFF"></Icon>
 						{/* <Text style={styles.TotalTitle}> 2023</Text> */}
-						<Text style={styles.DetalleTitle}>PAGOS</Text>
+						<Text style={styles.DetalleTitle}>OTROS INGRESOS</Text>
 					</View>
 				</Touchable>
 			</View>

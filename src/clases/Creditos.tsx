@@ -21,7 +21,7 @@ export class Creditos {
 	private nCredRutasID: number;
 	private dFecIni: string;
 	private dFecFin: string;
-	
+
 	static url = `${configData.API_URL}/api/Credito`;
 
 	constructor(
@@ -39,7 +39,7 @@ export class Creditos {
 		nCredPorcentajeDeuda: Double = 0,
 		nEstID: number = 0,
 		nUsuID: number = 0,
-		nCredRutasID : number =0,
+		nCredRutasID: number = 0,
 		dFecIni: string = "",
 		dFecFin: string = ""
 	) {
@@ -59,7 +59,7 @@ export class Creditos {
 		this.nUsuID = nUsuID;
 		this.nCredRutasID = nCredRutasID;
 		this.dFecIni = dFecIni;
-		this.dFecFin = dFecFin
+		this.dFecFin = dFecFin;
 	}
 
 	async ListarCreditos() {
@@ -70,9 +70,11 @@ export class Creditos {
 					nIdPers: this.nClienID,
 					nUsuId: this.nUsuID,
 					dFecIni: this.dFecIni,
-					dFecFin: this.dFecFin
+					dFecFin: this.dFecFin,
 				},
 			});
+
+			console.log(this.nClienID, this.nUsuID, this.dFecIni, this.dFecFin);
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
@@ -100,8 +102,8 @@ export class Creditos {
 					nMonto: this.nCredMonto,
 					nInteres: 0,
 					nCuotas: this.nCredNroCuotas,
-					nUsuId : this.nUsuID,
-					nCredRutasID : this.nCredRutasID
+					nUsuId: this.nUsuID,
+					nCredRutasID: this.nCredRutasID,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -120,6 +122,8 @@ export class Creditos {
 				return { success: false, error: Resp + " " + response.data.error.message };
 			}
 		} catch (error: any) {
+			console.log(error);
+
 			return { success: false, error: error.message };
 		}
 	}

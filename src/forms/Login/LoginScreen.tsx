@@ -17,7 +17,7 @@ import { TextInputControl } from "../../Components/TextInputControl";
 import { TextInputPasswordControl } from "../../Components/TextInputPasswordControl";
 import { ButtonSendControl } from "../../Components/ButtonSendControl";
 
-import AlertaModal from "../../utils/AlertModal"
+import AlertaModal from "../../utils/AlertModal";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -31,8 +31,8 @@ export const LoginScreen = () => {
 	//Inicio Ventana Modal - Prueba
 	const [MensajeModal1, setMensajeModal1] = useState("");
 	const [isAlertVisible, setAlertVisible] = useState(false);
-	const [tituloModal, setTituloModal] = useState('');
-	const [alertMessage, setAlertMessage] = useState('');
+	const [tituloModal, setTituloModal] = useState("");
+	const [alertMessage, setAlertMessage] = useState("");
 
 	const ocultarAlertaModal = () => {
 		setAlertVisible(false);
@@ -59,7 +59,7 @@ export const LoginScreen = () => {
 			navigation.navigate("DrawerScreen");
 			setTituloModal("MyBankito");
 			setMensajeModal1("Bienvenido : " + response.data.cUsuUsuario + "!!");
-			setAlertVisible(true);			
+			setAlertVisible(true);
 		} else {
 			//Alert.alert("ERROR", response.error);
 			setTituloModal("MyBankito");
@@ -72,10 +72,12 @@ export const LoginScreen = () => {
 	const goToRegister = () => {
 		navigation.navigate("Configuracion_Screen");
 	};
+	const goToRecuperarCuenta = () => {
+		navigation.navigate("RecuperarCuenta");
+	};
 
 	return (
 		<View style={styles.Container}>
-
 			<View
 				style={{
 					display: "flex",
@@ -89,9 +91,7 @@ export const LoginScreen = () => {
 					source={require("../../../assets/adaptive-icon.png")}
 				/>
 			</View>
-			<Text
-				style={[styles.TituloContenedor, { marginTop: 20, color: "#6E955C" }]}
-			>
+			<Text style={[styles.TituloContenedor, { marginTop: 20, color: "#6E955C" }]}>
 				<Text style={[styles.TituloContenedor, { color: "#426E4F" }]}>
 					MyBankito
 				</Text>
@@ -134,6 +134,13 @@ export const LoginScreen = () => {
 					onConfirm={ocultarAlertaModal}
 				/>
 			</View>
+			<View style={styles.nuevacuenta}>
+				<TouchableOpacity onPress={goToRecuperarCuenta}>
+					<Text style={styles.createAccountTitleButton}>
+						¿Olvidaste tu contraseña?
+					</Text>
+				</TouchableOpacity>
+			</View>
 		</View>
 	);
 };
@@ -172,6 +179,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		textDecorationStyle: "dashed",
 		fontSize: 12,
+		textDecorationLine: "underline",
 	},
 });
 //

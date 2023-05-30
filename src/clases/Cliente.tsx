@@ -25,6 +25,7 @@ class Cliente {
 	private cClieLongitud: string;
 	private cFechaAlta: string;
 	private nIdEmpresa: string;
+	private cClieCorreo: string;
 
 	constructor(
 		nClieID: number = 0,
@@ -39,7 +40,8 @@ class Cliente {
 		cClieLatitud: string = "",
 		cClieLongitud: string = "",
 		cFechaAlta: string = "",
-		nIdEmpresa : string = ""
+		nIdEmpresa: string = "",
+		cClieCorreo: string = ""
 	) {
 		this.nClieID = nClieID;
 		this.cClieDNI = cClieDNI;
@@ -54,6 +56,7 @@ class Cliente {
 		this.cClieLongitud = cClieLongitud;
 		this.cFechaAlta = cFechaAlta;
 		this.nIdEmpresa = nIdEmpresa;
+		this.cClieCorreo = cClieCorreo;
 	}
 
 	static url = `${configData.API_URL}/api/clientes`;
@@ -103,8 +106,9 @@ class Cliente {
 					cClieFechNac: this.cClieFechNac,
 					cClieLatitud: this.cClieLatitud,
 					cClieLongitud: this.cClieLongitud,
-					dClieFechaAlta : this.cFechaAlta,
-					nIdEmpresa : this.nIdEmpresa,
+					dClieFechaAlta: this.cFechaAlta,
+					nIdEmpresa: this.nIdEmpresa,
+					cClieCorreo: this.cClieCorreo,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -146,6 +150,7 @@ class Cliente {
 					cClieLatitud: this.cClieLatitud,
 					cClieLongitud: this.cClieLongitud,
 					dClieFechaAlta: this.cFechaAlta,
+					cClieCorreo: this.cClieCorreo,
 				},
 				headers: {
 					"Content-Type": "application/json",

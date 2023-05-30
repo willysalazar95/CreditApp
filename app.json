@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "MiBanKito",
-		"slug": "MiBanKito",
+		"name": "mybankito",
+		"slug": "mybankito",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/adaptive-icon.png",
