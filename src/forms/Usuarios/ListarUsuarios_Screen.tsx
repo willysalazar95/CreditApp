@@ -13,6 +13,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { RootStackParamList } from "../../../App";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Usuario } from "../../clases/Usuario";
+import { configData } from "../../../config";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
@@ -24,14 +25,14 @@ const ListarUsuarioScreen = ({ route }: any) => {
 
 	const ListarUsuarios = async () => {
 		const DatUsuario = new Usuario();
-		const response = await DatUsuario.ListarUsuario(0);
-
+		const response = await DatUsuario.ListarUsuario(configData.nUsuId);
 		setUsuarios(response.data);
 	};
 
 	const BuscarPersonas = async () => {
+		// console.log(configData.nConfiguracionID + " ==>>>");
 		const DatUsuario = new Usuario();
-		const response = await DatUsuario.ListarUsuario(0);
+		const response = await DatUsuario.ListarUsuario(configData.nUsuId);
 		const filteredData = response.data.filter((item: any) => {
 			return item.cUsuUsuario.toLowerCase().includes(query.toLowerCase());
 		});

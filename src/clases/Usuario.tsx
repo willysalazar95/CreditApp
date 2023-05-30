@@ -101,7 +101,7 @@ export class Usuario {
 				method: "get",
 				url: BASE_URL,
 				params: {
-					nUsuID,
+					nUsuID: nUsuID,
 				},
 			});
 
