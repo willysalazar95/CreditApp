@@ -1,8 +1,8 @@
 import axios from "axios";
 import { configData } from "../../config";
 
-class Caja{
-    private nCajaId: number;
+class Caja {
+	private nCajaId: number;
 	private nUsuID: number;
 	private dFechaApertura: string;
 	private dFechaCierre: string;
@@ -13,15 +13,15 @@ class Caja{
 	private nMontoFinal: number;
 
 	constructor(
-		nCajaId: number=0,
-        nUsuID: number=0,
-        dFechaApertura: string = "",
-        dFechaCierre: string= "",
-        nCajaEstado: number=0,
-        nMontoApertura: number=0,
-        nMontoCobradoEfectivo: number=0,
-        nMontoCredito: number=0,
-        nMontoFinal: number=0,
+		nCajaId: number = 0,
+		nUsuID: number = 0,
+		dFechaApertura: string = "",
+		dFechaCierre: string = "",
+		nCajaEstado: number = 0,
+		nMontoApertura: number = 0,
+		nMontoCobradoEfectivo: number = 0,
+		nMontoCredito: number = 0,
+		nMontoFinal: number = 0,
 	) {
 		this.nCajaId = nCajaId;
 		this.nUsuID = nUsuID;
@@ -34,7 +34,7 @@ class Caja{
 		this.nMontoFinal = nMontoFinal;
 	}
 
-	static url = `${configData.API_URL}/api/caja`;
+	static url = `${configData.API_URL}/api/OtrosIngresos`;
 
 	async ObtenerDatosCaja() {
 		const BASE_URL = `${Caja.url}/ObtenerDatosCaja`;
@@ -134,4 +134,4 @@ class Caja{
 
 
 }
-export {Caja}
+export { Caja }

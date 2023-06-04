@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Cliente } from "../../clases/Cliente";
+import { OtrosIngresos } from "../../clases/OtrosIngresos";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
 import AlertaModal from "../../utils/AlertModal";
@@ -10,6 +10,7 @@ import { Constantes } from "../../clases/Constantes";
 import { TextInputControl } from "../../Components/TextInputControl";
 import { TextInputDateControl } from "../../Components/TextInputDate";
 import { ButtonSendControl } from "../../Components/ButtonSendControl";
+import { convertirFechaAAAAMMDD } from "../../utils/utils";
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 //CREADO POR AAGC
@@ -21,8 +22,14 @@ const OtrosIngresos_Screen = () => {
 	}, []);
 
 	const handleEnviar = async () => {
-		const datCliente = new Cliente();
-		const response = await datCliente.RegistrarCliente();
+		const datOtrosIngresos = new OtrosIngresos(
+			0,
+			nClieID,
+			convertirFechaAAAAMMDD(fecha),
+			tipoIngreso,
+			monto
+		);
+		const response = await datOtrosIngresos.grabarOtrosIngresos();
 
 		if (response.success) {
 			setTituloModal("MyBankito");
@@ -47,7 +54,7 @@ const OtrosIngresos_Screen = () => {
 	const [nombre, setNombre] = useState("");
 	const [tipoIngreso, setTipoIngreso] = useState(0);
 	const [fecha, setFecha] = useState(new Date());
-	const [monto, setMonto] = useState("0");
+	const [monto, setMonto] = useState(0);
 
 	//Inicio Ventana Modal - Prueba
 	const [MensajeModal1, setMensajeModal1] = useState("");
