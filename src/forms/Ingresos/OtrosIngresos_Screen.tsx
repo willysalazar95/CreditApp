@@ -52,12 +52,13 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 	const abrirMapa = () => {
 		navigation.navigate("Mapa_Screen", { item: "" });
 	};
-
+	const [nClieID, setnClieID] = useState(0);
 	const [cDni, setcDni] = useState("");
 	const [cNombre, setcNombre] = useState("");
 	const [tipoIngreso, setTipoIngreso] = useState(0);
 	const [fecha, setFecha] = useState(new Date());
 	const [monto, setMonto] = useState(0);
+
 
 	//Inicio Ventana Modal - Prueba
 	const [MensajeModal1, setMensajeModal1] = useState("");
@@ -91,7 +92,7 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 	useEffect(() => {
 		if (route.params && route.params.item) {
 			const persona = route.params.item;
-			//SETnIdPers(persona.nClieID);
+			setnClieID(persona.nClieID);
 			setcDni(persona.cClieDNI);
 			setcNombre(`${persona.cClieNombres} ${persona.cClieApellidos}`);
 		}

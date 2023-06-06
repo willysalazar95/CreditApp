@@ -30,6 +30,11 @@ class OtrosIngresos {
 	async grabarOtrosIngresos() {
 		const BASE_URL = `${OtrosIngresos.url}/OtrosIngresos`;
 		try {
+
+			console.log(this.dFecha);
+			console.log(this.nClienID);
+			console.log(this.nTipoIngreso);
+			console.log(this.nMonto);
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
