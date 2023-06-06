@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { OtrosIngresos } from "../../clases/OtrosIngresos";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -36,7 +36,7 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 
 		if (response.success) {
 			setTituloModal("MyBankito");
-			setMensajeModal1("Registro actualizado ");
+			setMensajeModal1("Nuevo Registro grabado ");
 			setAlertVisible(true);
 			setAlertVisible(true);
 		} else {
@@ -60,6 +60,7 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 	const [monto, setMonto] = useState("");
 
 
+
 	//Inicio Ventana Modal - Prueba
 	const [MensajeModal1, setMensajeModal1] = useState("");
 	const [isAlertVisible, setAlertVisible] = useState(false);
@@ -70,6 +71,7 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 	const ocultarAlertaModal = () => {
 		setAlertVisible(false);
 	};
+	//Fin de Ventana Modal
 
 	const ListarTipoIngreso = async () => {
 		const dCred = new Constantes("1003");
@@ -181,12 +183,12 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 				functionSend={handleEnviar}
 			/>
 
-			{/* <AlertaModal
-					titulo={tituloModal}
-					mensaje={MensajeModal1}
-					visible={isAlertVisible}
-					onConfirm={ocultarAlertaModal}
-				/> */}
+			<AlertaModal
+				titulo={tituloModal}
+				mensaje={MensajeModal1}
+				visible={isAlertVisible}
+				onConfirm={ocultarAlertaModal}
+			/>
 		</View>
 	);
 };
