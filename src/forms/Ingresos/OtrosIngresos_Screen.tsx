@@ -53,8 +53,8 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 		navigation.navigate("Mapa_Screen", { item: "" });
 	};
 
-	const [dni, setDni] = useState("");
-	const [nombre, setNombre] = useState("");
+	const [cDni, setcDni] = useState("");
+	const [cNombre, setcNombre] = useState("");
 	const [tipoIngreso, setTipoIngreso] = useState(0);
 	const [fecha, setFecha] = useState(new Date());
 	const [monto, setMonto] = useState(0);
@@ -88,7 +88,16 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 		}
 	};
 
+	useEffect(() => {
+		if (route.params && route.params.item) {
+			const persona = route.params.item;
+			//SETnIdPers(persona.nClieID);
+			setcDni(persona.cClieDNI);
+			setcNombre(`${persona.cClieNombres} ${persona.cClieApellidos}`);
+		}
 
+		//ListarPeriodos();
+	}, [route.params]);
 
 	const SelecCliente = () => {
 		navigation.navigate("ListarPersonas", { pantalla: "ingresos" });
@@ -104,8 +113,8 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 						title="DNI:"
 						placeholder="Ingrese DNI"
 						keyboardType="numeric"
-						functionChangeText={setDni}
-						value={dni}
+						functionChangeText={setcDni}
+						value={cDni}
 						maxLength={8}
 					/>
 				</View>
@@ -121,8 +130,8 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 				title="Nombre:"
 				placeholder="Ingrese Nombre"
 				keyboardType="default"
-				functionChangeText={setNombre}
-				value={nombre}
+				functionChangeText={setcNombre}
+				value={cNombre}
 			/>
 			<SelectControl
 				style={styles.InputMargin}
