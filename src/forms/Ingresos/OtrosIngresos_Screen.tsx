@@ -30,7 +30,7 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 			nClieID,
 			convertirFechaAAAAMMDD(fecha),
 			tipoIngreso,
-			monto
+			Number(monto)
 		);
 		const response = await datOtrosIngresos.grabarOtrosIngresos();
 
@@ -57,7 +57,7 @@ const OtrosIngresos_Screen = ({ route }: any) => {
 	const [cNombre, setcNombre] = useState("");
 	const [tipoIngreso, setTipoIngreso] = useState(0);
 	const [fecha, setFecha] = useState(new Date());
-	const [monto, setMonto] = useState(0);
+	const [monto, setMonto] = useState("");
 
 
 	//Inicio Ventana Modal - Prueba

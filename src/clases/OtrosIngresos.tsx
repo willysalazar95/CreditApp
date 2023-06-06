@@ -28,21 +28,27 @@ class OtrosIngresos {
 	static url = `${configData.API_URL}/api/OtrosIngresos`;
 
 	async grabarOtrosIngresos() {
-		const BASE_URL = `${OtrosIngresos.url}/OtrosIngresos`;
+		const BASE_URL = `${OtrosIngresos.url}/RegistrarOtrosIngresos`;
 		try {
 
-			console.log(this.dFecha);
-			console.log(this.nClienID);
-			console.log(this.nTipoIngreso);
-			console.log(this.nMonto);
+			console.log("fecha: " + this.dFecha);
+			console.log("cliente id: " + this.nClienID);
+			console.log("Tipo Ingreso: " + this.nTipoIngreso);
+			console.log("Monto: " + this.nMonto);
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
-				params: {
+				/* params: {
 					dFecha: this.dFecha,
 					nClieId: this.nClienID,
 					nTipoIngreso: this.nTipoIngreso,
 					nMonto: this.nMonto,
+				}, */
+				params: {
+					dFecha: '20230606',
+					nClieId: 24,
+					nTipoIngreso: 12,
+					nMonto: 600,
 				},
 				headers: {
 					"Content-Type": "application/json",
@@ -56,7 +62,7 @@ class OtrosIngresos {
 
 			const Resp = response.data.code;
 			const Lista = response.data.data;
-
+			console.log(Resp)
 			if (Resp === 200) {
 				return { success: true, data: Lista[0] };
 			} else {
