@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { OtrosIngresos } from "../../clases/OtrosIngresos";
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -12,9 +12,12 @@ import { TextInputDateControl } from "../../Components/TextInputDate";
 import { ButtonSendControl } from "../../Components/ButtonSendControl";
 import { convertirFechaAAAAMMDD } from "../../utils/utils";
 
+import Icon from "react-native-vector-icons/FontAwesome";
+
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 //CREADO POR AAGC
-const OtrosIngresos_Screen = () => {
+
+const OtrosIngresos_Screen = ({ route }: any) => {
 	const navigation = useNavigation<homeScreenProp>();
 
 	useEffect(() => {
@@ -85,20 +88,34 @@ const OtrosIngresos_Screen = () => {
 		}
 	};
 
-	//Fin de Ventana Modal
+
+
+	const SelecCliente = () => {
+		navigation.navigate("ListarPersonas", { pantalla: "ingresos" });
+		navigation.setOptions({ title: "Seleccione un cliente" });
+	};
 
 	return (
 		<View style={styles.ContenedorPrincipal}>
-			<TextInputControl
-				style={styles.InputMargin}
-				title="DNI:"
-				placeholder="Ingrese DNI"
-				keyboardType="numeric"
-				functionChangeText={setDni}
-				value={dni}
-				maxLength={8}
-			/>
-
+			<View style={styles.ContenedorSearch}>
+				<View style={styles.TextInputSearch}>
+					<TextInputControl
+						style={styles.InputMargin}
+						title="DNI:"
+						placeholder="Ingrese DNI"
+						keyboardType="numeric"
+						functionChangeText={setDni}
+						value={dni}
+						maxLength={8}
+					/>
+				</View>
+				<TouchableOpacity
+					style={styles.BotonAgregar}
+					onPress={SelecCliente}
+				>
+					<Icon name="plus" size={24} color="#FFF" />
+				</TouchableOpacity>
+			</View>
 			<TextInputControl
 				style={styles.InputMargin}
 				title="Nombre:"
@@ -107,7 +124,6 @@ const OtrosIngresos_Screen = () => {
 				functionChangeText={setNombre}
 				value={nombre}
 			/>
-
 			<SelectControl
 				style={styles.InputMargin}
 				title="Tipo Ingreso:"
@@ -166,6 +182,29 @@ const OtrosIngresos_Screen = () => {
 };
 
 const styles = StyleSheet.create({
+	ContenedorPrincipalSearch: {
+		flex: 1,
+	},
+	ContenedorSearch: {
+		flexDirection: "row",
+		marginHorizontal: 10,
+		marginVertical: 5,
+	},
+	TextInputSearch: {
+		flex: 1,
+		marginRight: 5,
+		borderRadius: 10,
+		backgroundColor: "#FFF",
+		paddingHorizontal: 10,
+	},
+	BotonAgregar: {
+		backgroundColor: "orange",
+		width: 50,
+		height: 40,
+		borderRadius: 5,
+		alignItems: "center",
+		justifyContent: "center",
+	},
 	ContenedorPrincipal: {
 		flex: 1,
 		backgroundColor: "#F3F8FC",

@@ -27,7 +27,7 @@ const ListarClienteScreen = ({ route }: any) => {
 	const navigation = useNavigation<homeScreenProp>();
 	const ListarPersonas = async () => {
 		const DatCliente = new Cliente(
-			0,"","","","","","","",1,"","","",
+			0, "", "", "", "", "", "", "", 1, "", "", "",
 			configData.nConfiguracionID.toString()
 		);
 		const response = await DatCliente.ListarCliente();
@@ -36,7 +36,7 @@ const ListarClienteScreen = ({ route }: any) => {
 
 	const BuscarPersonas = async () => {
 		const DatCliente = new Cliente(
-			0,"","","","","","","",1,"","","",
+			0, "", "", "", "", "", "", "", 1, "", "", "",
 			configData.nConfiguracionID.toString()
 		);
 		const response = await DatCliente.ListarCliente();
@@ -83,8 +83,8 @@ const ListarClienteScreen = ({ route }: any) => {
 						style: "destructive",
 						onPress: async () => {
 							const DatCliente = new Cliente(
-								cliente.nClieID,"","","","","","","",0,
-								"","","",configData.nConfiguracionID.toString()
+								cliente.nClieID, "", "", "", "", "", "", "", 0,
+								"", "", "", configData.nConfiguracionID.toString()
 							);
 							const response = await DatCliente.EliminarCliente();
 
@@ -103,6 +103,9 @@ const ListarClienteScreen = ({ route }: any) => {
 		const handleSeleccionCliente = (item: any) => {
 			if (route.params?.pantalla === "credito") {
 				navigation.navigate("RegistrarPrestamo", { item });
+			}
+			if (route.params?.pantalla === "ingresos") {
+				navigation.navigate("OtrosIngresos", { item });
 			}
 
 			if (route.params?.pantalla === "usuario") {
@@ -132,7 +135,7 @@ const ListarClienteScreen = ({ route }: any) => {
 								name="trash"
 								size={20}
 								color="white"
-								// style={{ backgroundColor: "red" }}
+							// style={{ backgroundColor: "red" }}
 							/>
 						</TouchableOpacity>
 					</View>
@@ -175,6 +178,16 @@ const ListarClienteScreen = ({ route }: any) => {
 };
 
 const styles = StyleSheet.create({
+
+	BotonAgregar: {
+		backgroundColor: "orange",
+		width: 50,
+		height: 40,
+		borderRadius: 5,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+
 	ContenedorPrincipalSearch: {
 		flex: 1,
 	},

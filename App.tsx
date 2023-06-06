@@ -17,6 +17,7 @@ import { LoginScreen } from "./src/forms/Login/LoginScreen";
 import { ReportePagos } from "./src/forms/Impresion/ReportePagos";
 import { ReporteClientes } from "./src/forms/Impresion/ReporteClientes";
 
+
 import Configuracion_Screen from "./src/forms/Configuracion/Configuracion_Screen";
 import RegConfigCliente_Screen from "./src/forms/Configuracion/RegConfigCliente_Screen";
 import RegistroUsuarioConfig_Screen from "./src/forms/Usuarios/RegistroUsuarioConfig_Screen";
@@ -31,7 +32,7 @@ import CierreScreen from "./src/forms/Cierre/CierreScreen";
 import { RecuperarCuenta_Screen } from "./src/forms/Usuarios/RecuperarCuenta_Screen";
 import { VerificarCodigoCorreo_Screen } from "./src/forms/Usuarios/VerificarCodigoCorreo_Screen";
 import { RestablecerContrasenia_Screen } from "./src/forms/Usuarios/RestablecerContrasenia_Screen";
-import OtrosIngresos_Screen from "./src/forms/Ingresos/OtrosIngresos_Screen";
+import OtrosIngresos from "./src/forms/Ingresos/OtrosIngresos_Screen";
 
 export type RootStackParamList = {
 	Login: undefined;
@@ -41,7 +42,7 @@ export type RootStackParamList = {
 	// RegistrarPersona: { item: any };
 	RegistrarPrestamo: { item: any };
 	RegistroPersona: undefined;
-	OtrosIngresos:undefined;
+	OtrosIngresos: { item: any };
 	PagarPrestamo: { idCredito: number };
 	VoucherPago: {
 		userNombres: any;
@@ -200,7 +201,7 @@ function App() {
 				/>
 				<Stack.Screen
 					name="OtrosIngresos"
-					component={OtrosIngresos_Screen}
+					component={OtrosIngresos}
 					options={{ title: "Otros Ingresos" }}
 				/>
 			</Stack.Navigator>
