@@ -32,16 +32,22 @@ export class CreditosCronogramas {
 		}
 	}
 
-	async simularCronogramas(nCuotas: number, nPeriodo: number, FechaPago: string, nMonto: number, nIdConfig: number,) {
+	async simularCronogramas(
+		nCuotas: number,
+		nPeriodo: number,
+		FechaPago: string,
+		nMonto: number,
+		nIdConfig: number
+	) {
 		const BASE_URL = `${CreditosCronogramas.url}/GenerarCronogramaPagos`;
 		try {
 			const response = await axios.get(BASE_URL, {
 				params: {
-					nCuotas: nCuotas,
-					nPeriodo: nPeriodo,
-					FechaPago: FechaPago,
-					nMonto: nMonto,
-					nIdConfig: nIdConfig,
+					nCuotas,
+					nPeriodo,
+					FechaPago,
+					nMonto,
+					nIdConfig,
 				},
 			});
 			const Resp = response.data.code;

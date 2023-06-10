@@ -98,7 +98,8 @@ const Creditos_Screen = () => {
 		};
 
 		const VerCronograma = () => {
-			navigation.navigate("ListarCronograma_Screen", { credito: item });
+			const pantalla: string = "ListarCreditos";
+			navigation.navigate("ListarCronograma_Screen", { pantalla, credito: item });
 		};
 		console.log(item);
 
@@ -131,8 +132,6 @@ const Creditos_Screen = () => {
 		navigation.navigate("ListarPersonas", { pantalla: "credito" });
 		navigation.setOptions({ title: "Seleccione un cliente" });
 	};
-
-
 
 	return (
 		<View style={styles.ContenedorPrincipalSearch}>

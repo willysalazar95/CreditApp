@@ -17,7 +17,6 @@ import { LoginScreen } from "./src/forms/Login/LoginScreen";
 import { ReportePagos } from "./src/forms/Impresion/ReportePagos";
 import { ReporteClientes } from "./src/forms/Impresion/ReporteClientes";
 
-
 import Configuracion_Screen from "./src/forms/Configuracion/Configuracion_Screen";
 import RegConfigCliente_Screen from "./src/forms/Configuracion/RegConfigCliente_Screen";
 import RegistroUsuarioConfig_Screen from "./src/forms/Usuarios/RegistroUsuarioConfig_Screen";
@@ -51,7 +50,7 @@ export type RootStackParamList = {
 	};
 	ListarPersonas: { pantalla?: string; onSelect?: (cliente: any) => void };
 	ModificarPersona: { item: any } | undefined;
-	ListarCronograma_Screen: { credito: any };
+	ListarCronograma_Screen: { pantalla: string; credito: any };
 	ListarCreditos: undefined;
 	SimularCredito: undefined;
 	Mapa_Screen: { item: any } | undefined;

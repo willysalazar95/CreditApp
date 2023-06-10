@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
 	View,
 	TextInput,
@@ -10,15 +10,18 @@ import { configData } from "../../../config";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RootStackParamList } from "../../../App";
+import { convertirFechaAAAAMMDD, formatoFecha } from "../../utils/utils";
+import DateTimePicker from "@react-native-community/datetimepicker";
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const SimularCredito_Screen = () => {
-
 	const navigation = useNavigation<homeScreenProp>();
 	const [monto, setMonto] = useState("");
 	const [cuota, setCuota] = useState("");
 	const [cuotaMonto, setCuotaMonto] = useState("");
 	const [totalInteres, setTotalInteres] = useState("");
+	const [showDatePickerIni, setShowDatePickerIni] = useState<boolean>(false);
+	const [fechaPago, setFechaPago] = useState<Date>(new Date());
 	let nCuotaMonto = 0;
 	let nTotalInteres = 0;
 
@@ -42,24 +45,18 @@ const SimularCredito_Screen = () => {
 		setTotalInteres(nTotalInteres.toString());
 	};
 
-	interface items {
-		nCuotas: number;
-		nPeriodo: number;
-		FechaPago: string;
-		nMonto: number;
-		nIdConfig: number;
-		sCliente: string;
-	}
+	const VerCronograma = () => {
+		const credito = {
+			nCuotas: Number(cuota),
+			nPeriodo: 4,
+			FechaPago: convertirFechaAAAAMMDD(fechaPago),
+			nMonto: Number(monto),
+			nIdConfig: configData.nConfiguracionID,
+			sCliente: "Simulación Crédito",
+		};
+		const pantalla: string = "SimularCredito_Screen";
 
-	const VerCronograma = (item: items) => {
-		item.nCuotas = Number(cuota);
-		item.nPeriodo = 1;
-		item.FechaPago = "";
-		item.nMonto = Number(monto);
-		item.nIdConfig = configData.nConfiguracionID;
-		item.sCliente = "";
-
-		navigation.navigate("ListarCronograma_Screen", { credito: item });
+		navigation.navigate("ListarCronograma_Screen", { pantalla, credito });
 	};
 
 	return (
@@ -116,8 +113,27 @@ const SimularCredito_Screen = () => {
 					editable={false}
 				/>
 			</View>
-			<TouchableOpacity style={styles.button}>
-				<Text style={styles.buttonText} onPress={VerCronograma}>Generar</Text>
+
+			<View>
+				<Text style={styles.TextLabel}>Fecha Pago:</Text>
+				<TouchableOpacity onPress={() => setShowDatePickerIni(true)}>
+					<Text style={styles.TextInput}>{formatoFecha(fechaPago.toString())}</Text>
+					{showDatePickerIni && (
+						<DateTimePicker
+							value={fechaPago}
+							mode="date"
+							display="default"
+							onChange={(event, selectedDate) => {
+								const currentDate = selectedDate || fechaPago;
+								setShowDatePickerIni(false);
+								setFechaPago(currentDate);
+							}}
+						/>
+					)}
+				</TouchableOpacity>
+			</View>
+			<TouchableOpacity style={styles.button} onPress={VerCronograma}>
+				<Text style={styles.buttonText}>Generar</Text>
 			</TouchableOpacity>
 		</View>
 	);

@@ -6,22 +6,20 @@ import {
 	FlatList,
 	TouchableOpacity,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 import { formatoFecha, formatoMonedaPeruana } from "../../utils/utils";
 
 const ListarCronograma_Screen = ({ route }: any) => {
 	const [data, setData] = useState([]);
-	const navigation = useNavigation();
 	const [cNombreCliente, setcNombreCliente] = useState("");
 	const [nCredID, setnCredID] = useState(0);
 
-	const ListarCronograma = async () => {
-		// console.log(nCredID + " Cod CRed");
-		const _Dat = new CreditosCronogramas();
-		const response = await _Dat.ListarCreditosCronogramas(nCredID);
-		setData(response.data);
-	};
+	// const ListarCronograma = async () => {
+	// 	// console.log(nCredID + " Cod CRed");
+	// 	const _Dat = new CreditosCronogramas();
+	// 	const response = await _Dat.ListarCreditosCronogramas(nCredID);
+	// 	setData(response.data);
+	// };
 
 	const renderItem = ({ item }: any) => {
 		return (
@@ -32,17 +30,21 @@ const ListarCronograma_Screen = ({ route }: any) => {
 						item.nCronoEstado === 1
 							? { backgroundColor: "rgba(0, 255, 0, 0.2)" }
 							: item.nCronoMontoPagado > 0
-								? { backgroundColor: "rgba(255, 165, 0, 0.2)" }
-								: { backgroundColor: "rgba(255, 0, 0, 0.2)" },
+							? { backgroundColor: "rgba(255, 165, 0, 0.2)" }
+							: { backgroundColor: "rgba(255, 0, 0, 0.2)" },
 					]}
 				>
 					<Text style={styles.cardTitle}>{`Cuota: ${item.nCronoCuota}`}</Text>
-					<Text style={styles.cardDesc}>{`Fecha Vencimiento: ${formatoFecha(
-						item.dCronoFechaVencimiento
-					)}`}</Text>
-					<Text style={styles.cardDesc}>{`Fecha Pago: ${formatoFecha(
-						item.dCronoFechaPago
-					)}`}</Text>
+					<Text style={styles.cardDesc}>
+						{item.dCronoFechaVencimiento
+							? `Fecha Vencimiento: ${formatoFecha(item.dCronoFechaVencimiento ?? "")}`
+							: "Fecha Vencimiento:"}
+					</Text>
+					<Text style={styles.cardDesc}>
+						{item.dCronoFechaPago
+							? `Fecha Pago: ${formatoFecha(item.dCronoFechaPago)}`
+							: "Fecha Pago: "}
+					</Text>
 					<Text style={styles.cardDesc}>{`Monto a Pagar : ${formatoMonedaPeruana(
 						item.nCronoMonto + item.nCronoInteres + item.nCronoMora
 					)}`}</Text>
@@ -51,8 +53,12 @@ const ListarCronograma_Screen = ({ route }: any) => {
 					)}`}</Text>
 					<Text style={styles.cardDesc}>
 						<Text>{`Saldo : ${formatoMonedaPeruana(
-							(item.nCronoMonto + item.nCronoInteres + item.nCronoMora) -
-							(item.nCronoMontoPagado + item.nCronoInteresPagado + item.nCronoMoraPagada)
+							item.nCronoMonto +
+								item.nCronoInteres +
+								item.nCronoMora -
+								(item.nCronoMontoPagado +
+									item.nCronoInteresPagado +
+									item.nCronoMoraPagada)
 						)}`}</Text>
 					</Text>
 				</View>
@@ -62,7 +68,24 @@ const ListarCronograma_Screen = ({ route }: any) => {
 
 	useEffect(() => {
 		async function fetchData() {
-			if (route.params && route.params.credito) {
+			if (route.params.pantalla === "SimularCredito_Screen") {
+				//*****   Nuevo método  *****
+				const _Dat = new CreditosCronogramas();
+				const credito = route.params.credito;
+
+				const response = await _Dat.simularCronogramas(
+					credito.nCuotas,
+					credito.nPeriodo,
+					credito.FechaPago,
+					credito.nMonto,
+					credito.nIdConfig
+				);
+
+				setcNombreCliente(credito.sCliente);
+				setData(response.data);
+			}
+
+			if (route.params.pantalla === "ListarCreditos") {
 				const credito = route.params.credito;
 				setcNombreCliente(credito.cClieDescripcion);
 				setnCredID(credito.nCredID);
@@ -70,13 +93,6 @@ const ListarCronograma_Screen = ({ route }: any) => {
 				// await ListarCronograma();
 				const _Dat = new CreditosCronogramas();
 				const response = await _Dat.ListarCreditosCronogramas(credito.nCredID);
-				setData(response.data);
-			}
-			else {
-				//*****   Nuevo método  *****
-				// await SimularCronograma();				
-				const _Dat = new CreditosCronogramas();
-				const response = await _Dat.simularCronogramas(route.params.nCuotas, route.params.nPeriodo, route.params.FechaPago, route.params.nMonto, route.params.nIdConfig);
 				setData(response.data);
 			}
 		}
