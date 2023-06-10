@@ -36,6 +36,10 @@ const SimularCredito_Screen = () => {
 		setTotalInteres(nTotalInteres.toString());
 	};
 
+	const VerCronograma = () => {
+		navigation.navigate("ListarCronograma_Screen", { credito: 0 });
+	};
+
 	return (
 		<View style={styles.ContenedorPrincipal}>
 			<View style={styles.TextInputContenedor}>
@@ -91,7 +95,7 @@ const SimularCredito_Screen = () => {
 				/>
 			</View>
 			<TouchableOpacity style={styles.button}>
-				<Text style={styles.buttonText}>Generar</Text>
+				<Text style={styles.buttonText} onPress={VerCronograma}>Generar</Text>
 			</TouchableOpacity>
 		</View>
 	);
