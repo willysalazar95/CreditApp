@@ -32,8 +32,8 @@ const ListarCronograma_Screen = ({ route }: any) => {
 						item.nCronoEstado === 1
 							? { backgroundColor: "rgba(0, 255, 0, 0.2)" }
 							: item.nCronoMontoPagado > 0
-							? { backgroundColor: "rgba(255, 165, 0, 0.2)" }
-							: { backgroundColor: "rgba(255, 0, 0, 0.2)" },
+								? { backgroundColor: "rgba(255, 165, 0, 0.2)" }
+								: { backgroundColor: "rgba(255, 0, 0, 0.2)" },
 					]}
 				>
 					<Text style={styles.cardTitle}>{`Cuota: ${item.nCronoCuota}`}</Text>
@@ -51,7 +51,7 @@ const ListarCronograma_Screen = ({ route }: any) => {
 					)}`}</Text>
 					<Text style={styles.cardDesc}>
 						<Text>{`Saldo : ${formatoMonedaPeruana(
-							(item.nCronoMonto + item.nCronoInteres + item.nCronoMora) - 
+							(item.nCronoMonto + item.nCronoInteres + item.nCronoMora) -
 							(item.nCronoMontoPagado + item.nCronoInteresPagado + item.nCronoMoraPagada)
 						)}`}</Text>
 					</Text>

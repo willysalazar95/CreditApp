@@ -43,6 +43,7 @@ const SimularCredito_Screen = () => {
 	};
 
 	const VerCronograma = () => {
+
 		navigation.navigate("ListarCronograma_Screen", { credito: 0 });
 	};
 
