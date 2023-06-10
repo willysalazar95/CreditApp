@@ -42,9 +42,24 @@ const SimularCredito_Screen = () => {
 		setTotalInteres(nTotalInteres.toString());
 	};
 
-	const VerCronograma = () => {
+	interface items {
+		nCuotas: number;
+		nPeriodo: number;
+		FechaPago: string;
+		nMonto: number;
+		nIdConfig: number;
+		sCliente: string;
+	}
 
-		navigation.navigate("ListarCronograma_Screen", { credito: 0 });
+	const VerCronograma = (item: items) => {
+		item.nCuotas = Number(cuota);
+		item.nPeriodo = 1;
+		item.FechaPago = "";
+		item.nMonto = Number(monto);
+		item.nIdConfig = configData.nConfiguracionID;
+		item.sCliente = "";
+
+		navigation.navigate("ListarCronograma_Screen", { credito: item });
 	};
 
 	return (
