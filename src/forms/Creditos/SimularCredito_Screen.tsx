@@ -7,8 +7,14 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { configData } from "../../../config";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { RootStackParamList } from "../../../App";
+type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const SimularCredito_Screen = () => {
+
+	const navigation = useNavigation<homeScreenProp>();
 	const [monto, setMonto] = useState("");
 	const [cuota, setCuota] = useState("");
 	const [cuotaMonto, setCuotaMonto] = useState("");
