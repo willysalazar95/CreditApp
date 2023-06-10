@@ -72,6 +72,13 @@ const ListarCronograma_Screen = ({ route }: any) => {
 				const response = await _Dat.ListarCreditosCronogramas(credito.nCredID);
 				setData(response.data);
 			}
+			else {
+				//*****   Nuevo método  *****
+				// await SimularCronograma();				
+				const _Dat = new CreditosCronogramas();
+				const response = await _Dat.simularCronogramas(route.params.nCuotas, route.params.nPeriodo, route.params.FechaPago, route.params.nMonto, route.params.nIdConfig);
+				setData(response.data);
+			}
 		}
 
 		fetchData();
