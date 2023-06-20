@@ -30,6 +30,39 @@ class CreditoPago {
 
 	static url = `${configData.API_URL}/api/CreditoPago`;
 
+	async ObtenerLiquidacion(
+		nIdCrono: number
+	) {
+		const BASE_URL = `${configData.API_URL}/api/Credito/ObtenerLiquidacion`;
+
+		try {
+			const response = await axios({
+				method: "get",
+				url: BASE_URL,
+				params: {
+					nCronoId: nIdCrono,
+				},
+				headers: {
+					"Content-Type": "application/json",
+				},
+				timeout: 5000,
+				withCredentials: true,
+				responseType: "json",
+			});
+
+			const Resp = response.data.code;
+			const Lista = response.data.data;
+
+			if (Resp === 200) {
+				return { success: true, data: Lista };
+			} else {
+				return { success: false, error: "Datos incorrectos" };
+			}
+		} catch (error: any) {
+			return { success: false, error: error.message };
+		}
+	}
+
 	async ReporteCreditoPagoRango(
 		nUsuID: number,
 		dFechaIni: string,

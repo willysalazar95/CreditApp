@@ -3,12 +3,12 @@ import {
 	StyleSheet,
 	Text,
 	TextInput,
-	Alert,
 	View,
 	ScrollView,
+	TouchableOpacity,
 } from "react-native";
 import ResultCalculationsPago from "../../Components/ResultCalculationsPago";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Creditos } from "../../clases/Creditos";
 import { RootStackParamList } from "../../../App";
@@ -17,6 +17,7 @@ import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 
 import AlertaModal from "../../utils/AlertModal";
 import Checkbox from 'expo-checkbox';
+import { CreditoPago } from "../../clases/CreditoPago";
 
 
 
@@ -126,6 +127,51 @@ const PagarCredito_Screen = ({ route }: any) => {
 		setNMontoAPagar(text);
 	};
 
+	const handleCheckboxChange = async () => {
+		setChecked(!isChecked);
+		console.log(idCredito + " --- IDcred");
+		if (!isChecked) {
+			const DatLiq = new CreditoPago();
+			const Response = (await DatLiq.ObtenerLiquidacion(idCredito));
+			var nMonto = 0
+			nMonto = 	parseFloat(Response.data[0].nPagMonto) +
+						parseFloat(Response.data[0].nCronoInteres) +
+						parseFloat(Response.data[0].nCronoMora)
+
+						console.log(Response.data[0].nPagMonto) ;
+						console.log(Response.data[0].nCronoInteres);
+						console.log(Response.data[0].nCronoMora);
+			console.log(nMonto + " lgo")
+			setNMontoAPagar(String(nMonto.toFixed(2)));
+		} else {
+			ObtenerPago();
+		}
+
+	};
+
+	const RealizarCalculo = async () => {
+		if (!isChecked) {
+			setChecked(false);
+		} else {
+			setChecked(true);
+		}
+
+
+
+		if (!isChecked) {
+			const DatLiq = new CreditoPago();
+			const Response = (await DatLiq.ObtenerLiquidacion(idCredito));
+			var nMonto = 0
+			nMonto = parseFloat(Response.data[0].nPagMonto) +
+				parseFloat(Response.data[0].nCronoInteres) +
+				parseFloat(Response.data[0].nCronoInteres)
+			console.log(nMonto + " lgo")
+			setNMontoAPagar(String(nMonto.toFixed(2)));
+		} else {
+			ObtenerPago();
+		}
+	}
+
 	const GuardarPago = async () => {
 		const _dCred = new Creditos(
 			nIdCredito,
@@ -217,12 +263,16 @@ const PagarCredito_Screen = ({ route }: any) => {
 						errorMessage={""}
 					/>
 					<View style={styles.section}>
-						<Checkbox
+						{/* <Checkbox
 							style={styles.checkbox}
 							value={isChecked}
-							onValueChange={setChecked}
+							onValueChange={RealizarCalculo}
 							color={isChecked ? '#4630EB' : undefined}
-						/>
+						/> */}
+						<TouchableOpacity onPress={handleCheckboxChange}>
+							{/* Establece un estilo diferente según si está marcado o no */}
+							<View style={isChecked ? styles.checkedBox : styles.uncheckedBox} />
+						</TouchableOpacity>
 						<Text style={styles.paragraph}>Liquidar crédito</Text>
 					</View>
 
@@ -271,6 +321,18 @@ const PagarCredito_Screen = ({ route }: any) => {
 };
 
 const styles = StyleSheet.create({
+
+	checkedBox: {
+		width: 20,
+		height: 20,
+		backgroundColor: 'green',
+	},
+	uncheckedBox: {
+		width: 20,
+		height: 20,
+		backgroundColor: 'gray',
+	},
+
 	container: {
 		backgroundColor: "#fff",
 	},
