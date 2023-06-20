@@ -16,10 +16,16 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { CreditosCronogramas } from "../../clases/CreditosCronogramas";
 
 import AlertaModal from "../../utils/AlertModal";
+import Checkbox from 'expo-checkbox';
+
+
+
 
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const PagarCredito_Screen = ({ route }: any) => {
+
+	const [isChecked, setChecked] = useState(false);
 	const navigation = useNavigation<homeScreenProp>();
 	const { idCredito } = route.params;
 
@@ -210,6 +216,15 @@ const PagarCredito_Screen = ({ route }: any) => {
 						nMontoPagado={montoPagado}
 						errorMessage={""}
 					/>
+					<View style={styles.section}>
+						<Checkbox
+							style={styles.checkbox}
+							value={isChecked}
+							onValueChange={setChecked}
+							color={isChecked ? '#4630EB' : undefined}
+						/>
+						<Text style={styles.paragraph}>Liquidar crédito</Text>
+					</View>
 
 					<View
 						style={{
@@ -396,6 +411,16 @@ const styles = StyleSheet.create({
 
 		textAlign: "center",
 		marginBottom: 10,
+	},
+	section: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	paragraph: {
+		fontSize: 15,
+	},
+	checkbox: {
+		margin: 8,
 	},
 });
 
