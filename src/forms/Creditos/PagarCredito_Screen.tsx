@@ -91,7 +91,7 @@ const PagarCredito_Screen = ({ route }: any) => {
 			nCredMontoInteres -
 			(nCronoMonto + nCronoInteres + nCredMontoPagado);
 
-		const nMontoPag = nCronoMonto + nCronoInteres;
+		const nMontoPag = parseFloat(nCronoMonto) + parseFloat(nCronoInteres);
 
 		setNMontoAPagar(String(nMontoPag.toFixed(2)));
 		setNPagoCuota(nMontoPag);
