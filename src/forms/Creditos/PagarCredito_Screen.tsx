@@ -20,8 +20,6 @@ import Checkbox from 'expo-checkbox';
 import { CreditoPago } from "../../clases/CreditoPago";
 
 
-
-
 type homeScreenProp = StackNavigationProp<RootStackParamList, "DrawerScreen">;
 
 const PagarCredito_Screen = ({ route }: any) => {
@@ -50,6 +48,7 @@ const PagarCredito_Screen = ({ route }: any) => {
 	const [tituloModal, setTituloModal] = useState("");
 	const [alertMessage, setAlertMessage] = useState("");
 	const [montoPagado, setMontoPagado] = useState(0);
+	const [editable, setEditable] = useState(true);
 
 	const ocultarAlertaModal = () => {
 		setAlertVisible(false);
@@ -129,34 +128,6 @@ const PagarCredito_Screen = ({ route }: any) => {
 
 	const handleCheckboxChange = async () => {
 		setChecked(!isChecked);
-		console.log(idCredito + " --- IDcred");
-		if (!isChecked) {
-			const DatLiq = new CreditoPago();
-			const Response = (await DatLiq.ObtenerLiquidacion(idCredito));
-			var nMonto = 0
-			nMonto = 	parseFloat(Response.data[0].nPagMonto) +
-						parseFloat(Response.data[0].nCronoInteres) +
-						parseFloat(Response.data[0].nCronoMora)
-
-						console.log(Response.data[0].nPagMonto) ;
-						console.log(Response.data[0].nCronoInteres);
-						console.log(Response.data[0].nCronoMora);
-			console.log(nMonto + " lgo")
-			setNMontoAPagar(String(nMonto.toFixed(2)));
-		} else {
-			ObtenerPago();
-		}
-
-	};
-
-	const RealizarCalculo = async () => {
-		if (!isChecked) {
-			setChecked(false);
-		} else {
-			setChecked(true);
-		}
-
-
 
 		if (!isChecked) {
 			const DatLiq = new CreditoPago();
@@ -164,13 +135,15 @@ const PagarCredito_Screen = ({ route }: any) => {
 			var nMonto = 0
 			nMonto = parseFloat(Response.data[0].nPagMonto) +
 				parseFloat(Response.data[0].nCronoInteres) +
-				parseFloat(Response.data[0].nCronoInteres)
-			console.log(nMonto + " lgo")
+				parseFloat(Response.data[0].nCronoMora)
+			
 			setNMontoAPagar(String(nMonto.toFixed(2)));
 		} else {
 			ObtenerPago();
 		}
-	}
+		// setEditable(isChecked);
+		// console.log(!isChecked +  "- Final");
+	};
 
 	const GuardarPago = async () => {
 		const _dCred = new Creditos(
@@ -186,7 +159,12 @@ const PagarCredito_Screen = ({ route }: any) => {
 			parseFloat(nMontoAPagar),
 			0,
 			0,
-			0
+			0,
+			0,
+			0,
+			"",
+			"",
+			isChecked == true ? 1 : 0,
 		);
 		const response = await _dCred.RegistroCreditoPago();
 		if (response.success) {
@@ -289,6 +267,7 @@ const PagarCredito_Screen = ({ route }: any) => {
 							keyboardType="decimal-pad"
 							onChangeText={OnChangeMontoAPagar}
 							onBlur={CalcularNuevoSaldo}
+							editable={editable}
 							value={String(nMontoAPagar)}
 						></TextInput>
 					</View>

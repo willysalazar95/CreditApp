@@ -21,6 +21,7 @@ export class Creditos {
 	private nCredRutasID: number;
 	private dFecIni: string;
 	private dFecFin: string;
+	private bLiquidar: number;
 
 	static url = `${configData.API_URL}/api/Credito`;
 
@@ -41,7 +42,8 @@ export class Creditos {
 		nUsuID: number = 0,
 		nCredRutasID: number = 0,
 		dFecIni: string = "",
-		dFecFin: string = ""
+		dFecFin: string = "",
+		bLiquidar: number = 0
 	) {
 		this.nCredID = nCredID;
 		this.nClienID = nClieID;
@@ -60,6 +62,7 @@ export class Creditos {
 		this.nCredRutasID = nCredRutasID;
 		this.dFecIni = dFecIni;
 		this.dFecFin = dFecFin;
+		this.bLiquidar = bLiquidar;
 	}
 
 	async ListarCreditos() {
@@ -131,6 +134,10 @@ export class Creditos {
 	async RegistroCreditoPago() {
 		const BASE_URL = `${Creditos.url}/RegistrarCreditoPago`;
 		try {
+			console.log(" this.nCredID : " + this.nCredID)
+			console.log(" this.nCredMonto : " + this.nCredMonto)
+			console.log(" configData.nCajaId : " + configData.nCajaId)
+			console.log(" this.bLiquidar : " + this.bLiquidar)
 			const response = await axios({
 				method: "post",
 				url: BASE_URL,
@@ -138,6 +145,7 @@ export class Creditos {
 					nIdCredigo: this.nCredID,
 					nMonto: this.nCredMonto,
 					nCajaId: configData.nCajaId,
+					bLiquidar: this.bLiquidar,
 				},
 				headers: {
 					"Content-Type": "application/json",
