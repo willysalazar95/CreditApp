@@ -1,40 +1,12 @@
 {
   "expo": {
-    "name": "mybankito",
-    "slug": "MiBanKito",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/adaptive-icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      },
-      "package": "com.mibankito"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "extra": {
       "eas": {
-        "projectId": "68acff20-c8cf-459d-94e0-dc8729544de4"
+        "projectId": "0a942d5d-43ec-468d-ab90-035f4a57b063"
       }
     },
-    "owner": "mibankito"
+    "android": {
+      "package": "com.elvisdelaguila.mybankito"
+    }
   }
 }

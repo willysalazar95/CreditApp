@@ -27,31 +27,89 @@ puedes escoger entre estas opciones de expo:
 
 o simplemente puedes `escanear el codigo QR` con tu celular y te genera automaticamente una vista previa
 
-### Generar APK en EXPO
+### No tiene instaldo EXPO?
 
 #### 1. Primer paso:
 
-Instalar Eas, si ya lo tienes instalado no es necesario
+Instalar Eas cli de forma global
 
 ```bash
-  npm install east
-  npm install -g expo-cli east
+  npm install -g eas-cli
 ```
 
-#### 2. Segundo paso:
-
-Crea un nuevo proyect ID para poder compilar en EXPO
-
+### No tienes configurado tu cuenta de expo al proyecto?
+#### Paso 1:
+ejecutar :
 ```bash
-  eas init
+  eas login
 ```
+ingresar las credenciales de tu `nueva cuenta`
 
-#### 3. Tercer paso:
+### Deseas generar el apk del proyecto?
 
-Enlaza tu proyecto local con expo web para generar el apk
+#### Paso 1 (opcional):
 
+si en caso se realizo un cambio que afecte directamente los archivos de android, ejecutar el siguiente comando :
 ```bash
-  eas build
+  npx expo prebuild -p android
+```
+esto volvera a generar la carpeta android y con las nuevas configuraciones
+
+#### Paso 2:
+
+para generar el apk:
+```bash
+  eas build -p android --profile release
+```
+ se indica el `perfil release`, ya que este esta configurado para que `genere el build en tipo apk`
+
+### Cambiar de cuenta de expo:
+#### Paso 1:
+ejecutar :
+```bash
+  eas login
+```
+ingresar las credenciales de tu `nueva cuenta`
+
+#### Paso 2:
+
+eliminar archivo: `app.json`
+
+#### Paso 3:
+
+ejecutar :
+```bash
+  eas build:configure
+```
+y elegir para `android`
+#### Paso 4 (opcional):
+
+si en caso se realizo un cambio que afecte directamente los archivos de android, ejecutar el siguiente comando :
+```bash
+  npx expo prebuild -p android
+```
+esto volvera a generar la carpeta android y con las nuevas configuraciones
+
+#### Paso 5:
+
+para generar el apk:
+```bash
+  eas build -p android --profile release
+```
+ se indica el `perfil release`, ya que este esta configurado para que `genere el build en tipo apk`
+
+
+### Actualizar version de SDK:
+#### Paso 1:
+ejecutar para instalar la version del SDK que desea
+
+se brinda un ejemplo, la version la puede cambiar :
+```bash
+  npm install expo@49
 ```
 
-y escoges la plataforma de android
+#### Paso 2:
+verificar si las dependencias coinciden con la version del SDK, si no coincide las intala
+```bash
+  npx expo install --fix
+```
